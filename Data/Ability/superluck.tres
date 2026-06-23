@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://ifttqwtmgywr"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_07b2d"]
+
+[resource]
+script = ExtResource("1_07b2d")
+ability_id = 105
+ability_name = "Afortunado"
+ability_description = "Los críticos aciertan más."
+ai_rating = 3

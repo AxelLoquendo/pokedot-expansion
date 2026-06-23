@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://sc44lln760ok"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_0egrj"]
+
+[resource]
+script = ExtResource("1_0egrj")
+ability_id = 146
+ability_name = "Ímpetu arena"
+ability_description = "Sube velocidad con Arena."
+ai_rating = 6

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://d3bb6ndc0wuno"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_n5vfq"]
+
+[resource]
+script = ExtResource("1_n5vfq")
+ability_id = 167
+ability_name = "Carrillo"
+ability_description = "Restaura PS si come bayas."
+ai_rating = 4

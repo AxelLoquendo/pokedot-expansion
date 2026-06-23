@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MoveData" format=3 uid="uid://bwp04oya0rkru"]
+
+[ext_resource type="Script" uid="uid://b0ske0iaev2er" path="res://Data/Scripts/Pokemon_Data/MoveData.gd" id="1_3jpr5"]
+
+[resource]
+script = ExtResource("1_3jpr5")
+move_id = 7
+move_name = "Puño fuego"
+description = "Puñetazo ardiente.
+Puede quemar."
+type = 11
+power = 75
+accuracy = 100
+pp = 15
+effect = 2
+secondary_effect = 3
+secondary_chance = 10
+makes_contact = true
+punching_move = true

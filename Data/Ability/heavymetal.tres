@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://dfxsg1kg4l021"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_qnvht"]
+
+[resource]
+script = ExtResource("1_qnvht")
+ability_id = 134
+ability_name = "Metal pesado"
+ability_description = "Duplica su peso."
+ai_rating = -1
+can_breakable = true

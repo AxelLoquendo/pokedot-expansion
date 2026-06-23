@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://dj7a7t6hcbtyo"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_umxh6"]
+
+[resource]
+script = ExtResource("1_umxh6")
+ability_id = 117
+ability_name = "Nevada"
+ability_description = "Trae Nieve al combate"
+ai_rating = 8

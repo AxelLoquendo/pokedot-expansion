@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://kagxowdnxq3x"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_uxhta"]
+
+[resource]
+script = ExtResource("1_uxhta")
+ability_id = 19
+ability_name = "Polvo escudo"
+ability_description = "Evita efectos secundarios."
+ai_rating = 5
+can_breakable = true

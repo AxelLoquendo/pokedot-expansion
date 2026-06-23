@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://c07020xfyn8yy"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_gut0h"]
+
+[resource]
+script = ExtResource("1_gut0h")
+ability_id = 237
+ability_name = "Recogebolas"
+ability_description = "Recupera Poké Balls."

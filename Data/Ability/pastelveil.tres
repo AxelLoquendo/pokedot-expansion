@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://bjb3jha6fcdxg"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_fqs2f"]
+
+[resource]
+script = ExtResource("1_fqs2f")
+ability_id = 257
+ability_name = "Velo Pastel"
+ability_description = "Protege equipo del veneno."
+ai_rating = 4
+can_breakable = true

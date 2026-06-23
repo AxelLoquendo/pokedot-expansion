@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://b1lu8y5sydudp"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_wauqp"]
+
+[resource]
+script = ExtResource("1_wauqp")
+ability_id = 43
+ability_name = "Insonorizar"
+ability_description = "Evita ataques de sonido."
+ai_rating = 4
+can_breakable = true

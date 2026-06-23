@@ -1,0 +1,7 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://d2ko8fvsr0l2q"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_u7iav"]
+
+[resource]
+script = ExtResource("1_u7iav")
+ability_id = 312

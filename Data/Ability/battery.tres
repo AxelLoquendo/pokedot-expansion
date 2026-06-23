@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://bdhx5swm0nl1v"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_ux81x"]
+
+[resource]
+script = ExtResource("1_ux81x")
+ability_id = 217
+ability_name = "Batería"
+ability_description = "Sube ataque especial aliado."

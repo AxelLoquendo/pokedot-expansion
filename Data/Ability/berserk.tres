@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://u001gvmjbc42"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_o1exs"]
+
+[resource]
+script = ExtResource("1_o1exs")
+ability_id = 201
+ability_name = "Cólera"
+ability_description = "Sube ataque especial si pocos PS."
+ai_rating = 5

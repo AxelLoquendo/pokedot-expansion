@@ -1,0 +1,8 @@
+[gd_resource type="Resource" script_class="PokemonDataStruct" format=3 uid="uid://ddlbhgkswotxu"]
+
+[ext_resource type="Script" uid="uid://2kuvxtkbvm4q" path="res://Data/Scripts/Pokemon_Data/EvolutionData.gd" id="1_owvaa"]
+[ext_resource type="Script" uid="uid://vyxwui8imdil" path="res://Data/Scripts/Pokemon_Data/Pokemon.gd" id="2_7854b"]
+
+[resource]
+script = ExtResource("2_7854b")
+species_name = "----"

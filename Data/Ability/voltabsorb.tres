@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://qm6conol2ihc"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_f1hty"]
+
+[resource]
+script = ExtResource("1_f1hty")
+ability_id = 10
+ability_name = "Absorbe electr."
+ability_description = "Cambia electricidad por PS."
+ai_rating = 7
+can_breakable = true

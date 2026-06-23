@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://dy8qdb2yeaxnx"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_s1kt6"]
+
+[resource]
+script = ExtResource("1_s1kt6")
+ability_id = 253
+ability_name = "Cuerpo mortal"
+ability_description = "Debilita al rival en 3 turnos."
+ai_rating = -1

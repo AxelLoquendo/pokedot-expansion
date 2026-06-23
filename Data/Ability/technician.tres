@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://gu8jji06tcnu"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_128gy"]
+
+[resource]
+script = ExtResource("1_128gy")
+ability_id = 101
+ability_name = "Experto"
+ability_description = "Potencia ataques débiles."
+ai_rating = 8

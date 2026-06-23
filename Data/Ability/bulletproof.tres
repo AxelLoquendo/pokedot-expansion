@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://pwove8tklh3v"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_rqid2"]
+
+[resource]
+script = ExtResource("1_rqid2")
+ability_id = 171
+ability_name = "Antibalas"
+ability_description = "Evita algunos proyectiles."
+ai_rating = 7
+can_breakable = true

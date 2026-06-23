@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://di1dxoaucr37x"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_tfnkn"]
+
+[resource]
+script = ExtResource("1_tfnkn")
+ability_id = 221
+ability_name = "Rizos rebeldes"
+ability_description = "Baja velococidad al contacto."
+ai_rating = 5

@@ -1,0 +1,92 @@
+[gd_scene format=3 uid="uid://dwu477lnkhl6w"]
+
+[ext_resource type="Script" uid="uid://cmqumoy663xqo" path="res://Data/Scripts/Debug/Visuallizer_Pokemon.gd" id="1_f7ekv"]
+[ext_resource type="Resource" uid="uid://bi6shfukslf2n" path="res://Data/Pokemon/Gen1/Bulbasaur.tres" id="2_is43h"]
+[ext_resource type="Texture2D" uid="uid://bi4yc3ecgq00l" path="res://Graficos/Debug/Fondo_Debug.png" id="2_jqs34"]
+[ext_resource type="Texture2D" uid="uid://bfkixxba6onoy" path="res://Graficos/Pokemon/bulbasaur/front.png" id="4_erqjm"]
+[ext_resource type="FontFile" uid="uid://ccwngw6lle73j" path="res://Pokemon_GB.ttf" id="4_y6yyg"]
+[ext_resource type="Texture2D" uid="uid://dore3eqgbkhd" path="res://Graficos/Pokemon/bulbasaur/back.png" id="5_6ok8e"]
+[ext_resource type="Texture2D" uid="uid://dilf2pixxiya6" path="res://Graficos/Pokemon/bulbasaur/icon.png" id="6_n3bih"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_7khe0"]
+font = ExtResource("4_y6yyg")
+font_size = 8
+
+[sub_resource type="LabelSettings" id="LabelSettings_y6yyg"]
+font = ExtResource("4_y6yyg")
+font_size = 8
+outline_color = Color(0, 0, 0, 1)
+shadow_size = 0
+
+[node name="Control" type="Control" unique_id=954434570]
+layout_mode = 3
+anchors_preset = 0
+offset_right = 40.0
+offset_bottom = 40.0
+script = ExtResource("1_f7ekv")
+pokemon_data = ExtResource("2_is43h")
+pokemon_path = "uid://bi6shfukslf2n"
+
+[node name="OptionButton" type="OptionButton" parent="." unique_id=1423587229]
+layout_mode = 0
+offset_right = 32.0
+offset_bottom = 20.0
+
+[node name="Background" type="TextureRect" parent="." unique_id=802075129]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("2_jqs34")
+
+[node name="FrontSprite" type="TextureRect" parent="." unique_id=312156293]
+layout_mode = 0
+offset_left = 135.0
+offset_top = 15.0
+offset_right = 199.0
+offset_bottom = 79.0
+texture = ExtResource("4_erqjm")
+
+[node name="BackSprite" type="TextureRect" parent="." unique_id=1564781594]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 61.0
+offset_right = 84.0
+offset_bottom = 125.0
+texture = ExtResource("5_6ok8e")
+
+[node name="Icon" type="Sprite2D" parent="." unique_id=1173705064]
+position = Vector2(224, 128)
+texture = ExtResource("6_n3bih")
+vframes = 2
+
+[node name="Species_Name" type="Label" parent="." unique_id=1637111757]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 137.0
+offset_right = 73.0
+offset_bottom = 145.0
+text = "Bulbasaur"
+label_settings = SubResource("LabelSettings_7khe0")
+
+[node name="Species_ID" type="Label" parent="." unique_id=926060319]
+layout_mode = 0
+offset_left = 1.0
+offset_top = 112.0
+offset_right = 223.0
+offset_bottom = 124.0
+text = "N°0001 - SPECIES_BULBASAUR"
+label_settings = SubResource("LabelSettings_y6yyg")
+
+[node name="Ability1" type="Label" parent="." unique_id=392289068]
+layout_mode = 0
+offset_top = 4.0
+offset_right = 123.0
+offset_bottom = 16.0
+label_settings = SubResource("LabelSettings_y6yyg")
+
+[node name="Ability2" type="Label" parent="." unique_id=835878356]
+layout_mode = 0
+offset_top = 20.0
+offset_right = 91.0
+offset_bottom = 32.0
+label_settings = SubResource("LabelSettings_y6yyg")

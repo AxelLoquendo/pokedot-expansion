@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://bjnuoekwrve7o"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_6ehbn"]
+
+[resource]
+script = ExtResource("1_6ehbn")
+ability_id = 16
+ability_name = "Cambio color"
+ability_description = "Cambia tipo al ataque rival."
+ai_rating = 2

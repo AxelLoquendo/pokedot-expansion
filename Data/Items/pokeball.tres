@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://drfqp4bwaglv3"]
+
+[ext_resource type="Script" uid="uid://by334xp5cqctv" path="res://Data/Scripts/Pokemon_Data/ItemsData.gd" id="1_rs0vy"]
+[ext_resource type="Texture2D" uid="uid://dygm3ebbftv4b" path="res://Graficos/Items/pokeball.png" id="1_y87uc"]
+
+[resource]
+script = ExtResource("1_rs0vy")
+item_id = 1
+item_name = "Poke Ball"
+pocket = 2
+item_type = 3
+battle_usage = 4
+icon = ExtResource("1_y87uc")
+effect = 10
+metadata/_custom_type_script = "uid://by334xp5cqctv"

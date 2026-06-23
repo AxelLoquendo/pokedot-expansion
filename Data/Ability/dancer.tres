@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://w7w7d7gg74cd"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_xycme"]
+
+[resource]
+script = ExtResource("1_xycme")
+ability_id = 216
+ability_name = "Pareja de baile"
+ability_description = "Copia bailes."
+ai_rating = 5

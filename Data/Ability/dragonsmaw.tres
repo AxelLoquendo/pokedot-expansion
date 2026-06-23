@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://cnoq7vggnspjk"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_dom35"]
+
+[resource]
+script = ExtResource("1_dom35")
+ability_id = 263
+ability_name = "Mandíbula dragón"
+ability_description = "Sube ataques Dragón."
+ai_rating = 6

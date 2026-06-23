@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://bdn74b6rfeywg"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_skyae"]
+
+[resource]
+script = ExtResource("1_skyae")
+ability_id = 137
+ability_name = "Ímpetu tóxico"
+ability_description = "Sube ataque si es envenenado."
+ai_rating = 6

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://b5ax6q81ry0tv"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_w1ao3"]
+
+[resource]
+script = ExtResource("1_w1ao3")
+ability_id = 98
+ability_name = "Muro mágico"
+ability_description = "Solo se daña por ataques."
+ai_rating = 9

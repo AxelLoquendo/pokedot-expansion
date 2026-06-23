@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://b73vjct78k02o"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_v0046"]
+
+[resource]
+script = ExtResource("1_v0046")
+ability_id = 242
+ability_name = "Acérrimo"
+ability_description = "Ignora cambios de posición."
+ai_rating = 2

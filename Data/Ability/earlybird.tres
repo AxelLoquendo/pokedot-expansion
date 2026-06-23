@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://mp5ni2lxlxf"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_cb5ld"]
+
+[resource]
+script = ExtResource("1_cb5ld")
+ability_id = 48
+ability_name = "Madrugar"
+ability_description = "Despierta rápido."
+ai_rating = 4

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://b41cp1clgncb3"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_2tpls"]
+
+[resource]
+script = ExtResource("1_2tpls")
+ability_id = 225
+ability_name = "Sistema Alfa"
+ability_description = "Disco cambia su tipo."
+ai_rating = 8
+cant_be_copied = true
+cant_be_swapped = true
+cant_be_traced = true
+cant_be_suppressed = true
+cant_be_overwritten = true

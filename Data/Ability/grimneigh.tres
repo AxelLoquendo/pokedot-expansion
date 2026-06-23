@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://du3fd774gr16t"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_pi6fw"]
+
+[resource]
+script = ExtResource("1_pi6fw")
+ability_id = 265
+ability_name = "Relincho negro"
+ability_description = "KOs suben ataque especial."
+ai_rating = 7

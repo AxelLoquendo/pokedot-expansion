@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://b7evaj12m34xr"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_5oxa0"]
+
+[resource]
+script = ExtResource("1_5oxa0")
+ability_id = 233
+ability_name = "Fuerza cerebral"
+ability_description = "Potencia supereficaces."
+ai_rating = 6

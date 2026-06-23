@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://dafrvnr2o62is"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_o5rme"]
+
+[resource]
+script = ExtResource("1_o5rme")
+ability_id = 147
+ability_name = "Piel milagro"
+ability_description = "Reduce problemas de estado."
+ai_rating = 4
+can_breakable = true

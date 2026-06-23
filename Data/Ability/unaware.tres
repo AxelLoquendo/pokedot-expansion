@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://cgvo0da4jon8b"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_8cfpk"]
+
+[resource]
+script = ExtResource("1_8cfpk")
+ability_id = 109
+ability_name = "Ignorante"
+ability_description = "Ignora cambios de estado."
+ai_rating = 6
+can_breakable = true

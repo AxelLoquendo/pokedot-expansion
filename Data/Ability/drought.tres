@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://y3rbgb73eyjq"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_82jow"]
+
+[resource]
+script = ExtResource("1_82jow")
+ability_id = 70
+ability_name = "Sequía"
+ability_description = "Toma luz solar en batalla."
+ai_rating = 9

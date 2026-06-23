@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://brulrs8hq5icq"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_x68lm"]
+
+[resource]
+script = ExtResource("1_x68lm")
+ability_id = 111
+ability_name = "Filtro"
+ability_description = "Reduce supereficaces."
+ai_rating = 6
+can_breakable = true

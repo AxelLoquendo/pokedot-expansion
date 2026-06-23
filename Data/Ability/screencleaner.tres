@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://cnpqvg0jwfwh1"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_rtful"]
+
+[resource]
+script = ExtResource("1_rtful")
+ability_id = 251
+ability_name = "Antibarrera"
+ability_description = "Elimina las barreras."
+ai_rating = 3

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://cffihsloopr84"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_gwc7i"]
+
+[resource]
+script = ExtResource("1_gwc7i")
+ability_id = 203
+ability_name = "Remoto"
+ability_description = "Nunca hace contacto."
+ai_rating = 3

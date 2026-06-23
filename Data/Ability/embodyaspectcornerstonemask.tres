@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://bwrjc6bjb23rg"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_wiq4j"]
+
+[resource]
+script = ExtResource("1_wiq4j")
+ability_id = 304
+ability_name = "Evocarrecuerdos"
+ability_description = "Aumenta defensa."
+ai_rating = 6
+cant_be_copied = true
+cant_be_swapped = true
+cant_be_traced = true
+fails_on_imposter = true

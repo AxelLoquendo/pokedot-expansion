@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://dgcb5l3lo5p5g"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_vvefk"]
+
+[resource]
+script = ExtResource("1_vvefk")
+ability_id = 1
+ability_name = "Hedor"
+ability_description = "Aleja a Pokémon salvajes."
+ai_rating = 1
+effect = 1
+metadata/_custom_type_script = "uid://bel3gk6la6rwj"

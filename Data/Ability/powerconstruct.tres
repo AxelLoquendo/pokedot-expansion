@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://co54u5vwck140"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_kcl8c"]
+
+[resource]
+script = ExtResource("1_kcl8c")
+ability_id = 211
+ability_name = "Agrupamiento"
+ability_description = "Células ayudan si está débil."
+ai_rating = 10
+cant_be_copied = true
+cant_be_swapped = true
+cant_be_traced = true
+cant_be_suppressed = true
+cant_be_overwritten = true

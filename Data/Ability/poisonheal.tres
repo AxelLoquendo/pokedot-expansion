@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://jknkl412ref0"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_btfq5"]
+
+[resource]
+script = ExtResource("1_btfq5")
+ability_id = 90
+ability_name = "Antídoto"
+ability_description = "Recupera PS con veneno."
+ai_rating = 8

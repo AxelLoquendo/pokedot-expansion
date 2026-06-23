@@ -1,0 +1,25 @@
+extends RefCounted
+
+class_name AbilityStruct
+
+enum AbilityEffect {
+	NONE,
+	STENCH,
+	OVERGROW,
+	BLAZE,
+	TORRENT,
+	SWARM,
+
+	INTIMIDATE,
+	LEVITATE,
+
+	STATIC,
+	FLAME_BODY,
+
+	DRIZZLE,
+	DROUGHT,
+	SAND_STREAM,
+
+	WONDER_GUARD,
+	MULTITYPE,
+}

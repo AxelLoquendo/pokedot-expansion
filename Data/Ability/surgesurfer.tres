@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://bramlx472jb7i"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_eyshn"]
+
+[resource]
+script = ExtResource("1_eyshn")
+ability_id = 207
+ability_name = "Cola surf"
+ability_description = "Rápido en electricidad."
+ai_rating = 4

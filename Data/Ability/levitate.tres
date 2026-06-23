@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://de7486gpj1r6a"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_a3vnl"]
+
+[resource]
+script = ExtResource("1_a3vnl")
+ability_id = 26
+ability_name = "Levitación"
+ability_description = "Inmune a Tierra."
+ai_rating = 7
+can_breakable = true

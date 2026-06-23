@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://bed7xo805v15s"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_ieb4v"]
+
+[resource]
+script = ExtResource("1_ieb4v")
+ability_id = 53
+ability_name = "Recogida"
+ability_description = "Puede tomar objetos."
+ai_rating = 1

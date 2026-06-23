@@ -1,0 +1,24 @@
+extends RefCounted
+
+class_name MapSections
+
+enum SectionID {
+	MAPSEC_NONE,
+	# Region Valtherion
+	MAPSEC_PRADO_NATAL,
+	MAPSEC_PUEBLO_ALBA
+}
+
+enum RegionId {
+	REGION_NONE,
+	REGION_VALTHERION,
+	REGION_KANTO,
+	REGION_JOHTO,
+	REGION_HOENN,
+	REGION_SINNOH,
+	REGION_UNOVA,
+	REGION_KALOS,
+	REGION_ALOLA,
+	REGION_GALAR,
+	REGION_PALDEA,
+}

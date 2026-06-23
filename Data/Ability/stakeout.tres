@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://cpwru6rrnvnsf"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_hcidr"]
+
+[resource]
+script = ExtResource("1_hcidr")
+ability_id = 198
+ability_name = "Vigilante"
+ability_description = "Duplica daño si cambian."
+ai_rating = 6

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://bcc5rjdbdkn4x"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_v4133"]
+
+[resource]
+script = ExtResource("1_v4133")
+ability_id = 163
+ability_name = "Turbollama"
+ability_description = "Rompe habilidades."
+ai_rating = 7

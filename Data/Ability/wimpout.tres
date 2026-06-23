@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://8f7hn23pxshq"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_ese7s"]
+
+[resource]
+script = ExtResource("1_ese7s")
+ability_id = 193
+ability_name = "Huida"
+ability_description = "Huye con mitad de PS."
+ai_rating = 3

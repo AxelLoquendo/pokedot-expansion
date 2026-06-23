@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://brjpy73v868ji"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_1eugf"]
+
+[resource]
+script = ExtResource("1_1eugf")
+ability_id = 185
+ability_name = "Amor filial"
+ability_description = "Golpea 2 veces."
+ai_rating = 10

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://2t6rae41bdbs"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_w4x2f"]
+
+[resource]
+script = ExtResource("1_w4x2f")
+ability_id = 224
+ability_name = "Ultraimpulso"
+ability_description = "KO sube mejor estadística."
+ai_rating = 7

@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://cgmdbcpgwblag"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_njsa3"]
+
+[resource]
+script = ExtResource("1_njsa3")
+ability_id = 54
+ability_name = "Ausente"
+ability_description = "Interviene cada 2 turnos."
+ai_rating = -2
+cant_be_overwritten = true

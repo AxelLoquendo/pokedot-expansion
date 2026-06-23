@@ -1,0 +1,24 @@
+[gd_scene format=3 uid="uid://tnak4lhbklbi"]
+
+[ext_resource type="Script" uid="uid://bmqlhxedlfsd1" path="res://Data/Scripts/Map_data/MapManager.gd" id="1_bo3f6"]
+[ext_resource type="PackedScene" uid="uid://dscu4utur6muj" path="res://Data/Maps/PradoNatal/prado_natal.tscn" id="2_j2ovc"]
+[ext_resource type="PackedScene" uid="uid://bhqxgiq6shwq" path="res://Esenas/Overworld/Player_M/player_masculino.tscn" id="3_bvm1p"]
+[ext_resource type="Script" uid="uid://dqmp6cc4l7muk" path="res://Data/Scripts/Map_data/MapBoundsDebug.gd" id="3_j2ovc"]
+
+[node name="Overworld" type="Node2D" unique_id=1213820793]
+
+[node name="MapManager" type="Node" parent="." unique_id=1697425218 node_paths=PackedStringArray("player")]
+script = ExtResource("1_bo3f6")
+initial_map = ExtResource("2_j2ovc")
+player = NodePath("../Player_Masculino")
+initial_player_tile = Vector2i(7, 10)
+
+[node name="CurrentMapContainer" type="Node2D" parent="MapManager" unique_id=519227945]
+
+[node name="NeighborMapContainer" type="Node2D" parent="MapManager" unique_id=1154820413]
+
+[node name="MapBoundsDebug" type="Node2D" parent="MapManager" unique_id=2032087740]
+script = ExtResource("3_j2ovc")
+
+[node name="Player_Masculino" parent="." unique_id=1389605429 node_paths=PackedStringArray("map_manager") instance=ExtResource("3_bvm1p")]
+map_manager = NodePath("../MapManager")

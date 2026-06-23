@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="PokemonDataStruct" format=3 uid="uid://bosuv1kucak5r"]
+
+[ext_resource type="Script" uid="uid://2kuvxtkbvm4q" path="res://Data/Scripts/Pokemon_Data/EvolutionData.gd" id="1_ihbq0"]
+[ext_resource type="Script" uid="uid://vyxwui8imdil" path="res://Data/Scripts/Pokemon_Data/Pokemon.gd" id="2_ml3e8"]
+
+[resource]
+script = ExtResource("2_ml3e8")
+national_dex_number = 2
+species_name = "Ivysaur"
+species_id = 2
+type_1 = 13
+type_2 = 4
+ability_1 = 65
+hidden_ability = 34
+metadata/_custom_type_script = "uid://vyxwui8imdil"

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="PokemonDataStruct" format=3 uid="uid://bdy2i14wmehgw"]
+
+[ext_resource type="Script" uid="uid://2kuvxtkbvm4q" path="res://Data/Scripts/Pokemon_Data/EvolutionData.gd" id="1_fvljy"]
+[ext_resource type="Script" uid="uid://vyxwui8imdil" path="res://Data/Scripts/Pokemon_Data/Pokemon.gd" id="2_x8x8p"]
+
+[resource]
+script = ExtResource("2_x8x8p")
+national_dex_number = 3
+species_name = "Venusaur"
+species_id = 3

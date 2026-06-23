@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://dfbreqenqifhj"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_2t37o"]
+
+[resource]
+script = ExtResource("1_2t37o")
+ability_id = 63
+ability_name = "Escama especial"
+ability_description = "Sube la defensa si sufre."
+ai_rating = 5
+can_breakable = true

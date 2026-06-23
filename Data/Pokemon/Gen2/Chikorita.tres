@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="PokemonDataStruct" format=3 uid="uid://danxdvlslvv6x"]
+
+[ext_resource type="Script" uid="uid://2kuvxtkbvm4q" path="res://Data/Scripts/Pokemon_Data/EvolutionData.gd" id="1_8pwv6"]
+[ext_resource type="Script" uid="uid://vyxwui8imdil" path="res://Data/Scripts/Pokemon_Data/Pokemon.gd" id="2_1lfrx"]
+
+[resource]
+script = ExtResource("2_1lfrx")
+national_dex_number = 152
+species_name = "Chikorita"
+species_id = 5
+type_1 = 13
+type_2 = 13

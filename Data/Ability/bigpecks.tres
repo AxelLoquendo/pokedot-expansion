@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://kiyb22nab5rg"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_sh63w"]
+
+[resource]
+script = ExtResource("1_sh63w")
+ability_id = 145
+ability_name = "Sacapecho"
+ability_description = "Impide bajón de defensa."
+ai_rating = 1
+can_breakable = true

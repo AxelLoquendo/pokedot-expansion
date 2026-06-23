@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://cvtgd3fse4hsh"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_5jf8s"]
+
+[resource]
+script = ExtResource("1_5jf8s")
+ability_id = 97
+ability_name = "Francotirador"
+ability_description = "Potencia críticos."
+ai_rating = 3

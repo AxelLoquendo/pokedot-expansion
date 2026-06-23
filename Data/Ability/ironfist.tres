@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://by2nv8hpredxj"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_yvia7"]
+
+[resource]
+script = ExtResource("1_yvia7")
+ability_id = 89
+ability_name = "Puño férreo"
+ability_description = "Potencia puñetazos."
+ai_rating = 6

@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://buhbvt5w5puav"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_btelu"]
+
+[resource]
+script = ExtResource("1_btelu")
+ability_id = 310
+ability_name = "Títere tóxico"
+ability_description = "Confunde si envenena."
+ai_rating = 8
+cant_be_copied = true
+cant_be_swapped = true
+cant_be_traced = true

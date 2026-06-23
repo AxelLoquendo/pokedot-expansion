@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://0urdpvuny8jy"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_p5a52"]
+
+[resource]
+script = ExtResource("1_p5a52")
+ability_id = 184
+ability_name = "Piel celeste"
+ability_description = "Ataques Normales pasan a Volador."
+ai_rating = 8

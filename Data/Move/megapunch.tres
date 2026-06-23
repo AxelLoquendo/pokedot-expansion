@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="MoveData" format=3 uid="uid://dpm8awnity6mo"]
+
+[ext_resource type="Script" uid="uid://b0ske0iaev2er" path="res://Data/Scripts/Pokemon_Data/MoveData.gd" id="1_8llwq"]
+
+[resource]
+script = ExtResource("1_8llwq")
+move_id = 5
+move_name = "Megapuño"
+description = "Un puñetazo de gran
+potencia."
+type = 1
+power = 80
+accuracy = 85
+pp = 20
+effect = 2
+makes_contact = true
+punching_move = true

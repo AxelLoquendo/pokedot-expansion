@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://rgnphf507jj2"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_kcrky"]
+
+[resource]
+script = ExtResource("1_kcrky")
+ability_id = 87
+ability_name = "Piel seca"
+ability_description = "Pierde PS si hace calor."
+ai_rating = 6
+can_breakable = true

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://c8hitd2vguc44"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_4qbac"]
+
+[resource]
+script = ExtResource("1_4qbac")
+ability_id = 22
+ability_name = "Intimidación"
+ability_description = "Baja el ataque del rival."
+ai_rating = 7

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://dcdxk75jbdlmk"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_tjtw8"]
+
+[resource]
+script = ExtResource("1_tjtw8")
+ability_id = 245
+ability_name = "Expulsarena"
+ability_description = "Pone Arena si lo golpean."
+ai_rating = 5

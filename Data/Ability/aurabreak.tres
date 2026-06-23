@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://clv668m3x2bl8"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_gy2wx"]
+
+[resource]
+script = ExtResource("1_gy2wx")
+ability_id = 188
+ability_name = "Rompeaura"
+ability_description = "Invierte habilidades de aura."
+ai_rating = 3
+can_breakable = true

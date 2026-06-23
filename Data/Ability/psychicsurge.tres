@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://clpcy4xcrp3cm"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_d26i1"]
+
+[resource]
+script = ExtResource("1_d26i1")
+ability_id = 227
+ability_name = "Psicogénesis"
+ability_description = "Pone Campo Psíquico."
+ai_rating = 8

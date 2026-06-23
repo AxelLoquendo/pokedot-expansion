@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://b66ocnepv5joy"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_nrp50"]
+
+[resource]
+script = ExtResource("1_nrp50")
+ability_id = 308
+ability_name = "Teracaparazón"
+ability_description = "Si PS al 100%, resiste ataques."
+ai_rating = 10
+cant_be_copied = true
+cant_be_swapped = true
+cant_be_traced = true
+can_breakable = true

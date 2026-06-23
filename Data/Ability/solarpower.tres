@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://cg6y2lf700nql"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_7in1s"]
+
+[resource]
+script = ExtResource("1_7in1s")
+ability_id = 94
+ability_name = "Poder solar"
+ability_description = "Sube el ataque con Sol."
+ai_rating = 3

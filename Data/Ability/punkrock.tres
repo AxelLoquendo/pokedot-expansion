@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://doproms3nhps0"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_4dagb"]
+
+[resource]
+script = ExtResource("1_4dagb")
+ability_id = 244
+ability_name = "Punk rock"
+ability_description = "Sube y resiste sonido."
+ai_rating = 2
+can_breakable = true

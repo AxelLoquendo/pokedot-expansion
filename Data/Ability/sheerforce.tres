@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://8k7vqklyvw51"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_r2o3d"]
+
+[resource]
+script = ExtResource("1_r2o3d")
+ability_id = 125
+ability_name = "Potencia bruta"
+ability_description = "Cambia efecto por potencia."
+ai_rating = 8

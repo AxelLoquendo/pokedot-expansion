@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://066mkib0e7b0"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_552x3"]
+
+[resource]
+script = ExtResource("1_552x3")
+ability_id = 135
+ability_name = "Metal liviano"
+ability_description = "Reduce a la mitad su peso."
+ai_rating = 2
+can_breakable = true

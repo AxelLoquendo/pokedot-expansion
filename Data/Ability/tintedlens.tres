@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://cy2ri7cdrt75e"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_tcp5m"]
+
+[resource]
+script = ExtResource("1_tcp5m")
+ability_id = 110
+ability_name = "Cromolente"
+ability_description = "Potencia ataques no eficaces."
+ai_rating = 7

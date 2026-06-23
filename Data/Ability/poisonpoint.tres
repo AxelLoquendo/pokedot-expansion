@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://deyaa2xfohrsq"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_mk62x"]
+
+[resource]
+script = ExtResource("1_mk62x")
+ability_id = 38
+ability_name = "Punto tóxico"
+ability_description = "Envenena al contacto."
+ai_rating = 4

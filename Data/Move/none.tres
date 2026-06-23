@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="MoveData" format=3 uid="uid://db1hxcj4g30tu"]
+
+[ext_resource type="Script" uid="uid://b0ske0iaev2er" path="res://Data/Scripts/Pokemon_Data/MoveData.gd" id="1_bjcf4"]
+
+[resource]
+script = ExtResource("1_bjcf4")
+move_name = "-"
+description = "."
+type = 1
+effect = 2
+mirror_move_banned = true
+metronome_banned = true
+assist_banned = true
+sketch_banned = true

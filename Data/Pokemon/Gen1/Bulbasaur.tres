@@ -1,0 +1,66 @@
+[gd_resource type="Resource" script_class="PokemonDataStruct" format=3 uid="uid://bi6shfukslf2n"]
+
+[ext_resource type="Script" uid="uid://2kuvxtkbvm4q" path="res://Data/Scripts/Pokemon_Data/EvolutionData.gd" id="1_ei16m"]
+[ext_resource type="Script" uid="uid://vyxwui8imdil" path="res://Data/Scripts/Pokemon_Data/Pokemon.gd" id="1_iytac"]
+[ext_resource type="Texture2D" uid="uid://dore3eqgbkhd" path="res://Graficos/Pokemon/bulbasaur/back.png" id="1_kq8fr"]
+[ext_resource type="Texture2D" uid="uid://cyhkxfxux02ul" path="res://Graficos/Pokemon/bulbasaur/back_shiny.png" id="2_lsu6i"]
+[ext_resource type="Texture2D" uid="uid://bfkixxba6onoy" path="res://Graficos/Pokemon/bulbasaur/front.png" id="4_tq1jm"]
+[ext_resource type="Texture2D" uid="uid://bljuq5nspqu13" path="res://Graficos/Pokemon/bulbasaur/front_shiny.png" id="5_lsu6i"]
+[ext_resource type="Texture2D" uid="uid://dilf2pixxiya6" path="res://Graficos/Pokemon/bulbasaur/icon.png" id="5_scxwj"]
+[ext_resource type="Script" uid="uid://bfi1eyj3er6a1" path="res://Data/Scripts/Pokemon_Data/LearnsetPkmn.gd" id="7_6vjth"]
+
+[sub_resource type="Resource" id="Resource_cmqws"]
+script = ExtResource("1_ei16m")
+method = 1
+target_species = 2
+parameter = 16
+metadata/_custom_type_script = "uid://2kuvxtkbvm4q"
+
+[sub_resource type="Resource" id="Resource_6ok8e"]
+script = ExtResource("7_6vjth")
+move = 33
+metadata/_custom_type_script = "uid://bfi1eyj3er6a1"
+
+[sub_resource type="Resource" id="Resource_n3bih"]
+script = ExtResource("7_6vjth")
+move = 45
+metadata/_custom_type_script = "uid://bfi1eyj3er6a1"
+
+[resource]
+script = ExtResource("1_iytac")
+national_dex_number = 1
+species_name = "Bulbasaur"
+species_id = 1
+base_hp = 45
+base_attack = 49
+base_defense = 49
+base_speed = 45
+base_sp_attack = 65
+base_sp_defense = 65
+type_1 = 13
+type_2 = 4
+catch_rate = 45
+exp_yield = 64
+friendship = 50
+growth_rate = 3
+category_name = "Semilla"
+description = "A Bulbasaur es fácil verle echándose
+una siesta al sol. La semilla que tiene
+en el lomo va creciendo cada vez más
+a medida que absorbe los rayos del sol."
+body_color = 3
+front_sprite = ExtResource("4_tq1jm")
+front_sprite_shiny = ExtResource("5_lsu6i")
+back_sprite = ExtResource("1_kq8fr")
+back_sprite_shiny = ExtResource("2_lsu6i")
+icon_sprite = ExtResource("5_scxwj")
+level_up_moves = Array[ExtResource("7_6vjth")]([SubResource("Resource_6ok8e"), SubResource("Resource_n3bih")])
+evolutions = Array[ExtResource("1_ei16m")]([SubResource("Resource_cmqws")])
+ability_1 = 65
+hidden_ability = 34
+egg_group_1 = 1
+egg_group_2 = 7
+front_sprite_offset = Vector2(135, 15)
+back_sprite_offset = Vector2(20, 61)
+gender_ratio = 5
+metadata/_custom_type_script = "uid://vyxwui8imdil"

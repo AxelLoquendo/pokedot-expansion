@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://3fndjel87k68"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_6ohdx"]
+
+[resource]
+script = ExtResource("1_6ohdx")
+ability_id = 51
+ability_name = "Vista lince"
+ability_description = "Evita que baje precisión."
+ai_rating = 1
+can_breakable = true

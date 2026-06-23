@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://baogk6p7ecct5"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_qkhwb"]
+
+[resource]
+script = ExtResource("1_qkhwb")
+ability_id = 223
+ability_name = "Reacción química"
+ability_description = "Copia habilidad de aliado."
+cant_be_copied = true
+cant_be_traced = true

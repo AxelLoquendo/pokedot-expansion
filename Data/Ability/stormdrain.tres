@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://bkounper8yyc0"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_1esxu"]
+
+[resource]
+script = ExtResource("1_1esxu")
+ability_id = 114
+ability_name = "Colector"
+ability_description = "Atrae movimientos de Agua."
+ai_rating = 7
+can_breakable = true

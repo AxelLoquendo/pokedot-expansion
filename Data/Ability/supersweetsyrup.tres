@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://dujqye7w4jev5"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_6uqke"]
+
+[resource]
+script = ExtResource("1_6uqke")
+ability_id = 306
+ability_name = "Néctar dulce"
+ability_description = "Baja la evasion rival."
+ai_rating = 5

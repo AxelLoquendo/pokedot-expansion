@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://c5f0ddctb3akt"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_o7ow8"]
+
+[resource]
+script = ExtResource("1_o7ow8")
+ability_id = 170
+ability_name = "Mago"
+ability_description = "Roba objeto rival."
+ai_rating = 3

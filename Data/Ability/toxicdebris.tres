@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://bj5lwcuindoyy"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_k8jo7"]
+
+[resource]
+script = ExtResource("1_k8jo7")
+ability_id = 295
+ability_name = "Capa tóxica"
+ability_description = "Al golpear, caen puás tóxicas."
+ai_rating = 4

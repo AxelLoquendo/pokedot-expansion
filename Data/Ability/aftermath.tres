@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://cwcmqlfsijcvy"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_hnuux"]
+
+[resource]
+script = ExtResource("1_hnuux")
+ability_id = 106
+ability_name = "Detonación"
+ability_description = "Ser vencido daña al rival."
+ai_rating = 5

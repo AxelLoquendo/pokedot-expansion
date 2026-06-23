@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://c7rw8ymy5invk"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_8mjdt"]
+
+[resource]
+script = ExtResource("1_8mjdt")
+ability_id = 192
+ability_name = "Firmeza"
+ability_description = "Sube defensa con cada golpe."
+ai_rating = 6

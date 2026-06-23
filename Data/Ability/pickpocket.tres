@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://rfa4vvf8anld"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_0k3c1"]
+
+[resource]
+script = ExtResource("1_0k3c1")
+ability_id = 124
+ability_name = "Hurto"
+ability_description = "Roba el objeto al rival."
+ai_rating = 3

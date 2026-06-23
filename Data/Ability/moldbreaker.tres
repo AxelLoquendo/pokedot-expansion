@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://kg16tgapi2a2"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_phdt0"]
+
+[resource]
+script = ExtResource("1_phdt0")
+ability_id = 104
+ability_name = "Rompemoldes"
+ability_description = "Suprime habilidad rival."
+ai_rating = 7

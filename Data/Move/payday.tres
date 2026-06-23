@@ -1,0 +1,16 @@
+[gd_resource type="Resource" script_class="MoveData" format=3 uid="uid://kyhrrojjou66"]
+
+[ext_resource type="Script" uid="uid://b0ske0iaev2er" path="res://Data/Scripts/Pokemon_Data/MoveData.gd" id="1_32hbg"]
+
+[resource]
+script = ExtResource("1_32hbg")
+move_id = 6
+move_name = "Día de pago"
+description = "Arroja monedas
+que luego recupera."
+type = 1
+power = 40
+accuracy = 100
+pp = 20
+effect = 2
+secondary_effect = 12

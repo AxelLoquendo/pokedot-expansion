@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://bdsv3s8l2mopl"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_u76xx"]
+
+[resource]
+script = ExtResource("1_u76xx")
+ability_id = 107
+ability_name = "Anticipación"
+ability_description = "Prevé ataques peligrosos."
+ai_rating = 2

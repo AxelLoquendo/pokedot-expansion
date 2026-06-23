@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="MoveData" format=3 uid="uid://pd31yfs4lohj"]
+
+[ext_resource type="Script" uid="uid://b0ske0iaev2er" path="res://Data/Scripts/Pokemon_Data/MoveData.gd" id="1_srfam"]
+
+[resource]
+script = ExtResource("1_srfam")
+move_id = 4
+move_name = "Puño cometa"
+description = "Pega de 2 a 5
+veces seguidas."
+type = 1
+power = 18
+accuracy = 85
+pp = 15
+is_multi_hit = true
+effect = 2
+makes_contact = true
+punching_move = true

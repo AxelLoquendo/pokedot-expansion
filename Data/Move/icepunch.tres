@@ -1,0 +1,19 @@
+[gd_resource type="Resource" script_class="MoveData" format=3 uid="uid://c7ias4kkjubah"]
+
+[ext_resource type="Script" uid="uid://b0ske0iaev2er" path="res://Data/Scripts/Pokemon_Data/MoveData.gd" id="1_7u7wl"]
+
+[resource]
+script = ExtResource("1_7u7wl")
+move_id = 8
+move_name = "Puño hielo"
+description = "Puñetazo helado.
+Puede congelar."
+type = 16
+power = 75
+accuracy = 100
+pp = 15
+effect = 2
+secondary_effect = 4
+secondary_chance = 10
+makes_contact = true
+punching_move = true

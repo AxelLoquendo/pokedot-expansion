@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://7fbedpts47w1"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_3vh5c"]
+
+[resource]
+script = ExtResource("1_3vh5c")
+ability_id = 91
+ability_name = "Adaptable"
+ability_description = "Potencia ataques de mismo tipo."
+ai_rating = 8

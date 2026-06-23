@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://b2hntq5j33aq3"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_ovaum"]
+
+[resource]
+script = ExtResource("1_ovaum")
+ability_id = 292
+ability_name = "Cortante"
+ability_description = "Potencia cortes."
+ai_rating = 7

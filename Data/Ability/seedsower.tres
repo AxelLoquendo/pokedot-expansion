@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://bdeu6gcsfxxtj"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_ge84q"]
+
+[resource]
+script = ExtResource("1_ge84q")
+ability_id = 269
+ability_name = "Disemillar"
+ability_description = "Cambia terreno al ser golpeado."
+ai_rating = 5

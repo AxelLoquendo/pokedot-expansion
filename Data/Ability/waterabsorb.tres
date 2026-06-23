@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://bqmux6n7k8gee"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_4dmqn"]
+
+[resource]
+script = ExtResource("1_4dmqn")
+ability_id = 11
+ability_name = "Absorbe agua"
+ability_description = "Convierte agua en PS."
+ai_rating = 7
+can_breakable = true

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://cottidmw4nndc"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_kgjbu"]
+
+[resource]
+script = ExtResource("1_kgjbu")
+ability_id = 56
+ability_name = "Gran encanto"
+ability_description = "Emboba al mínimo contacto."
+ai_rating = 2

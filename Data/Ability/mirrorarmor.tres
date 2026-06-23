@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://bql1jqy0ubdj0"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_v5h6g"]
+
+[resource]
+script = ExtResource("1_v5h6g")
+ability_id = 240
+ability_name = "Coraza reflejo"
+ability_description = "Refleja reducción de estadísticas."
+ai_rating = 6
+can_breakable = true

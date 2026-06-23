@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://cuoi06ieo6yu6"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_obtnw"]
+
+[resource]
+script = ExtResource("1_obtnw")
+ability_id = 103
+ability_name = "Zoquete"
+ability_description = "No puede usar objetos."
+ai_rating = -1

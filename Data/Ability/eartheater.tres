@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://c1o0kagq4vg6b"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_ohvaa"]
+
+[resource]
+script = ExtResource("1_ohvaa")
+ability_id = 297
+ability_name = "Geofagia"
+ability_description = "Come Tierra para curarse."
+ai_rating = 7
+can_breakable = true

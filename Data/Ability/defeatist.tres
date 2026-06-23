@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://h4s6cmob1nh8"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_oon7l"]
+
+[resource]
+script = ExtResource("1_oon7l")
+ability_id = 129
+ability_name = "Flaqueza"
+ability_description = "Se rinde con mitad de PS."
+ai_rating = -1

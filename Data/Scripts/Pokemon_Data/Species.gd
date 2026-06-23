@@ -1,0 +1,14 @@
+extends RefCounted
+
+class_name Species
+
+enum SpeciesId {
+	SPECIES_NONE,
+	SPECIES_BULBASAUR,
+	SPECIES_IVYSAUR,
+	SPECIES_VENUSAUR,
+	SPECIES_CHARMANDER,
+	
+	# Gen 2
+	SPECIES_CHIKORITA,
+}

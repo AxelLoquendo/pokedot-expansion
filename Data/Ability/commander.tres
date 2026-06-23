@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://dg43hrtttv3vh"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_b54xs"]
+
+[resource]
+script = ExtResource("1_b54xs")
+ability_id = 279
+ability_name = "Comandar"
+ability_description = "Da órdenes a Dondozo."
+ai_rating = 10
+cant_be_copied = true
+cant_be_swapped = true
+cant_be_traced = true
+cant_be_suppressed = true
+cant_be_overwritten = true

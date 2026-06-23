@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://bbr8rbar4vvn0"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_41cfk"]
+
+[resource]
+script = ExtResource("1_41cfk")
+ability_id = 100
+ability_name = "Rezagado"
+ability_description = "Ejecuta ataques el último."
+ai_rating = -1

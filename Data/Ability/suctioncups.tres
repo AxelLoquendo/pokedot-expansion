@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://cj6eaghjqjfc8"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_q52id"]
+
+[resource]
+script = ExtResource("1_q52id")
+ability_id = 21
+ability_name = "Ventosas"
+ability_description = "Fija el cuerpo con firmeza."
+ai_rating = 2
+can_breakable = true

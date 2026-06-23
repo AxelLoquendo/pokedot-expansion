@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://dwgdlwsn2ioew"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_ln2ba"]
+
+[resource]
+script = ExtResource("1_ln2ba")
+ability_id = 298
+ability_name = "Poder fúngico"
+ability_description = "Movimientos de estado no fallan."
+ai_rating = 2

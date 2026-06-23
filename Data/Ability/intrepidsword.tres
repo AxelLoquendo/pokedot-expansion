@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://c6bp7qktaa1ff"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_lbmap"]
+
+[resource]
+script = ExtResource("1_lbmap")
+ability_id = 234
+ability_name = "Espada indómita"
+ability_description = "Sube ataque al entrar."
+ai_rating = 3

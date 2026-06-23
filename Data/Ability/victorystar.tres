@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://k3ok1axmrr64"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_khi3m"]
+
+[resource]
+script = ExtResource("1_khi3m")
+ability_id = 162
+ability_name = "Tinovictoria"
+ability_description = "Sube precisión del equipo."
+ai_rating = 6

@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://pgvg1rqlaask"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_uknyq"]
+
+[resource]
+script = ExtResource("1_uknyq")
+ability_id = 148
+ability_name = "Cálculo final"
+ability_description = "Ser último sube potencia."
+ai_rating = 5

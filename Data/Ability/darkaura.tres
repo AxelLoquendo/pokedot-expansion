@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://cphegdjiswqvh"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_0j2i0"]
+
+[resource]
+script = ExtResource("1_0j2i0")
+ability_id = 186
+ability_name = "Aura oscura"
+ability_description = "Potencia Siniestro."
+ai_rating = 6

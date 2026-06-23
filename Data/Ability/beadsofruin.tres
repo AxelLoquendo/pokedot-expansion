@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://ftcr8smktufs"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_lv5sk"]
+
+[resource]
+script = ExtResource("1_lv5sk")
+ability_id = 287
+ability_name = "Abalorio debacle"
+ability_description = "Reduce defensa especial rival."
+ai_rating = 5
+can_breakable = true

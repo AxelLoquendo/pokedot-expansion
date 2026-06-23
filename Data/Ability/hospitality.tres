@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://bwmokpo01ohh"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_p371u"]
+
+[resource]
+script = ExtResource("1_p371u")
+ability_id = 299
+ability_name = "Hospitalidad"
+ability_description = "Recupera PS de aliados."
+ai_rating = 5

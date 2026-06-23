@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://cdjugyugvuhlv"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_rbgpm"]
+
+[resource]
+script = ExtResource("1_rbgpm")
+ability_id = 138
+ability_name = "Ímpetu ardiente"
+ability_description = "Sube ataque si está quemado."
+ai_rating = 5

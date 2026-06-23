@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://dxyopfthei2y7"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_d7fqg"]
+
+[resource]
+script = ExtResource("1_d7fqg")
+ability_id = 122
+ability_name = "Don floral"
+ability_description = "Se transforma con Sol."
+ai_rating = 4
+cant_be_copied = true
+cant_be_traced = true
+can_breakable = true

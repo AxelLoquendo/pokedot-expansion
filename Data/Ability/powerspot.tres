@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="AbilityData" format=3 uid="uid://3d3v2g0ucfll"]
+
+[ext_resource type="Script" uid="uid://bel3gk6la6rwj" path="res://Data/Scripts/Pokemon_Data/AbilityData.gd" id="1_h12cq"]
+
+[resource]
+script = ExtResource("1_h12cq")
+ability_id = 249
+ability_name = "Fuente energía"
+ability_description = "Potencia ataques aliados."
+ai_rating = 2

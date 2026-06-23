@@ -1,0 +1,18 @@
+[gd_resource type="Resource" script_class="MoveData" format=3 uid="uid://cc8nxidxpbnry"]
+
+[ext_resource type="Script" uid="uid://b0ske0iaev2er" path="res://Data/Scripts/Pokemon_Data/MoveData.gd" id="1_4wl61"]
+
+[resource]
+script = ExtResource("1_4wl61")
+move_id = 1
+move_name = "Destructor"
+description = "Golpea con las patas
+o la cola."
+type = 1
+power = 40
+accuracy = 100
+pp = 35
+effect = 2
+makes_contact = true
+ignores_kings_rock = true
+metadata/_custom_type_script = "uid://b0ske0iaev2er"
