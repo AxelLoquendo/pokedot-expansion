@@ -4,6 +4,7 @@ extends Control
 var icon_timer := 0.0
 var current_icon_frame := 0
 var shiny_mode := false
+var ability_desc := false
 @export var pokemon_data: PokemonDataStruct:
 	set(value):
 		pokemon_data = value
@@ -68,17 +69,25 @@ func update_visualizer():
 		]
 	)
 	var data_hab_1 = DataBaseGlobal.abilities.get(pokemon_data.ability_1)
-	var data_hab_2 = DataBaseGlobal.abilities.get(pokemon_data.ability_2)
 	if data_hab_1:
-		$Ability1.text = data_hab_1.ability_name
+		if ability_desc:
+			$Ability1.text = data_hab_1.ability_description
+		else:
+			$Ability1.text = data_hab_1.ability_name
 	else:
 		$Ability1.text = "----"
+
+	var data_hab_2 = DataBaseGlobal.abilities.get(pokemon_data.ability_2)
 	if data_hab_2:
-		$Ability2.text = data_hab_2.ability_name
+		if ability_desc:
+			$Ability2.text = data_hab_2.ability_description
+		else:
+			$Ability2.text = data_hab_2.ability_name
 	else:
 		$Ability2.text = "----"
 
 func _input(event):
 	if event.is_action_pressed("ui_accept"):
 		shiny_mode = !shiny_mode
+		ability_desc = !ability_desc
 		update_visualizer()

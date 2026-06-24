@@ -9,6 +9,7 @@ move_name = "Doble bofetón"
 description = "Abofetea de 2 a 5
 veces seguidas."
 type = 1
+target = 1
 power = 15
 accuracy = 85
 pp = 10

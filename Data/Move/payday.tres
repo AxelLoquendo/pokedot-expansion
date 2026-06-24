@@ -9,6 +9,7 @@ move_name = "Día de pago"
 description = "Arroja monedas
 que luego recupera."
 type = 1
+target = 1
 power = 40
 accuracy = 100
 pp = 20

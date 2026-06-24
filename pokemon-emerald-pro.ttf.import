@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://pu6b2ookbd1s"
-path="res://.godot/imported/pokemon-emerald.otf-6c96c8a08f3c50bce4ce1ae814d97a28.fontdata"
+uid="uid://b1kovm1rv2n1q"
+path="res://.godot/imported/pokemon-emerald-pro.ttf-3812216ce4fcbc91d7f46d0411291792.fontdata"
 
 [deps]
 
-source_file="res://pokemon-emerald.otf"
-dest_files=["res://.godot/imported/pokemon-emerald.otf-6c96c8a08f3c50bce4ce1ae814d97a28.fontdata"]
+source_file="res://pokemon-emerald-pro.ttf"
+dest_files=["res://.godot/imported/pokemon-emerald-pro.ttf-3812216ce4fcbc91d7f46d0411291792.fontdata"]
 
 [params]
 
@@ -34,8 +34,7 @@ preload=[{
 "chars": [],
 "glyphs": [],
 "name": "Nueva Configuración",
-&"size": Vector2i(8, 0),
-&"variation_embolden": 0.0
+"size": Vector2i(16, 0)
 }]
 language_support={}
 script_support={}

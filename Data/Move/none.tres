@@ -7,6 +7,7 @@ script = ExtResource("1_bjcf4")
 move_name = "-"
 description = "."
 type = 1
+target = 1
 effect = 2
 mirror_move_banned = true
 metronome_banned = true

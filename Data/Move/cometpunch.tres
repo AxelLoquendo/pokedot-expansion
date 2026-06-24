@@ -9,6 +9,7 @@ move_name = "Puño cometa"
 description = "Pega de 2 a 5
 veces seguidas."
 type = 1
+target = 1
 power = 18
 accuracy = 85
 pp = 15

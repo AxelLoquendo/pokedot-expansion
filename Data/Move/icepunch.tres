@@ -9,6 +9,7 @@ move_name = "Puño hielo"
 description = "Puñetazo helado.
 Puede congelar."
 type = 16
+target = 1
 power = 75
 accuracy = 100
 pp = 15

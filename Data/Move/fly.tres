@@ -1,0 +1,21 @@
+[gd_resource type="Resource" script_class="MoveData" format=3 uid="uid://dsyasct4fpm5c"]
+
+[ext_resource type="Script" uid="uid://b0ske0iaev2er" path="res://Data/Scripts/Pokemon_Data/MoveData.gd" id="1_2ijc0"]
+
+[resource]
+script = ExtResource("1_2ijc0")
+move_id = 19
+move_name = "Vuelo"
+description = "1° turno: vuela.
+2º: ataca."
+type = 3
+target = 1
+power = 90
+accuracy = 95
+pp = 15
+effect = 117
+makes_contact = true
+gravity_banned = true
+assist_banned = true
+sleep_talk_banned = true
+instruct_banned = true

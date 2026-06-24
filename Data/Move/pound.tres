@@ -9,6 +9,7 @@ move_name = "Destructor"
 description = "Golpea con las patas
 o la cola."
 type = 1
+target = 1
 power = 40
 accuracy = 100
 pp = 35

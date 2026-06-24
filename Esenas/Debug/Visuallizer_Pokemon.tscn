@@ -4,17 +4,15 @@
 [ext_resource type="Resource" uid="uid://bi6shfukslf2n" path="res://Data/Pokemon/Gen1/Bulbasaur.tres" id="2_is43h"]
 [ext_resource type="Texture2D" uid="uid://bi4yc3ecgq00l" path="res://Graficos/Debug/Fondo_Debug.png" id="2_jqs34"]
 [ext_resource type="Texture2D" uid="uid://bfkixxba6onoy" path="res://Graficos/Pokemon/bulbasaur/front.png" id="4_erqjm"]
-[ext_resource type="FontFile" uid="uid://ccwngw6lle73j" path="res://Pokemon_GB.ttf" id="4_y6yyg"]
 [ext_resource type="Texture2D" uid="uid://dore3eqgbkhd" path="res://Graficos/Pokemon/bulbasaur/back.png" id="5_6ok8e"]
 [ext_resource type="Texture2D" uid="uid://dilf2pixxiya6" path="res://Graficos/Pokemon/bulbasaur/icon.png" id="6_n3bih"]
+[ext_resource type="FontFile" uid="uid://b1kovm1rv2n1q" path="res://pokemon-emerald-pro.ttf" id="8_erqjm"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_7khe0"]
-font = ExtResource("4_y6yyg")
-font_size = 8
+font = ExtResource("8_erqjm")
 
 [sub_resource type="LabelSettings" id="LabelSettings_y6yyg"]
-font = ExtResource("4_y6yyg")
-font_size = 8
+font = ExtResource("8_erqjm")
 outline_color = Color(0, 0, 0, 1)
 shadow_size = 0
 

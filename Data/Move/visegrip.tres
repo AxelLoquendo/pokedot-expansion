@@ -9,6 +9,7 @@ move_name = "Agarre"
 description = "Atrapa con potentes
 pinzas."
 type = 1
+target = 1
 power = 55
 accuracy = 100
 pp = 30

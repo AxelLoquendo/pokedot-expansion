@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="MoveData" format=3 uid="uid://xtv4ci68e4ib"]
+
+[ext_resource type="Script" uid="uid://b0ske0iaev2er" path="res://Data/Scripts/Pokemon_Data/MoveData.gd" id="1_cphei"]
+
+[resource]
+script = ExtResource("1_cphei")
+move_id = 17
+move_name = "Ataque ala"
+description = "Golpea al objetivo
+con las alas."
+type = 3
+target = 1
+power = 60
+accuracy = 100
+pp = 35
+effect = 2
+makes_contact = true

@@ -9,6 +9,7 @@ move_name = "Corte"
 description = "Corta con garras,
 guadañas, etc."
 type = 1
+target = 1
 power = 50
 accuracy = 95
 pp = 30

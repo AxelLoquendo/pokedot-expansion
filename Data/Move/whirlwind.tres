@@ -1,0 +1,23 @@
+[gd_resource type="Resource" script_class="MoveData" format=3 uid="uid://ctxk52jiqtrjn"]
+
+[ext_resource type="Script" uid="uid://b0ske0iaev2er" path="res://Data/Scripts/Pokemon_Data/MoveData.gd" id="1_43uic"]
+
+[resource]
+script = ExtResource("1_43uic")
+move_id = 18
+move_name = "Remolino"
+description = "Se lleva al rival
+y termina el combate."
+type = 1
+category = 2
+target = 1
+pp = 20
+priority = -6
+effect = 25
+z_effect = 12
+wind_move = true
+magic_coat_affected = true
+ignores_protect = true
+ignores_substitute = true
+copycat_banned = true
+assist_banned = true

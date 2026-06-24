@@ -9,6 +9,7 @@ move_name = "Megapuño"
 description = "Un puñetazo de gran
 potencia."
 type = 1
+target = 1
 power = 80
 accuracy = 85
 pp = 20
