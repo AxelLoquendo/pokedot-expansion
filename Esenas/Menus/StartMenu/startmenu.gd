@@ -54,7 +54,7 @@ func actualizar_brillo_botones():
 				button.self_modulate = Color(1.703, 1.752, 1.8, 0.863) 
 			else:
 				# BOTÓN NORMAL: Color original sin alteraciones
-				button.self_modulate = Color(1.0, 1.0, 1.0, 1.0)
+				button.self_modulate = Color(1.0, 1.0, 1.0, 0.902)
 
 # --- CONTROL MANUAL DE DESPLAZAMIENTO ---
 func _unhandled_input(event):
