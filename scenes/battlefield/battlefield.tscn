@@ -1,0 +1,73 @@
+[gd_scene format=3 uid="uid://chhe7vvlyqivg"]
+
+[ext_resource type="Script" uid="uid://dfwcmlw66nmxs" path="res://scenes/battlefield/battlefield.gd" id="1_n2w7h"]
+[ext_resource type="Texture2D" uid="uid://dore3eqgbkhd" path="res://grafics/pokemon/bulbasaur/back.png" id="1_opvdi"]
+[ext_resource type="Texture2D" uid="uid://bfkixxba6onoy" path="res://grafics/pokemon/bulbasaur/front.png" id="2_n2w7h"]
+
+[node name="Battlefield" type="Node2D" unique_id=98054996]
+script = ExtResource("1_n2w7h")
+
+[node name="PlayerPokemon" type="Sprite2D" parent="." unique_id=1952873216]
+position = Vector2(47, 91)
+texture = ExtResource("1_opvdi")
+
+[node name="FoePokemon" type="Sprite2D" parent="." unique_id=345623751]
+position = Vector2(181, 34)
+texture = ExtResource("2_n2w7h")
+
+[node name="PlayerPanel" type="Panel" parent="." unique_id=1212200781]
+offset_left = 148.0
+offset_top = 76.0
+offset_right = 220.0
+offset_bottom = 102.0
+
+[node name="HPBar" type="ProgressBar" parent="PlayerPanel" unique_id=1539200473]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 7.0
+offset_right = 72.0
+offset_bottom = 13.0
+value = 100.0
+show_percentage = false
+
+[node name="FoePanel" type="Panel" parent="." unique_id=2062308927]
+offset_left = 21.0
+offset_top = 25.0
+offset_right = 93.0
+offset_bottom = 51.0
+
+[node name="HPBar" type="ProgressBar" parent="FoePanel" unique_id=972228942]
+layout_mode = 0
+offset_left = 25.0
+offset_top = 8.0
+offset_right = 72.0
+offset_bottom = 14.0
+value = 100.0
+show_percentage = false
+
+[node name="Moveset" type="GridContainer" parent="." unique_id=1354815587]
+offset_left = 9.0
+offset_top = 111.0
+offset_right = 107.0
+offset_bottom = 157.0
+columns = 2
+
+[node name="Button" type="Button" parent="Moveset" unique_id=1847365844]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+text = "Ataque 1"
+
+[node name="Button2" type="Button" parent="Moveset" unique_id=1479662037]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+text = "Ataque 1"
+
+[node name="Button3" type="Button" parent="Moveset" unique_id=495923622]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+text = "Ataque 1"
+
+[node name="Button4" type="Button" parent="Moveset" unique_id=827565721]
+layout_mode = 2
+theme_override_font_sizes/font_size = 9
+text = "Ataque 1"
