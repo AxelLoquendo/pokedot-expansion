@@ -423294,8 +423294,8 @@ ${team}`);
   Teams2.setGeneratorFactory(TeamGenerators);
   var streams = battle_stream_exports.getPlayerStreams(new battle_stream_exports.BattleStream());
   var spec = { formatid: "gen7customgame" };
-  var p1spec = { name: "Bot 1", team: "Bulbasaur||Eviolite|Chlorophyll|gigadrain,sludgebomb,leechseed,synthesis|Bold|252,,4,,252,|||100||" };
-  var p2spec = { name: "Bot 2", team: "Bulbasaur||Eviolite|Chlorophyll|gigadrain,sludgebomb,leechseed,synthesis|Bold|252,,4,,252,|||100||" };
+  var p1spec = { name: "Bot 1", team: Teams2.pack([Teams2.generate("gen1randombattle")[0]]) };
+  var p2spec = { name: "Bot 2", team: Teams2.pack([Teams2.generate("gen1randombattle")[0]]) };
   var p22 = new RandomPlayerAI(streams.p2);
   void p22.start();
   globalThis.push_input = (input) => {
