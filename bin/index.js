@@ -423293,12 +423293,12 @@ ${team}`);
   // main.js
   Teams2.setGeneratorFactory(TeamGenerators);
   var streams = battle_stream_exports.getPlayerStreams(new battle_stream_exports.BattleStream());
-  var spec = { formatid: "gen7customgame" };
+  var spec = { formatid: "gen9customgame" };
   var p1spec = { name: "Bot 1", team: Teams2.pack([Teams2.generate("gen1randombattle")[0]]) };
   var p2spec = { name: "Bot 2", team: Teams2.pack([Teams2.generate("gen1randombattle")[0]]) };
   var p22 = new RandomPlayerAI(streams.p2);
   void p22.start();
-  globalThis.push_input = (input) => {
+  globalThis.write = (input) => {
     console.log("> " + input);
     streams.p1.write(input);
   };
