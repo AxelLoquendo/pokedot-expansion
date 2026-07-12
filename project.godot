@@ -28,8 +28,8 @@ DialogueManager="*uid://b80hgjpeoinum"
 
 [display]
 
-window/size/viewport_width=240
-window/size/viewport_height=160
+window/size/viewport_width=512
+window/size/viewport_height=288
 window/stretch/mode="viewport"
 window/stretch/scale_mode="integer"
 

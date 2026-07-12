@@ -1,0 +1,8 @@
+[gd_scene format=3 uid="uid://dptfc76n1chbj"]
+
+[ext_resource type="Script" uid="uid://cojt4iu5rc13u" path="res://scenes/game.gd" id="1_uwrxv"]
+
+[node name="Game" type="Node" unique_id=918859073]
+script = ExtResource("1_uwrxv")
+
+[node name="PServer" type="PServer" parent="." unique_id=1803942334]
