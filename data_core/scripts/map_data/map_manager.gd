@@ -4,6 +4,7 @@ extends Node
 ## las posiciones relativas del jugador y el puente lógico para colisiones y eventos.
 class_name MapManager
 
+@export var map_data: MapAttributes
 @export var initial_map: PackedScene # Escena del mapa donde iniciará la partida
 @export var tile_size: int = 16 # Tamaño en píxeles de las baldosas
 @export var player: CharacterBody2D # Referencia al nodo del jugador
@@ -13,64 +14,85 @@ class_name MapManager
 @onready var neighbor_map_container: Node2D = $NeighborMapContainer # Contenedor de mapas adyacentes
 
 var current_map: GameMap # Instancia del mapa que el jugador está pisando actualmente
+
 ## Convierte una coordenada de la cuadrícula a una posición en píxeles del mundo 2D.
 ## Añade un desfase de (8, 16) para centrar el pivote del sprite del jugador en el tile.
 func tile_a_posicion(tile_pos: Vector2i) -> Vector2:
 	return Vector2(tile_pos * tile_size) + Vector2(8, 16)
 
 func _ready():
-	if PlayerManager and not PlayerManager.data.current_map_scene.is_empty():
-		# Cargar desde datos guardados
+	var cargar_desde_guardado: bool = false
+
+	# 🌟 CORREGIDO: Evaluamos la bandera global en lugar de si la ruta está vacía
+	if PlayerManager and PlayerManager.viene_de_continuar:
+		# Cargar desde datos guardados reales
 		var mapa_ruta = PlayerManager.data.current_map_scene
 		initial_map = load(mapa_ruta)
-		initial_player_tile = PlayerManager.data.grid_position
+		cargar_desde_guardado = true
 	else:
-		# Si es partida nueva, usa lo configurado en el inspector
-		print("Iniciando con valores por defecto")
+		# Si es partida nueva, mantenemos la configuración por defecto
+		print("🌱 Iniciando entorno desde Nueva Partida")
 
-	cargar_mapa_inicial()
-	if player != null:
-		player.position = tile_a_posicion(initial_player_tile)
-		player.direccion = PlayerManager.data.direction # Sincronizamos dirección
+	# 🚀 EJECUTAMOS SOLO UNA OPCIÓN
+	if cargar_desde_guardado:
+		cargar_mapa_desde_guardado()
+	else:
+		cargar_mapa_inicial()
+
+	if player:
+		player.direccion = PlayerManager.data.direction
 		player.paso_terminado.connect(_on_player_paso_terminado)
 
 ## Se ejecuta automáticamente cada vez que el jugador termina de dar un paso completo.
 func _on_player_paso_terminado():
 	revisar_salida_del_mapa()
-	if PlayerManager and current_map:
+	if PlayerManager and current_map and current_map.attributes:
 		var tile_pos = posicion_a_tile(player.position)
 		PlayerManager.data.grid_position = tile_pos
 		PlayerManager.data.direction = player.direccion
 		PlayerManager.data.current_map_scene = current_map.scene_file_path
+		PlayerManager.data.current_map_section = current_map.attributes.map_section_id
+
 ## Instancia y añade el mapa base al contenedor principal al arrancar el juego.
 func cargar_mapa_inicial():
-	if initial_map == null:
+	if not initial_map:
 		return
 		
 	current_map = initial_map.instantiate()
 	current_map_container.add_child(current_map)
 	cargar_vecinos()
 
-	# ✅ Pasamos ambos datos
 	if current_map and current_map.attributes:
-		MusicManager.reproducir(
-			current_map.attributes.music_path,
-			current_map.attributes.silence_end
-		)
+		MusicManager.reproducir(current_map.attributes.music_path, current_map.attributes.silence_end)
 		TimeManager.set_indoors(current_map.attributes.is_indoor)
+		PlayerManager.data.current_map_section = current_map.attributes.map_section_id
+	else:
+		push_warning("⚠️ Mapa inicial sin MapAttributes asignado")
+		if PlayerManager:
+			PlayerManager.data.current_map_section = MapSections.SectionID.MAPSEC_NONE
+
+	# 🎯 Aplicamos posición guardada SIEMPRE que sea válida
+	if not player:
+		return
+
+	if PlayerManager and PlayerManager.data.grid_position != Vector2i(0, 0):
+		initial_player_tile = PlayerManager.data.grid_position
+		print("✅ Aplicando posición guardada en mapa: ", initial_player_tile)
+	else:
+		print("ℹ️ Usando posición inicial: ", initial_player_tile)
+
+	player.position = tile_a_posicion(initial_player_tile)
+	player.direccion = PlayerManager.data.direction
+
 ## Comprueba si el jugador ha cruzado los límites lógicos del mapa actual (Norte, Sur, Este, Oeste).
 func revisar_salida_del_mapa():
-	if current_map == null:
+	if not current_map or not current_map.attributes:
+		push_warning("Mapa sin atributos asignados")
 		return
 	
-	if current_map.attributes == null:
-		push_warning("El mapa actual no tiene MapAttributes asignado.")
-		return
-	
-	var _tile_pos := posicion_a_tile(player.position)
-	
-	var size := current_map.attributes.map_size
-	# Verifica si la coordenada se salió de los límites de la matriz del mapa actual
+	var _tile_pos = posicion_a_tile(player.position)
+	var size = current_map.attributes.map_size
+
 	if _tile_pos.x < 0:
 		cambiar_mapa("west", _tile_pos)
 	elif _tile_pos.x >= size.x:
@@ -79,231 +101,239 @@ func revisar_salida_del_mapa():
 		cambiar_mapa("north", _tile_pos)
 	elif _tile_pos.y >= size.y:
 		cambiar_mapa("south", _tile_pos)
+
 ## Descarga el mapa anterior, limpia la memoria, instancia el nuevo escenario y calcula la entrada del jugador.
 func cambiar_mapa(_direction: String, _old_tile_pos: Vector2i):
-	var connection := obtener_conexion(_direction)
-	
-	if connection == null:
-		return
-	
-	if connection.map_scene_path.is_empty():
+	var connection = obtener_conexion(_direction)
+	if not connection or connection.map_scene_path.is_empty():
 		return
 
-	var next_scene := load(connection.map_scene_path) as PackedScene
-
-	if next_scene == null:
+	var next_scene = load(connection.map_scene_path) as PackedScene
+	if not next_scene:
 		return
-	# Cancela el encadenamiento de pasos del jugador durante la transición
+
+	# Preparar transición
 	player.cancelar_encadenado()
-	# Elimina el mapa actual y limpia visualmente las costuras adyacentes
 	current_map.queue_free()
 	limpiar_vecinos()
-	# Carga e instancia el nuevo mapa de la conexión
+
+	# Cargar nuevo mapa
 	current_map = next_scene.instantiate()
 	current_map_container.add_child(current_map)
 
-	if current_map.attributes == null:
-		push_warning("El nuevo mapa no tiene MapAttributes asignado.")
+	if not current_map.attributes:
+		push_warning("El nuevo mapa no tiene MapAttributes asignado")
+		PlayerManager.data.current_map_section = MapSections.SectionID.MAPSEC_NONE
 		return
-	# Calcula en qué tile exacto del nuevo mapa debe aparecer el personaje
-	var new_tile_pos := calcular_posicion_entrada(
-		_direction,
-		_old_tile_pos,
-		current_map.attributes.map_size,
-		connection.offset
-	)
-	# Ubica al jugador en su nueva posición física y regenera las cargas de mapas vecinos
+
+	# Calcular posición
+	var new_tile_pos = calcular_posicion_entrada(_direction, _old_tile_pos, current_map.attributes.map_size, connection.offset)
 	player.position = tile_a_posicion(new_tile_pos)
-	
-	# Guardamos los datos del nuevo mapa
+
+	# Guardar datos actualizados
 	PlayerManager.data.current_map_scene = current_map.scene_file_path
 	PlayerManager.data.grid_position = new_tile_pos
-	cargar_vecinos()
+	PlayerManager.data.current_map_section = current_map.attributes.map_section_id
 
-	# ✅ Música para el nuevo mapa
-	MusicManager.reproducir(current_map.attributes.music_path,current_map.attributes.silence_end)
+	# Actualizar entorno
+	cargar_vecinos()
+	MusicManager.reproducir(current_map.attributes.music_path, current_map.attributes.silence_end)
 	TimeManager.set_indoors(current_map.attributes.is_indoor)
+
 ## Retorna el recurso MapConnection correspondiente a la dirección consultada.
 func obtener_conexion(_direction: String) -> MapConnection:
+	if not current_map or not current_map.attributes:
+		return null
+
 	match _direction:
-		"north":
-			return current_map.attributes.north_map
-		"east":
-			return current_map.attributes.east_map
-		"south":
-			return current_map.attributes.south_map
-		"west":
-			return current_map.attributes.west_map
-
+		"north": return current_map.attributes.north_map
+		"east": return current_map.attributes.east_map
+		"south": return current_map.attributes.south_map
+		"west": return current_map.attributes.west_map
 	return null
-## Resuelve matemáticamente la coordenada de aparición en el nuevo mapa considerando el offset de costura.
-func calcular_posicion_entrada(direction: String, old_tile_pos: Vector2i, new_map_size: Vector2i, offset: Vector2i) -> Vector2i: # <- Cambió a Vector2i
-	match direction:
-		"east":
-			return Vector2i(0, old_tile_pos.y + offset.y) # <- Cambió a offset.y
-		"west":
-			return Vector2i(new_map_size.x - 1, old_tile_pos.y + offset.y) # <- Cambió a offset.y
-		"north":
-			return Vector2i(old_tile_pos.x + offset.x, new_map_size.y - 1) # <- Cambió a offset.x
-		"south":
-			return Vector2i(old_tile_pos.x + offset.x, 0) # <- Cambió a offset.x
 
+## Resuelve matemáticamente la coordenada de aparición en el nuevo mapa considerando el offset de costura.
+func calcular_posicion_entrada(direction: String, old_tile_pos: Vector2i, new_map_size: Vector2i, offset: Vector2i) -> Vector2i:
+	match direction:
+		"east":  return Vector2i(0, old_tile_pos.y + offset.y)
+		"west":  return Vector2i(new_map_size.x - 1, old_tile_pos.y + offset.y)
+		"north": return Vector2i(old_tile_pos.x + offset.x, new_map_size.y - 1)
+		"south": return Vector2i(old_tile_pos.x + offset.x, 0)
 	return old_tile_pos
+
 ## Remueve todos los mapas vecinos instanciados en el contenedor adyacente.
 func limpiar_vecinos():
+	# Recorremos todos los hijos y los eliminamos de forma segura
 	for child in neighbor_map_container.get_children():
-		child.queue_free()
+		if is_instance_valid(child):
+			child.queue_free()
+			# También eliminamos la referencia inmediatamente
+			neighbor_map_container.remove_child(child)
+
 ## Dispara secuencialmente la carga visual de los 4 mapas vecinos posibles.
 func cargar_vecinos():
 	limpiar_vecinos()
-
-	if current_map == null:
+	if not current_map:
 		return
 
 	cargar_vecino("north")
 	cargar_vecino("east")
 	cargar_vecino("south")
 	cargar_vecino("west")
-## Carga de forma asíncrona/dinámica una escena de mapa vecino y la posiciona 
-## de forma milimétrica en los bordes en píxeles del mapa central usando su offset.
+
+## Carga de forma asíncrona/dinámica una escena de mapa vecino y la posiciona correctamente.
 func cargar_vecino(direction: String):
-	var connection := obtener_conexion(direction)
-
-	if connection == null:
+	var connection = obtener_conexion(direction)
+	if not connection or connection.map_scene_path.is_empty():
 		return
 
-	if connection.map_scene_path.is_empty():
+	var scene = load(connection.map_scene_path) as PackedScene
+	if not scene:
 		return
 
-	var scene := load(connection.map_scene_path) as PackedScene
-
-	if scene == null:
-		return
-
-	var neighbor := scene.instantiate() as GameMap
-
-	if neighbor == null:
-		return
-
-	if neighbor.attributes == null:
-		push_warning("El mapa vecino no tiene MapAttributes asignado.")
-		neighbor.queue_free()
+	var neighbor = scene.instantiate() as GameMap
+	if not neighbor or not neighbor.attributes:
+		if neighbor: neighbor.queue_free()
 		return
 
 	neighbor_map_container.add_child(neighbor)
-	# Dimensiones en píxeles para calcular las posiciones de renderizado de los vecinos
-	var current_size_px := Vector2(current_map.attributes.map_size * tile_size)
-	var neighbor_size_px := Vector2(neighbor.attributes.map_size * tile_size)
-	var offset_px := Vector2(connection.offset * tile_size)
-	# Desplaza los nodos geográficamente en el viewport del motor para encajarlos perfectamente
+
+	var current_size_px = Vector2(current_map.attributes.map_size * tile_size)
+	var neighbor_size_px = Vector2(neighbor.attributes.map_size * tile_size)
+	var offset_px = Vector2(connection.offset * tile_size)
+
 	match direction:
-		"east":
-			neighbor.position = Vector2(current_size_px.x + offset_px.x, offset_px.y)
-		"west":
-			neighbor.position = Vector2(-neighbor_size_px.x + offset_px.x, offset_px.y)
-		"north":
-			neighbor.position = Vector2(offset_px.x, -neighbor_size_px.y + offset_px.y)
-		"south":
-			neighbor.position = Vector2(offset_px.x, current_size_px.y + offset_px.y)
+		"east":  neighbor.position = Vector2(current_size_px.x + offset_px.x, offset_px.y)
+		"west":  neighbor.position = Vector2(-neighbor_size_px.x + offset_px.x, offset_px.y)
+		"north": neighbor.position = Vector2(offset_px.x, -neighbor_size_px.y + offset_px.y)
+		"south": neighbor.position = Vector2(offset_px.x, current_size_px.y + offset_px.y)
 
-## Intercepta las colisiones para comprobar si un obstáculo frontal es una rampa de salto válida.
-## Usa el convertidor nativo de TileMapLayer para garantizar la precisión de la baldosa.
+## Comprueba si el tile destino es una rampa de salto válida.
 func es_rampa(player_pos: Vector2, dir: Vector2) -> bool:
-	if current_map == null:
+	if not current_map:
 		return false
 
-	var collision := current_map.behaviours.get_node("Collision") as TileMapLayer
-	if collision == null:
+	var collision = current_map.behaviours.get_node_or_null("Collision") as TileMapLayer
+	if not collision:
 		return false
 
-	# Obtiene las coordenadas nativas de la celda actual y la celda objetivo
-	var current_tile := collision.local_to_map(player_pos)
-	var target_tile := current_tile + Vector2i(dir)
+	var current_tile = collision.local_to_map(player_pos)
+	var target_tile = current_tile + Vector2i(dir)
 
-	# Consulta al mapa si existe algún metadato de comportamiento asignado
 	if current_map.has_method("obtener_comportamiento_tile"):
-		var comportamiento = current_map.obtener_comportamiento_tile(target_tile)
-		
-		# Mantengo el print de diagnóstico solo para que verifiques en consola
-		#print("--- NUEVO DIAGNÓSTICO EN (", target_tile.x, ", ", target_tile.y, ") ---")
-		#print("Comportamiento detectado: '", comportamiento, "'")
-		# Filtra si el tile es rampa de bajada y el jugador se mueve en el eje vertical inferior
-		if comportamiento == "saltar_abajo" and dir == Vector2.DOWN:
-			return true
+		return current_map.obtener_comportamiento_tile(target_tile) == "saltar_abajo" and dir == Vector2.DOWN
 
 	return false
-## Retorna verdadero si el tile destino no posee el flag "blocked".
-## Sirve como el validador principal del movimiento del jugador por cuadrículas.
-func puede_caminar(player_pos: Vector2, dir: Vector2) -> bool:
-	var collision := current_map.behaviours.get_node("Collision") as TileMapLayer
-	var current_tile := collision.local_to_map(player_pos)
-	var target_tile := current_tile + Vector2i(dir)
 
-	#print("Pos:", player_pos)
-	#print("Current:", current_tile)
-	#print("Target:", target_tile)
+## Retorna verdadero si el tile destino se puede caminar.
+func puede_caminar(player_pos: Vector2, dir: Vector2) -> bool:
+	var collision = current_map.behaviours.get_node_or_null("Collision") as TileMapLayer
+	if not collision:
+		return false
+
+	var current_tile = collision.local_to_map(player_pos)
+	var target_tile = current_tile + Vector2i(dir)
 
 	return not current_map.tile_bloqueado(target_tile)
-## Traduce una posición en píxeles del mundo global a coordenadas de la cuadrícula.
-## Resta el desfase de (8, 16) para compensar el pivote visual del personaje.
+
+## Convierte posición en píxeles a coordenadas de cuadrícula.
 func posicion_a_tile(pos: Vector2) -> Vector2i:
-	var adjusted_pos := pos - Vector2(8, 16)
+	var adjusted_pos = pos - Vector2(8, 16)
+	return Vector2i(floori(adjusted_pos.x / tile_size), floori(adjusted_pos.y / tile_size))
 
-	return Vector2i(
-		floori(adjusted_pos.x / tile_size),
-		floori(adjusted_pos.y / tile_size)
-	)
-
-## Comprueba si el jugador está pisando una escalera lateral en la capa Behaviours.
-## Si la detecta, transforma el vector de entrada horizontal en un vector diagonal.
+## Ajusta la dirección si se está en una escalera lateral.
 func filtrar_direccion_escalera(player_pos: Vector2, dir: Vector2) -> Vector2:
-	if current_map == null:
+	if not current_map:
 		return dir
 
-	var collision := current_map.behaviours.get_node("Collision") as TileMapLayer
-	if collision == null:
+	var collision = current_map.behaviours.get_node_or_null("Collision") as TileMapLayer
+	if not collision:
 		return dir
 
-	var current_tile := collision.local_to_map(player_pos)
-	
-	if current_map.has_method("obtener_comportamiento_tile"):
-		var comportamiento_actual = current_map.obtener_comportamiento_tile(current_tile)
-		
-		# 1. SI YA ESTÁ EN LA ESCALERA: Forzamos la diagonal matemática correcta hacia arriba/abajo
-		if comportamiento_actual == "escalera_sube_derecha":
-			if dir == Vector2.LEFT:   return Vector2(-1, 1) # Baja e izquierda
-			if dir == Vector2.RIGHT:  return Vector2(1, -1)  # Sube y derecha
-		elif comportamiento_actual == "escalera_sube_izquierda":
-			if dir == Vector2.LEFT:   return Vector2(-1, -1) # Sube e izquierda
-			if dir == Vector2.RIGHT:  return Vector2(1, 1)   # Baja y derecha
+	var current_tile = collision.local_to_map(player_pos)
+	if not current_map.has_method("obtener_comportamiento_tile"):
+		return dir
 
-		# 2. SI ESTÁ AFUERA E INTENTA ENTRAR: Evaluamos el tile objetivo frontal
-		var target_tile := current_tile + Vector2i(dir)
-		var comportamiento_destino = current_map.obtener_comportamiento_tile(target_tile)
-		
-		if comportamiento_destino == "escalera_sube_derecha":
-			if dir == Vector2.RIGHT:  return Vector2(1, -1)  # Entra subiendo en diagonal
-			if dir == Vector2.LEFT:   return Vector2(-1, 1)   # Entra bajando en diagonal
-		elif comportamiento_destino == "escalera_sube_izquierda":
-			if dir == Vector2.LEFT:   return Vector2(-1, -1)  # Entra subiendo en diagonal
-			if dir == Vector2.RIGHT:  return Vector2(1, 1)   # Entra bajando en diagonal
+	var comportamiento_actual = current_map.obtener_comportamiento_tile(current_tile)
+
+	if comportamiento_actual == "escalera_sube_derecha":
+		if dir == Vector2.LEFT:  return Vector2(-1, 1)
+		if dir == Vector2.RIGHT: return Vector2(1, -1)
+	elif comportamiento_actual == "escalera_sube_izquierda":
+		if dir == Vector2.LEFT:  return Vector2(-1, -1)
+		if dir == Vector2.RIGHT: return Vector2(1, 1)
+
+	var target_tile = current_tile + Vector2i(dir)
+	var comportamiento_destino = current_map.obtener_comportamiento_tile(target_tile)
+
+	if comportamiento_destino == "escalera_sube_derecha":
+		if dir == Vector2.RIGHT: return Vector2(1, -1)
+		if dir == Vector2.LEFT:  return Vector2(-1, 1)
+	elif comportamiento_destino == "escalera_sube_izquierda":
+		if dir == Vector2.LEFT:  return Vector2(-1, -1)
+		if dir == Vector2.RIGHT: return Vector2(1, 1)
 
 	return dir
 
-## Evalúa si el tile destino tiene el comportamiento de una escalera lateral.
+## Retorna el tipo de escalera en la posición destino.
 func obtener_tipo_escalera(player_pos: Vector2, dir: Vector2) -> String:
-	if current_map == null:
+	if not current_map:
 		return ""
 
-	var collision := current_map.behaviours.get_node("Collision") as TileMapLayer
-	if collision == null:
+	var collision = current_map.behaviours.get_node_or_null("Collision") as TileMapLayer
+	if not collision:
 		return ""
 
-	# Convertidor nativo para precisión absoluta según tus comentarios
-	var current_tile := collision.local_to_map(player_pos)
-	var target_tile := current_tile + Vector2i(dir)
+	var current_tile = collision.local_to_map(player_pos)
+	var target_tile = current_tile + Vector2i(dir)
 
 	if current_map.has_method("obtener_comportamiento_tile"):
 		return current_map.obtener_comportamiento_tile(target_tile)
 
 	return ""
+
+func cargar_mapa_desde_guardado() -> void:
+	if PlayerManager.data.current_map_scene.is_empty():
+		push_warning("No hay ruta de mapa guardada")
+		return
+
+	var nueva_escena = load(PlayerManager.data.current_map_scene) as PackedScene
+	if not nueva_escena:
+		return
+
+	# 🧹 LIMPIEZA TOTAL ANTES DE CARGAR NADA NUEVO
+	# Eliminar mapa actual si existe
+	if current_map and is_instance_valid(current_map):
+		current_map.queue_free()
+		current_map = null
+
+	# Limpiar contenedor principal
+	for child in current_map_container.get_children():
+		if is_instance_valid(child):
+			child.queue_free()
+			current_map_container.remove_child(child)
+
+	# Limpiar contenedor de vecinos también
+	limpiar_vecinos()
+
+	# Esperar un frame para que Godot borre todo completamente
+	await get_tree().process_frame
+
+	# 🗺️ Ahora sí cargamos el mapa guardado
+	current_map = nueva_escena.instantiate()
+	current_map_container.add_child(current_map)
+
+	if current_map.attributes:
+		MusicManager.reproducir(current_map.attributes.music_path, current_map.attributes.silence_end)
+		TimeManager.set_indoors(current_map.attributes.is_indoor)
+		PlayerManager.data.current_map_section = current_map.attributes.map_section_id
+
+	cargar_vecinos()
+
+	# Aplicar posición correctamente
+	await get_tree().process_frame
+
+	if player and is_instance_valid(player):
+		player.position = tile_a_posicion(PlayerManager.data.grid_position)
+		player.direccion = PlayerManager.data.direction
+		print("📍 Mapa y posición cargados limpiamente desde guardado")

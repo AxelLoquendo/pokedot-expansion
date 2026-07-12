@@ -15,25 +15,30 @@ font_color = Color(0.31727853, 0.31727874, 0.31727856, 1)
 layer = 100
 
 [node name="Fondo" type="Sprite2D" parent="." unique_id=1146445243]
+modulate = Color(1, 1, 1, 0.7882353)
 texture_filter = 1
-position = Vector2(120, 138)
+position = Vector2(120, 136)
 texture = ExtResource("1_0bhke")
 
-[node name="Texto" type="RichTextLabel" parent="Fondo" unique_id=1957446246]
-offset_left = -109.0
-offset_top = -19.0
-offset_right = 99.0
-offset_bottom = 19.0
+[node name="Texto" type="RichTextLabel" parent="." unique_id=1957446246]
+offset_left = 13.0
+offset_top = 120.0
+offset_right = 217.0
+offset_bottom = 154.0
 mouse_filter = 2
+theme_override_constants/shadow_outline_size = 0
+theme_override_constants/shadow_offset_x = 0
+theme_override_constants/shadow_offset_y = 1
 theme_override_fonts/normal_font = SubResource("FontVariation_14cdr")
 theme_override_font_sizes/normal_font_size = 8
 bbcode_enabled = true
+text = "Axel"
 scroll_active = false
 
-[node name="Indicador" type="Label" parent="Fondo" unique_id=803183339]
-offset_left = 86.0
-offset_top = -2.0
-offset_right = 100.0
-offset_bottom = 21.0
+[node name="Indicador" type="Label" parent="." unique_id=803183339]
+offset_left = 206.0
+offset_top = 136.0
+offset_right = 220.0
+offset_bottom = 159.0
 text = "▼"
 label_settings = SubResource("LabelSettings_htemk")

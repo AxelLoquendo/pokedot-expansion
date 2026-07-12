@@ -42,12 +42,8 @@ func _iniciar_parpadeo() -> void:
 func _input(event: InputEvent) -> void:
 	if not _activo: return
 
-	if event.is_action_pressed("ui_accept"):
+	if event.is_action_pressed("Abrir"):
 		_empezar_juego()
-	elif event is InputEventKey or event is InputEventMouseButton:
-		if event.is_pressed():
-			_empezar_juego()
-
 
 # ➡️ Cambio a la escena del juego
 func _empezar_juego() -> void:
@@ -57,6 +53,4 @@ func _empezar_juego() -> void:
 	_tween_parpadeo.kill()
 	$MusicaTitulo.stop()
 
-	# Activar día/noche solo al entrar al mapa
-
-	TransicionManager.cambiar_escena("res://data_core/maps/overworld_base/overworld.tscn", 0.5)
+	TransicionManager.cambiar_escena("res://scenes/menus/ui_main_menu/main_menu.tscn", 0.5)

@@ -4,331 +4,339 @@ extends CharacterBody2D
 ## Administra los inputs de dirección, estados de caminata, colisiones lógicas,
 ## menús de interfaz y animaciones interpoladas por baldosas.
 
-var start_menu: Node = null # Almacena la instancia activa del menú de pausa
+var start_menu: Node = null
 
-signal paso_terminado # Se emite al finalizar por completo el desplazamiento de una baldosa
-var puede_encadenar_paso := true # Bandera que determina si el jugador puede ligar un paso con el siguiente
+signal paso_terminado
+var puede_encadenar_paso := true
 
 @export_group("Configuración de Movimiento")
-@export var duracion_paso: float = 0.30 # Tiempo (en segundos) que tarda en recorrer una baldosa
-@export var tile_block: int = 16 # Tamaño de la cuadrícula en píxeles
-@export var velocidad_animacion: float = 0.75 # Factor de velocidad aplicado al AnimationPlayer
-@export var tiempo_para_caminar: float = 0.12 # Retraso mínimo de pulsación para pasar de "mirar" a "caminar"
-@export var map_manager: MapManager # Enlace al administrador de mapas para verificar físicas
+@export var duracion_paso: float = 0.30
+@export var tile_block: int = 16
+@export var velocidad_animacion: float = 0.75
+@export var tiempo_para_caminar: float = 0.12
+@export var map_manager: MapManager
 
-# Variables de Control de Estado Interno
-var moviendose := false # Verdadero si el personaje está ejecutando un desplazamiento
-var posicion_inicio: Vector2 # Posición de origen antes de dar un paso
-var posicion_obj: Vector2 # Posición de destino (Baldosa a la que se dirige)
-var tiempo_paso := 0.0 # Cronómetro interno para la interpolación matemática (Lerp)
-var direccion := Vector2.DOWN # Dirección actual hacia donde se orienta el personaje
-# Manejo de Buffers de Entrada
-var direccion_input := Vector2.ZERO # Último input capturado del teclado/mando
-var tiempo_input := 0.0 # Tiempo acumulado con una tecla de dirección presionada
+# Estado interno
+var moviendose := false
+var posicion_inicio: Vector2
+var posicion_obj: Vector2
+var tiempo_paso := 0.0
+var direccion: Vector2 = Vector2.DOWN
+var direccion_input: Vector2 = Vector2.ZERO
+var tiempo_input := 0.0
 
-@onready var anim_player: AnimationPlayer = $AnimationPlayer # Referencia al reproductor de animaciones
-@onready var sfx_bump: AudioStreamPlayer = $SfxBump # Referencia de Sonido
+# Referencias pre-cargadas
+@onready var anim_player: AnimationPlayer = $AnimationPlayer
+@onready var sprite: Sprite2D = $Sprite2D
+@onready var sfx_bump: AudioStreamPlayer = $SfxBump
 @onready var sfx_jump: AudioStreamPlayer = $SfxJump
 
-# Diccionario para mapear vectores bidimensionales a sufijos de cadenas de animación
-var dir_to_anim: Dictionary = {
+# Constantes
+const DIR_TO_ANIM: Dictionary = {
 	Vector2.UP: "up",
 	Vector2.DOWN: "down",
 	Vector2.LEFT: "left",
 	Vector2.RIGHT: "right",
 }
-#funciòn de inicio donde se define la posicion del objetivo y se iguala a la posicion para luego llamar a la funcion de mostrar idle con la variable direccion.
-func _ready():
-	var casilla_x = 7   
-	var casilla_y = 10  
-	position = Vector2(casilla_x * tile_block, casilla_y * tile_block) + Vector2(8, 16)
-	direccion = Vector2.DOWN
+const MENU_ESCENA: PackedScene = preload("res://scenes/menus/start_menu/start_menu.tscn")
+
+
+func _ready() -> void:
+	if PlayerManager.data.current_map_scene != "":
+		aplicar_datos_guardados()
+	else:
+		posicionar_en_casilla(7, 10)
+		direccion = Vector2.DOWN
+	
 	posicion_obj = position
 	mostrar_idle(direccion)
 
-	# ✅ PRUEBA: Agregar un Bulbasaur para ver en el menú
-	var mi_prueba = Pokemon.new()
-	mi_prueba.setup_new_pokemon(Species.SpeciesId.SPECIES_BULBASAUR, 10)
-	if PlayerManager.data.party.is_empty():
-		PlayerManager.data.party.append(mi_prueba)
-		print("✅ Pokémon de prueba agregado")
-
-#funcion para manejar startmenu
-func _process(_delta):
-	# Captura la entrada global del menú (Tecla de confirmación / Start)
-	if Input.is_action_just_pressed("ui_accept"):
-		if start_menu == null:
-			abrir_menu()
-		else:
-			cerrar_menu()
-## Instancia de manera dinámica el menú de pausa en la raíz de la escena.
-func abrir_menu():
-	var menu_scene = preload("res://scenes/menus/start_menu/start_menu.tscn")
-	start_menu = menu_scene.instantiate()
-	get_tree().current_scene.add_child(start_menu)
-	start_menu.toggle_menu()  # <-- aquí lo activas
-
-## Libera la memoria del menú de pausa y limpia su referencia del script.
-func cerrar_menu():
-	if start_menu != null:
-		start_menu.queue_free()
-		start_menu = null
+	# ⚠️ Solo para pruebas — quitar o comentar en versión final
+	_agregar_pokemon_prueba()
 
 
-#funcion donde se maneja la fisica en la cual se verifica si el jugador se esta moviendo, si es asi, se llama la funcion actualizar movimiento, de lo contrario llamamos la funcion que maneja la input estando quieto.
-func _physics_process(delta: float) -> void:
-	# ❗ SI HAY DIÁLOGO ACTIVO, NO SE MUEVE
+func _process(_delta: float) -> void:
 	if DialogueManager.activo:
+		return
+
+	# Ahora sí: si presionas "Abrir", alterna abrir/cerrar
+	if Input.is_action_just_pressed("Abrir"):
+		toggle_menu()
+
+
+func _physics_process(delta: float) -> void:
+	if DialogueManager.activo or (start_menu and start_menu.is_open):
 		velocity = Vector2.ZERO
 		return
-	# Si el menú de pausa está interactuando, congela las físicas del personaje
-	if start_menu != null and start_menu.is_open:
-		mostrar_idle(direccion) # opcional
-		return
-	# Máquina de estados física rudimentaria dividida en movimiento y quietud
+
 	if moviendose:
 		actualizar_movimiento(delta)
 	else:
 		manejar_input_quieto(delta)
 
-## Procesa la interpolación lineal (Lerp) de la posición del jugador frame a frame.
-## Controla el fin del ciclo de un paso y analiza inputs encadenados.
-## Procesa la interpolación lineal (Lerp) de la posición del jugador frame a frame.
-func actualizar_movimiento(delta: float):
+
+func _input(event: InputEvent) -> void:
+	# Bloquear todo input si hay diálogo
+	if DialogueManager.activo:
+		if event.is_action_pressed("Interactuar"):
+			DialogueManager.entrada_avanzar()
+			get_viewport().set_input_as_handled()
+		return
+
+	# Teclas de prueba
+	# Teclas de prueba
+	if event is InputEventKey and event.pressed:
+		match event.keycode:
+			KEY_G: SaveBlock.guardar_partida()   # 🌟 Al ir vacío (-1), usará la ranura de la RAM
+			KEY_C: SaveBlock.cargar_partida()    # 🌟 Lo mismo para cargar
+			KEY_T: DialogueManager.mostrar([
+				"¡Bienvenido al mundo Pokémon!",
+				"Estás usando Pokedot-Expansion",
+				"¿Dónde estoy?"
+			])
+			KEY_F5: SaveBlock.guardar_partida()  # 🌟 Corregido
+			KEY_F9: SaveBlock.cargar_partida()   # 🌟 Corregido
+
+
+## Alterna apertura/cierre del menú
+func toggle_menu() -> void:
+	if start_menu:
+		cerrar_menu()
+	else:
+		abrir_menu()
+
+
+func abrir_menu() -> void:
+	start_menu = MENU_ESCENA.instantiate()
+	get_tree().current_scene.add_child(start_menu)
+	start_menu.toggle_menu()
+
+
+func cerrar_menu() -> void:
+	if start_menu:
+		start_menu.queue_free()
+		start_menu = null
+
+
+func actualizar_movimiento(delta: float) -> void:
 	tiempo_paso += delta
-	var t: float = tiempo_paso / duracion_paso
-	t = clamp(t, 0.0, 1.0)
-	
+	var t = clamp(tiempo_paso / duracion_paso, 0.0, 1.0)
 	position = posicion_inicio.lerp(posicion_obj, t)
-	
+
 	if t < 1.0:
 		return
-		
+
+	# Finalizar paso
 	position = posicion_obj
 	moviendose = false
 	puede_encadenar_paso = true
-	
-	#PlayerManager.data.grid_x = int(round(position.x / tile_block))
-	#PlayerManager.data.grid_y = int(round(position.y / tile_block))
-	#PlayerManager.data.direction = direccion
-	
-	# Al emitir esto, el MapManager actualizará las costuras con la posición final perfecta
+
+	# Actualizar datos guardados
+	var casilla = obtener_casilla_actual()
+	PlayerManager.data.grid_position = casilla
+	PlayerManager.data.direction = direccion
+
 	paso_terminado.emit()
-	
-	if not puede_encadenar_paso:
-		mostrar_idle(direccion)
-		return
-		
-	var dir := obtener_direccion_input()
-	if dir != Vector2.ZERO:
-		empezar_paso(dir)
-	else:
-		mostrar_idle(direccion)
-## Controla el comportamiento del personaje cuando está estático en una baldosa.
-func manejar_input_quieto(delta: float):
-	var dir := obtener_direccion_input()
-	# Si no hay entrada de dirección, limpia buffers y mantiene estado Idle
+
+	# Encadenar siguiente paso si se mantiene la tecla
+	if puede_encadenar_paso:
+		var dir = obtener_direccion_input()
+		if dir != Vector2.ZERO:
+			empezar_paso(dir)
+			return
+
+	mostrar_idle(direccion)
+
+
+func manejar_input_quieto(delta: float) -> void:
+	var dir = obtener_direccion_input()
+
 	if dir == Vector2.ZERO:
-		direccion_input = Vector2.ZERO
-		tiempo_input = 0.0
+		_resetar_input()
 		mostrar_idle(direccion)
 		return
-	# Si el input es diferente a donde mira el personaje, ejecuta un giro rápido sin desplazarse
+
 	if dir != direccion:
 		mirar_hacia(dir)
-		direccion_input = dir
-		tiempo_input = 0.0
+		_resetar_input()
 		return
-	# Si cambia de dirección de input de golpe, resetea el temporizador de buffer
+
 	if dir != direccion_input:
 		direccion_input = dir
 		tiempo_input = 0.0
-		
-	# Acumula el tiempo que se mantiene presionada la misma tecla
+
 	tiempo_input += delta
-	
-	# Si supera el umbral de retención, intenta romper la quietud e iniciar la caminata
-	if tiempo_input >= tiempo_para_caminar:
-		if map_manager != null and not map_manager.puede_caminar(position, dir):
-			# Interceptamos con tu función original para que no suene el bump en la rampa
-			if map_manager.has_method("es_rampa") and map_manager.es_rampa(position, dir):
-				empezar_paso(dir)
-				return
-				
-			# Sonido continuo rítmico al quedarse corriendo contra paredes
-			if sfx_bump and not sfx_bump.playing:
-				sfx_bump.play()
-			tiempo_input = 0.0 
-		else:
+	if tiempo_input < tiempo_para_caminar:
+		return
+
+	# Intentar moverse
+	if map_manager and not map_manager.puede_caminar(position, dir):
+		if map_manager.has_method("es_rampa") and map_manager.es_rampa(position, dir):
 			empezar_paso(dir)
-## Inicializa los vectores lógicos de destino para el movimiento lineal o diagonal.
-func empezar_paso(dir: Vector2):
-	# 1. Interceptamos si el destino es una escalera lateral ANTES de evaluar colisiones normales
-	if map_manager != null and map_manager.has_method("obtener_tipo_escalera"):
-		var tipo = map_manager.obtener_tipo_escalera(position, dir)
-		if tipo == "escalera_sube_derecha" or tipo == "escalera_sube_izquierda":
-			ejecutar_paso_escalera(dir, tipo)
 			return
 
-	# 2. Interceptamos si el destino es una rampa (Usando tu función original del MapManager)
-	if map_manager != null and map_manager.has_method("es_rampa"):
-		if map_manager.es_rampa(position, dir):
-			ejecutar_salto_rampa(dir)
-			return
-	# NOTA: Si luego implementas el salto direccional que hablamos, cambias "es_rampa" por "validar_salto_rampa"
+		if sfx_bump and not sfx_bump.playing:
+			sfx_bump.play()
+		tiempo_input = 0.0
+	else:
+		empezar_paso(dir)
 
-	# 3. Validador de colisión estándar para muros ordinarios
-	if map_manager != null and not map_manager.puede_caminar(position, dir):
-		# ¡BUMP! Chocamos de golpe en el primer frame
+
+func empezar_paso(dir: Vector2) -> void:
+	if not map_manager:
+		return
+
+	# Escaleras
+	var tipo_escalera = map_manager.obtener_tipo_escalera(position, dir) if map_manager.has_method("obtener_tipo_escalera") else ""
+	if tipo_escalera in ["escalera_sube_derecha", "escalera_sube_izquierda"]:
+		ejecutar_paso_escalera(dir, tipo_escalera)
+		return
+
+	# Rampas / saltos
+	if map_manager.has_method("es_rampa") and map_manager.es_rampa(position, dir):
+		ejecutar_salto_rampa(dir)
+		return
+
+	# Colisión normal
+	if not map_manager.puede_caminar(position, dir):
 		if sfx_bump and not sfx_bump.playing:
 			sfx_bump.play()
 		mostrar_idle(direccion)
 		return
-	
-	# 4. Flujo normal para suelo plano ordinario libre
+
+	# Movimiento normal
 	direccion = dir
-	direccion_input = dir
-	tiempo_input = 0.0
+	_resetar_input()
 
 	posicion_inicio = position
-	posicion_obj = position + dir * tile_block 
+	posicion_obj = position + dir * tile_block
 	tiempo_paso = 0.0
 	moviendose = true
 
 	reproducir_caminata(dir)
 
-## Ejecuta la rutina especial de salto de repisas.
-## Modifica la lógica física para avanzar 2 baldosas de golpe mientras altera
-## la posición local del Sprite2D de forma parabólica para simular altura.
-## Ejecuta la rutina especial de salto de repisas.
-func ejecutar_salto_rampa(dir: Vector2):
+
+func ejecutar_salto_rampa(dir: Vector2) -> void:
 	moviendose = true
 	direccion = dir
-	tiempo_input = 0.0
+	_resetar_input()
 	posicion_inicio = position
-	
-	# Saltamos 2 casillas de golpe
-	posicion_obj = position + dir * (tile_block * 2) 
+	posicion_obj = position + dir * (tile_block * 2)
 	tiempo_paso = 0.0
-	
-	# 🔥 ¡REPRODUCIR SONIDO DE SALTO AQUÍ!
+
 	if sfx_jump and not sfx_jump.playing:
 		sfx_jump.play()
-	
-	var duracion_original = duracion_paso
-	duracion_paso = 0.40 
-	
+
+	var dur_ant = duracion_paso
+	duracion_paso = 0.4
 	reproducir_caminata(dir)
-	
-	# --- ANIMACIÓN DE ARCO VISUAL (PARÁBOLA) ---
-	var sprite = $Sprite2D 
+
+	# Animación de salto
 	if sprite:
-		var tween_arco = create_tween() 
-		tween_arco.tween_property(sprite, "position:y", -14, duracion_paso / 2.0).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_OUT)
-		tween_arco.tween_property(sprite, "position:y", 0, duracion_paso / 2.0).set_trans(Tween.TRANS_QUAD).set_ease(Tween.EASE_IN)
-		
-	await self.paso_terminado
-	duracion_paso = duracion_original
-## Actualiza la orientación visual del personaje sin alterar su posición por cuadrículas.
-func mirar_hacia(dir: Vector2):
-	direccion = dir
-	mostrar_idle(dir)
-## Determina y reproduce el set de animaciones de desplazamiento cíclico.
-func reproducir_caminata(dir: Vector2):
-	var anim_name := obtener_animacion("walk", dir)
+		var tween = create_tween().set_ease(Tween.EASE_OUT_IN)
+		tween.tween_property(sprite, "position:y", -14, duracion_paso / 2)
+		tween.tween_property(sprite, "position:y", 0, duracion_paso / 2)
 
-	if anim_player.current_animation == anim_name and anim_player.is_playing():
-		return
+	await paso_terminado
+	duracion_paso = dur_ant
 
-	anim_player.speed_scale = velocidad_animacion
-	anim_player.play(anim_name)
-## Pausa la animación en el primer frame de su ciclo para simular una postura estática.
-func mostrar_idle(dir: Vector2):
-	var anim_name := obtener_animacion("walk", dir)
 
-	if anim_player.current_animation != anim_name:
-		anim_player.speed_scale = 1.0
-		anim_player.play(anim_name)
-
-	anim_player.seek(0.0, true) # Salta al frame inicial
-	anim_player.pause() # Congela la reproducción
-## Concatena el tipo de acción y la dirección para construir el nombre del nodo de animación exacto.
-func obtener_animacion(tipo: String, dir: Vector2) -> String:
-	return tipo + "_" + String(dir_to_anim[dir])
-## Escucha los mapeos de entrada del proyecto para retornar vectores unitarios limpios.
-func obtener_direccion_input() -> Vector2:
-	if Input.is_action_pressed("Up"):
-		return Vector2.UP
-	elif Input.is_action_pressed("Down"):
-		return Vector2.DOWN
-	elif Input.is_action_pressed("Left"):
-		return Vector2.LEFT
-	elif Input.is_action_pressed("Right"):
-		return Vector2.RIGHT
-
-	return Vector2.ZERO
-## Desactiva el flag de encadenamiento para interrumpir movimientos continuos automatizados.
-func cancelar_encadenado():
-	puede_encadenar_paso = false
-
-## Ejecuta la rutina especial de caminata en escaleras laterales.
-## Mueve al jugador horizontalmente en la cuadrícula mientras altera la Y local
-## del Sprite2D con un Tween para simular el ascenso o descenso diagonal.
-## Ejecuta la rutina especial de caminata en escaleras laterales.
-## Mueve al jugador de forma diagonal real por la cuadrícula (X e Y cambian juntos).
-## Desactiva temporalmente las capas físicas para evitar que los muros colindantes traben el eje Y.
-func ejecutar_paso_escalera(dir: Vector2, tipo_escalera: String):
+func ejecutar_paso_escalera(dir: Vector2, tipo: String) -> void:
 	moviendose = true
 	direccion = dir
-	tiempo_input = 0.0
+	_resetar_input()
 	posicion_inicio = position
-	
-	# 1. Determinamos el vector diagonal real (X e Y cambian a la vez)
-	var dir_diagonal = dir
-	if tipo_escalera == "escalera_sube_derecha":
-		if dir == Vector2.RIGHT: dir_diagonal = Vector2(1, -1)  # Sube derecha
-		if dir == Vector2.LEFT:  dir_diagonal = Vector2(-1, 1)  # Baja izquierda
-	elif tipo_escalera == "escalera_sube_izquierda":
-		if dir == Vector2.LEFT:  dir_diagonal = Vector2(-1, -1) # Sube izquierda
-		if dir == Vector2.RIGHT: dir_diagonal = Vector2(1, 1)   # Baja derecha
-	
-	# El cuerpo calcula su destino diagonal real en píxeles
-	posicion_obj = position + dir_diagonal * tile_block
+
+	var dir_diag = dir
+	match tipo:
+		"escalera_sube_derecha":
+			dir_diag = Vector2(1, -1) if dir == Vector2.RIGHT else Vector2(-1, 1)
+		"escalera_sube_izquierda":
+			dir_diag = Vector2(-1, -1) if dir == Vector2.LEFT else Vector2(1, 1)
+
+	posicion_obj = position + dir_diag * tile_block
 	tiempo_paso = 0.0
-	
-	# 2. Desactivamos colisiones físicas antes de movernos para que los muros no frenen la Y
-	var capa_original = collision_layer
-	var mascara_original = collision_mask
+
+	# Desactivar colisiones temporalmente
+	var capas_ant = collision_layer
+	var masc_ant = collision_mask
 	collision_layer = 0
 	collision_mask = 0
-	
+
 	reproducir_caminata(dir)
-	
-	# 3. Esperamos a que el proceso nativo de actualizar_movimiento (el Lerp) complete el viaje
-	await self.paso_terminado
-	
-	# 4. Al llegar a la meta, restauramos las capas físicas originales de inmediato
-	collision_layer = capa_original
-	collision_mask = mascara_original
+	await paso_terminado
 
-func _input(event: InputEvent) -> void:
-	# PRIMERO: Si hay diálogo activo, solo procesamos su avance
-	if DialogueManager.activo:
-		if event.is_action_pressed("Interactuar"):
-			DialogueManager.entrada_avanzar()
-			# IMPORTANTE: detener el resto de controles
-			get_viewport().set_input_as_handled()
+	collision_layer = capas_ant
+	collision_mask = masc_ant
+
+
+func mirar_hacia(dir: Vector2) -> void:
+	direccion = dir
+	mostrar_idle(dir)
+
+
+func reproducir_caminata(dir: Vector2) -> void:
+	var anim = _obtener_nombre_anim("walk", dir)
+	if anim_player.current_animation == anim and anim_player.is_playing():
 		return
+	anim_player.speed_scale = velocidad_animacion
+	anim_player.play(anim)
 
-	if event is InputEventKey and event.pressed and event.keycode == KEY_T:
-		DialogueManager.mostrar([
-			"¡Bienvenido al mundo Pokémon!",
-			"Estas usando Pokedot-Expansion",
-            "Dónde estoy?"
-		])
-	if event is InputEventKey and event.pressed:
-		# Las teclas de guardado/carga que ya se tiene
-		if event.keycode == KEY_F5:
-			SaveBlock.guardar_partida(1)
-		elif event.keycode == KEY_F9:
-			SaveBlock.cargar_partida(1)
+
+func mostrar_idle(dir: Vector2) -> void:
+	var anim = _obtener_nombre_anim("walk", dir)
+	if anim_player.current_animation != anim:
+		anim_player.speed_scale = 1.0
+		anim_player.play(anim)
+	anim_player.seek(0.0, true)
+	anim_player.pause()
+
+
+func obtener_direccion_input() -> Vector2:
+	if Input.is_action_pressed("Up"): return Vector2.UP
+	if Input.is_action_pressed("Down"): return Vector2.DOWN
+	if Input.is_action_pressed("Left"): return Vector2.LEFT
+	if Input.is_action_pressed("Right"): return Vector2.RIGHT
+	return Vector2.ZERO
+
+
+func cancelar_encadenado() -> void:
+	puede_encadenar_paso = false
+
+
+func aplicar_datos_guardados() -> void:
+	var casilla = PlayerManager.data.grid_position
+	posicionar_en_casilla(casilla.x, casilla.y)
+	direccion = PlayerManager.data.direction
+	posicion_obj = position
+	mostrar_idle(direccion)
+	print("✅ Posición cargada:", casilla, " | Dirección:", direccion)
+
+
+## --- Funciones auxiliares ---
+
+func posicionar_en_casilla(x: int, y: int) -> void:
+	position = Vector2(x * tile_block + 8, y * tile_block + 16)
+
+
+func obtener_casilla_actual() -> Vector2i:
+	var x = int(round((position.x - 8) / tile_block))
+	var y = int(round((position.y - 16) / tile_block))
+	return Vector2i(x, y)
+
+
+func _resetar_input() -> void:
+	direccion_input = Vector2.ZERO
+	tiempo_input = 0.0
+
+
+func _obtener_nombre_anim(tipo: String, dir: Vector2) -> String:
+	return tipo + "_" + DIR_TO_ANIM[dir]
+
+
+func _agregar_pokemon_prueba() -> void:
+	var p = Pokemon.new()
+	p.setup_new_pokemon(Species.SpeciesId.SPECIES_BULBASAUR, 10)
+	if PlayerManager.data.party.is_empty():
+		PlayerManager.data.party.append(p)
+		print("✅ Pokémon de prueba agregado")

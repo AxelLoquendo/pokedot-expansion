@@ -8,6 +8,7 @@ class_name Pokemon
 var level: int = 5
 var experience: int = 0
 
+# ✅ IVs (Valores Individuales)
 var iv_hp: int = 0
 var iv_attack: int = 0
 var iv_defense: int = 0
@@ -15,11 +16,26 @@ var iv_speed: int = 0
 var iv_sp_attack: int = 0
 var iv_sp_defense: int = 0
 
+# ✅ EVs (Valores de Esfuerzo)
+var ev_hp: int = 0
+var ev_attack: int = 0
+var ev_defense: int = 0
+var ev_speed: int = 0
+var ev_sp_attack: int = 0
+var ev_sp_defense: int = 0
+
 var nature: PokemonData.Nature = PokemonData.Nature.NATURE_SERIOUS
 
+# ✅ Datos de estado y vida
 var current_hp: int = 0
+var max_hp: int = 0
+var status_condition: int = 0
 
-# 🔹 También ajustamos movimientos a tus IDs, para no guardar estructuras completas
+# ✅ Lo que faltaba ahora: Apodo y género
+var nickname: String = ""   # Apodo, por defecto vacío
+var gender: int = 0         # 0 = Sin definir, 1 = Macho, 2 = Hembra
+
+# 🔹 Movimientos por ID
 var moves: Array[Moves.MoveId] = []
 
 
@@ -47,71 +63,82 @@ func get_base_data() -> PokemonDataStruct:
 # Calcula los PS máximos
 func get_max_hp() -> int:
 	var base = get_base_data().base_hp
-	# Fórmula especial para PS
 	@warning_ignore("integer_division")
-	return ((2 * base + iv_hp) * level) / 100 + level + 10
+	return ((2 * base + iv_hp + ev_hp / 4) * level) / 100 + level + 10
 
-# Calcula cualquier estadística de daño/defensa/velocidad
+# Calcula cualquier estadística
 func get_stat(stat_type: String) -> int:
 	var datos = get_base_data()
 	var base = 0
 	var iv = 0
+	var ev = 0
 
-	# Seleccionamos los valores según la estadística
 	match stat_type:
 		"attack":
 			base = datos.base_attack
 			iv = iv_attack
+			ev = ev_attack
 		"defense":
 			base = datos.base_defense
 			iv = iv_defense
+			ev = ev_defense
 		"sp_attack":
 			base = datos.base_sp_attack
 			iv = iv_sp_attack
+			ev = ev_sp_attack
 		"sp_defense":
 			base = datos.base_sp_defense
 			iv = iv_sp_defense
+			ev = ev_sp_defense
 		"speed":
 			base = datos.base_speed
 			iv = iv_speed
+			ev = ev_speed
 		_:
 			return 0
 
-	# Fórmula estándar para el resto de estadísticas
-	var valor = ((2 * base + iv) * level) / 100 + 5
-
-	# Aplicamos el modificador de la naturaleza
+	var valor = ((2 * base + iv + ev / 4) * level) / 100 + 5
 	valor = apply_nature_modifier(valor, stat_type)
-
 	return int(valor)
 
-# Aplica el efecto de la naturaleza
+# Aplica naturaleza
 func apply_nature_modifier(valor: int, stat_type: String) -> float:
-	# Ejemplo: si la naturaleza sube Ataque y baja Defensa
 	match nature:
 		PokemonData.Nature.NATURE_HARDY: return valor * 1.0
-		@warning_ignore("incompatible_ternary")
 		PokemonData.Nature.NATURE_LONELY: return valor * 1.1 if stat_type == "attack" else valor * 0.9 if stat_type == "defense" else valor
-		@warning_ignore("incompatible_ternary")
 		PokemonData.Nature.NATURE_BRAVE: return valor * 1.1 if stat_type == "attack" else valor * 0.9 if stat_type == "speed" else valor
-		@warning_ignore("incompatible_ternary")
 		PokemonData.Nature.NATURE_ADAMANT: return valor * 1.1 if stat_type == "attack" else valor * 0.9 if stat_type == "sp_attack" else valor
-		@warning_ignore("incompatible_ternary")
 		PokemonData.Nature.NATURE_NAUGHTY: return valor * 1.1 if stat_type == "attack" else valor * 0.9 if stat_type == "sp_defense" else valor
-		# ... puedes agregar el resto de naturalezas igual
 		_: return valor * 1.0
 
 func setup_new_pokemon(species: Species.SpeciesId, lvl: int = 5) -> void:
 	species_id = species
 	level = lvl
-	# Generamos IVs aleatorios (0-31)
+
+	# IVs aleatorios
 	iv_hp = randi_range(0, 31)
 	iv_attack = randi_range(0, 31)
 	iv_defense = randi_range(0, 31)
 	iv_speed = randi_range(0, 31)
 	iv_sp_attack = randi_range(0, 31)
 	iv_sp_defense = randi_range(0, 31)
+
+	# EVs en 0
+	ev_hp = 0
+	ev_attack = 0
+	ev_defense = 0
+	ev_speed = 0
+	ev_sp_attack = 0
+	ev_sp_defense = 0
+
 	# Naturaleza aleatoria
 	nature = PokemonData.Nature.values()[randi() % PokemonData.Nature.size()]
-	# PS al máximo al nacer
+
+	# ✅ Inicializamos apodo y género
+	nickname = "" # Por defecto sin apodo
+	gender = 0    # Por defecto sin definir
+
+	# Vida
+	max_hp = get_max_hp()
 	current_hp = get_max_hp()
+	status_condition = 0

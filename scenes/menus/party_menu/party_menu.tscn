@@ -7,10 +7,16 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_8x2vo"]
 font = ExtResource("3_wmpox")
+shadow_size = 0
+shadow_color = Color(0.21806103, 0.21806103, 0.21806103, 0.69411767)
+shadow_offset = Vector2(0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_wmpox"]
 line_spacing = 1.0
 font = ExtResource("3_wmpox")
+shadow_size = 0
+shadow_color = Color(0.21960784, 0.21960784, 0.21960784, 0.69411767)
+shadow_offset = Vector2(0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_htemk"]
 
@@ -19,6 +25,9 @@ bg_color = Color(1, 1, 1, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_htemk"]
 font = ExtResource("3_wmpox")
+shadow_size = 0
+shadow_color = Color(0.21960784, 0.21960784, 0.21960784, 0.69411767)
+shadow_offset = Vector2(0, 1)
 
 [node name="PartyMenu" type="CanvasLayer" unique_id=1150288089]
 script = ExtResource("1_8x2vo")

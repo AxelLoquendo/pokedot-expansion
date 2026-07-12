@@ -22,3 +22,9 @@ enum RegionId {
 	REGION_GALAR,
 	REGION_PALDEA,
 }
+
+const SECTION_TO_SCENE: Dictionary = {
+	SectionID.MAPSEC_PRADO_NATAL: "res://data_core/maps/prado_natal/prado_natal.tscn",
+	SectionID.MAPSEC_PUEBLO_ALBA: "res://data_core/maps/pueblo_alba/pueblo_alba.tscn",
+	# Agrega aquí todos tus mapas para enlazarlos con sus IDs
+}

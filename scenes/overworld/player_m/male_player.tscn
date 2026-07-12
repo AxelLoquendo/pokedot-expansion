@@ -173,7 +173,7 @@ _data = {
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_ms5te"]
 size = Vector2(101.28125, 100)
 
-[node name="Player_Masculino" type="CharacterBody2D" unique_id=1389605429]
+[node name="Player_Masculino" type="CharacterBody2D" unique_id=1389605429 groups=["jugador"]]
 z_index = 2
 script = ExtResource("1_ms5te")
 

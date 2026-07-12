@@ -47,23 +47,23 @@ var _editor_neighbors_container: Node2D = null
 var _necesita_actualizar: bool = false
 
 
-func _ready():
-	TimeManager.activar()
+func _ready() -> void:
+	if _es_vista_previa:
+		process_mode = Node.PROCESS_MODE_DISABLED # Asegura que no ejecute código
+		return
+
 	if not Engine.is_editor_hint():
 		var collision = behaviours.get_node_or_null("Collision") as TileMapLayer
 		if collision:
 			collision.visible = false
+		
+		if TimeManager.has_method("activar"):
+			TimeManager.activar()
 		return
 
-	# 🚫 Si es solo vista previa, DETENEMOS aquí: no creamos nada más
-	if _es_vista_previa:
-		return
-
-	# Solo el mapa PRINCIPAL sigue con su configuración
 	if not _editor_neighbors_container:
 		_editor_neighbors_container = Node2D.new()
 		_editor_neighbors_container.name = "EditorNeighbors"
-		_editor_neighbors_container.set_owner(null)
 		add_child(_editor_neighbors_container)
 
 		if attributes:
@@ -71,20 +71,6 @@ func _ready():
 				attributes.changed.connect(_actualizar_vista)
 
 	_actualizar_vista()
-
-	if not _es_vista_previa:
-		_editor_neighbors_container = Node2D.new()
-		_editor_neighbors_container.name = "EditorNeighbors"
-		_editor_neighbors_container.set_owner(null)
-		add_child(_editor_neighbors_container)
-
-		# Conectamos también al inicio, comprobando que no esté ya conectada
-		if attributes:
-			if not attributes.changed.is_connected(_actualizar_vista):
-				attributes.changed.connect(_actualizar_vista)
-
-	_actualizar_vista()
-
 
 # Solo en editor: procesamos actualizaciones pendientes
 @warning_ignore("unused_parameter")

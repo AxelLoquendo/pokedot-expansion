@@ -7,7 +7,9 @@
 
 [sub_resource type="LabelSettings" id="LabelSettings_htemk"]
 font = ExtResource("3_acvub")
-shadow_color = Color(0, 0, 0, 0.78431374)
+shadow_size = 0
+shadow_color = Color(0.22670749, 0.22670749, 0.22670746, 0.7137255)
+shadow_offset = Vector2(0, 1)
 
 [node name="PantallaTitulo" type="Node2D" unique_id=32127036]
 script = ExtResource("1_m7ptb")

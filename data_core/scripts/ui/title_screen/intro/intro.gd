@@ -41,9 +41,8 @@ func _iniciar_secuencia() -> void:
 
 func _input(event: InputEvent) -> void:
 	if not _activo: return
-	if event is InputEventKey or event is InputEventMouseButton:
-		if event.is_pressed():
-			_tween.kill()
+
+	if event.is_action_pressed("Abrir"):
 			_ir_a_titulo()
 
 

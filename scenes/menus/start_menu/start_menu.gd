@@ -93,6 +93,8 @@ func actualizar_brillo_botones():
 
 # --- CONTROL MANUAL DE DESPLAZAMIENTO ---
 func _unhandled_input(event):
+	if DialogueManager and DialogueManager.activo:
+		return
 	if not is_open:
 		return
 		

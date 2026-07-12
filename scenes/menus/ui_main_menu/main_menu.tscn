@@ -1,0 +1,98 @@
+[gd_scene format=3 uid="uid://qmhkh6a2kg0d"]
+
+[ext_resource type="Texture2D" uid="uid://cd615t631fccx" path="res://grafics/ui/ui_main_menu/scroll_bg.png" id="1_dywjs"]
+[ext_resource type="Script" uid="uid://c2183qr87cki3" path="res://data_core/scripts/ui/ui_main_menu/main_menu.gd" id="1_xynwl"]
+[ext_resource type="Texture2D" uid="uid://b20043xggqaxs" path="res://grafics/ui/ui_main_menu/continue.png" id="2_xynwl"]
+[ext_resource type="FontFile" uid="uid://b1kovm1rv2n1q" path="res://pokemon-emerald-pro.ttf" id="3_jbde8"]
+[ext_resource type="Texture2D" uid="uid://bw2luq0uyocaa" path="res://grafics/ui/ui_main_menu/new_game.png" id="4_14108"]
+[ext_resource type="Texture2D" uid="uid://bojer5wjwkina" path="res://grafics/ui/ui_main_menu/option.png" id="5_dwmlq"]
+[ext_resource type="Texture2D" uid="uid://be3o0jhx74w2e" path="res://grafics/ui/ui_main_menu/brendan_mugshot.png" id="7_14108"]
+[ext_resource type="AudioStream" uid="uid://dt7x3844jvy5r" path="res://sfx/se/Tile Game cursor.ogg" id="7_jbde8"]
+
+[sub_resource type="LabelSettings" id="LabelSettings_htemk"]
+font = ExtResource("3_jbde8")
+shadow_size = 0
+shadow_color = Color(0, 0, 0, 0.5803922)
+shadow_offset = Vector2(0, 1)
+
+[node name="Main_Menu" type="Node2D" unique_id=1194331671]
+script = ExtResource("1_xynwl")
+
+[node name="Fondo" type="TextureRect" parent="." unique_id=517015758]
+texture = ExtResource("1_dywjs")
+
+[node name="Continue" type="TextureButton" parent="." unique_id=1012112843]
+offset_left = 7.0
+offset_top = 8.0
+offset_right = 233.0
+offset_bottom = 90.0
+texture_normal = ExtResource("2_xynwl")
+
+[node name="Tiempo" type="Label" parent="Continue" unique_id=1064938691]
+layout_mode = 0
+offset_left = 173.0
+offset_top = 2.0
+offset_right = 214.0
+offset_bottom = 16.0
+text = "000:00"
+label_settings = SubResource("LabelSettings_htemk")
+
+[node name="Mapa" type="Label" parent="Continue" unique_id=663310138]
+layout_mode = 0
+offset_left = 73.0
+offset_top = 2.0
+offset_right = 114.0
+offset_bottom = 16.0
+text = "Prado Natal"
+label_settings = SubResource("LabelSettings_htemk")
+
+[node name="Nombre" type="Label" parent="Continue" unique_id=1134673755]
+layout_mode = 0
+offset_left = 73.0
+offset_top = 24.0
+offset_right = 121.0
+offset_bottom = 40.0
+text = "Jugador"
+label_settings = SubResource("LabelSettings_htemk")
+
+[node name="Pokedex" type="Label" parent="Continue" unique_id=1678522288]
+layout_mode = 0
+offset_left = 73.0
+offset_top = 40.0
+offset_right = 121.0
+offset_bottom = 56.0
+text = "Dex 1025"
+label_settings = SubResource("LabelSettings_htemk")
+
+[node name="Medallas" type="Label" parent="Continue" unique_id=837160908]
+layout_mode = 0
+offset_left = 73.0
+offset_top = 56.0
+offset_right = 114.0
+offset_bottom = 72.0
+text = "Badges 8"
+label_settings = SubResource("LabelSettings_htemk")
+
+[node name="Sprite2D" type="Sprite2D" parent="Continue" unique_id=1196674459]
+position = Vector2(41, 49)
+texture = ExtResource("7_14108")
+
+[node name="New_Game" type="TextureButton" parent="." unique_id=769083781]
+offset_left = 7.0
+offset_top = 103.0
+offset_right = 113.0
+offset_bottom = 143.0
+texture_normal = ExtResource("4_14108")
+
+[node name="Option" type="TextureButton" parent="." unique_id=1781508188]
+offset_left = 127.0
+offset_top = 103.0
+offset_right = 233.0
+offset_bottom = 143.0
+texture_normal = ExtResource("5_dwmlq")
+
+[node name="SFX_Mover" type="AudioStreamPlayer" parent="." unique_id=607072775]
+stream = ExtResource("7_jbde8")
+
+[node name="SFX_Aceptar" type="AudioStreamPlayer" parent="." unique_id=1822137448]
+stream = ExtResource("7_jbde8")
