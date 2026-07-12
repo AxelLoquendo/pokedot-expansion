@@ -2,11 +2,11 @@
 
 [ext_resource type="Script" uid="uid://clfgmedrpdd37" path="res://data_core/scripts/pokemon_data/evolution_data.gd" id="1_ei16m"]
 [ext_resource type="Script" uid="uid://vyxwui8imdil" path="res://data_core/scripts/pokemon_data/pokemon.gd" id="1_iytac"]
-[ext_resource type="Texture2D" uid="uid://dore3eqgbkhd" path="res://grafics/pokemon/bulbasaur/back.png" id="1_kq8fr"]
-[ext_resource type="Texture2D" uid="uid://cyhkxfxux02ul" path="res://grafics/pokemon/bulbasaur/back_shiny.png" id="2_lsu6i"]
-[ext_resource type="Texture2D" uid="uid://bfkixxba6onoy" path="res://grafics/pokemon/bulbasaur/front.png" id="4_tq1jm"]
-[ext_resource type="Texture2D" uid="uid://bljuq5nspqu13" path="res://grafics/pokemon/bulbasaur/front_shiny.png" id="5_lsu6i"]
-[ext_resource type="Texture2D" uid="uid://dilf2pixxiya6" path="res://grafics/pokemon/bulbasaur/icon.png" id="5_scxwj"]
+[ext_resource type="Texture2D" uid="uid://dore3eqgbkhd" path="res://graphics/pokemon/bulbasaur/back.png" id="1_kq8fr"]
+[ext_resource type="Texture2D" uid="uid://cyhkxfxux02ul" path="res://graphics/pokemon/bulbasaur/back_shiny.png" id="2_lsu6i"]
+[ext_resource type="Texture2D" uid="uid://bfkixxba6onoy" path="res://graphics/pokemon/bulbasaur/front.png" id="4_tq1jm"]
+[ext_resource type="Texture2D" uid="uid://bljuq5nspqu13" path="res://graphics/pokemon/bulbasaur/front_shiny.png" id="5_lsu6i"]
+[ext_resource type="Texture2D" uid="uid://dilf2pixxiya6" path="res://graphics/pokemon/bulbasaur/icon.png" id="5_scxwj"]
 [ext_resource type="Script" uid="uid://dhubhjxgas81t" path="res://data_core/scripts/pokemon_data/learnset_pkmn.gd" id="7_6vjth"]
 
 [sub_resource type="Resource" id="Resource_cmqws"]

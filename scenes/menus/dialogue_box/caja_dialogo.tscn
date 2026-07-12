@@ -1,6 +1,6 @@
 [gd_scene format=3 uid="uid://bjdm83pbn8din"]
 
-[ext_resource type="Texture2D" uid="uid://1mmmguq3ipn8" path="res://grafics/ui/dialogue_box/box_normal.png" id="1_0bhke"]
+[ext_resource type="Texture2D" uid="uid://1mmmguq3ipn8" path="res://graphics/ui/dialogue_box/box_normal.png" id="1_0bhke"]
 [ext_resource type="FontFile" uid="uid://b1kovm1rv2n1q" path="res://pokemon-emerald-pro.ttf" id="2_j6b6m"]
 
 [sub_resource type="FontVariation" id="FontVariation_14cdr"]

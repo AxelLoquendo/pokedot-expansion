@@ -1,7 +1,7 @@
 [gd_scene format=3 uid="uid://cphbrwuhiy575"]
 
 [ext_resource type="Script" uid="uid://bhifsj8rni7jf" path="res://data_core/scripts/ui/title_screen/pantalla_titulo.gd" id="1_m7ptb"]
-[ext_resource type="Texture2D" uid="uid://bhiqd4jkf3yfp" path="res://grafics/title_screen/Title_screen.png" id="2_ci00r"]
+[ext_resource type="Texture2D" uid="uid://bhiqd4jkf3yfp" path="res://graphics/title_screen/Title_screen.png" id="2_ci00r"]
 [ext_resource type="FontFile" uid="uid://b1kovm1rv2n1q" path="res://pokemon-emerald-pro.ttf" id="3_acvub"]
 [ext_resource type="AudioStream" uid="uid://ci4mdb332ag12" path="res://sfx/bgm/Title.ogg" id="4_dhlyh"]
 

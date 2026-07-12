@@ -1,11 +1,11 @@
 [gd_scene format=4 uid="uid://dscu4utur6muj"]
 
-[ext_resource type="Texture2D" uid="uid://cuvvrapqd02ye" path="res://grafics/tileset/general/natural_tilesheet.png" id="1_3smde"]
+[ext_resource type="Texture2D" uid="uid://cuvvrapqd02ye" path="res://graphics/tileset/general/natural_tilesheet.png" id="1_3smde"]
 [ext_resource type="Script" uid="uid://b02jhnbhygygi" path="res://data_core/scripts/map_data/map_attributes.gd" id="2_d7bva"]
 [ext_resource type="Script" uid="uid://dkrma7kprvkji" path="res://data_core/scripts/map_data/map.gd" id="3_1q2cd"]
 [ext_resource type="Script" uid="uid://wsfq4u136fy5" path="res://data_core/scripts/map_data/map_connection.gd" id="3_l62fx"]
 [ext_resource type="Script" uid="uid://c7wnb5yw4gpi6" path="res://data_core/scripts/map_data/border.gd" id="5_hyjrd"]
-[ext_resource type="Texture2D" uid="uid://dw1bu1k7yeiw0" path="res://grafics/tileset/collisions/collisions.png" id="6_l62fx"]
+[ext_resource type="Texture2D" uid="uid://dw1bu1k7yeiw0" path="res://graphics/tileset/collisions/collisions.png" id="6_l62fx"]
 
 [sub_resource type="Resource" id="Resource_q053o"]
 script = ExtResource("3_l62fx")

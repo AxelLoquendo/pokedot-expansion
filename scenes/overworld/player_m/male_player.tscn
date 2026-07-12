@@ -2,8 +2,8 @@
 
 [ext_resource type="Script" uid="uid://dxqp3xbso5i0g" path="res://data_core/scripts/overworlds/player_m/male_player.gd" id="1_ms5te"]
 [ext_resource type="AudioStream" uid="uid://cua7wek8ybp22" path="res://sfx/se/Player bump.ogg" id="2_36uvm"]
-[ext_resource type="Texture2D" uid="uid://bjiod2y31u8bt" path="res://grafics/overworlds/player_m/shadow_m.png" id="2_ahld2"]
-[ext_resource type="Texture2D" uid="uid://jdpwr4pgas5q" path="res://grafics/overworlds/player_m/male_player.png" id="2_ks2gj"]
+[ext_resource type="Texture2D" uid="uid://bjiod2y31u8bt" path="res://graphics/overworlds/player_m/shadow_m.png" id="2_ahld2"]
+[ext_resource type="Texture2D" uid="uid://jdpwr4pgas5q" path="res://graphics/overworlds/player_m/male_player.png" id="2_ks2gj"]
 [ext_resource type="AudioStream" uid="uid://buuie1te0s8mx" path="res://sfx/se/Player jump.ogg" id="3_igec0"]
 
 [sub_resource type="Animation" id="Animation_36uvm"]

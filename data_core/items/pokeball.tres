@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="ItemData" format=3 uid="uid://drfqp4bwaglv3"]
 
 [ext_resource type="Script" uid="uid://dbbm2j73223gd" path="res://data_core/scripts/pokemon_data/items_data.gd" id="1_rs0vy"]
-[ext_resource type="Texture2D" uid="uid://dygm3ebbftv4b" path="res://grafics/items/pokeball.png" id="1_y87uc"]
+[ext_resource type="Texture2D" uid="uid://dygm3ebbftv4b" path="res://graphics/items/pokeball.png" id="1_y87uc"]
 
 [resource]
 script = ExtResource("1_rs0vy")

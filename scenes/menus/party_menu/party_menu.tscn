@@ -1,8 +1,8 @@
 [gd_scene format=3 uid="uid://dqc7t5xijbc3u"]
 
 [ext_resource type="Script" uid="uid://ssynjcmqv770" path="res://scenes/menus/party_menu/party_menu.gd" id="1_8x2vo"]
-[ext_resource type="Texture2D" uid="uid://b4sv5ibixeow3" path="res://grafics/ui/party_menu/background.png" id="2_wmpox"]
-[ext_resource type="Texture2D" uid="uid://bx7luu1rsaynm" path="res://grafics/ui/party_menu/box_primary.png" id="3_8x2vo"]
+[ext_resource type="Texture2D" uid="uid://b4sv5ibixeow3" path="res://graphics/ui/party_menu/background.png" id="2_wmpox"]
+[ext_resource type="Texture2D" uid="uid://bx7luu1rsaynm" path="res://graphics/ui/party_menu/box_primary.png" id="3_8x2vo"]
 [ext_resource type="FontFile" uid="uid://b1kovm1rv2n1q" path="res://pokemon-emerald-pro.ttf" id="3_wmpox"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_8x2vo"]

@@ -1,11 +1,11 @@
 [gd_scene format=3 uid="uid://dwu477lnkhl6w"]
 
-[ext_resource type="Script" uid="uid://cmqumoy663xqo" path="res://data/scripts/debug/Visuallizer_Pokemon.gd" id="1_f7ekv"]
-[ext_resource type="Resource" uid="uid://bi6shfukslf2n" path="res://data/pokemon/gen1/bulbasaur.tres" id="2_is43h"]
-[ext_resource type="Texture2D" uid="uid://bi4yc3ecgq00l" path="res://grafics/debug/debug_background.png" id="2_jqs34"]
-[ext_resource type="Texture2D" uid="uid://bfkixxba6onoy" path="res://grafics/pokemon/bulbasaur/front.png" id="4_erqjm"]
-[ext_resource type="Texture2D" uid="uid://dore3eqgbkhd" path="res://grafics/pokemon/bulbasaur/back.png" id="5_6ok8e"]
-[ext_resource type="Texture2D" uid="uid://dilf2pixxiya6" path="res://grafics/pokemon/bulbasaur/icon.png" id="6_n3bih"]
+[ext_resource type="Script" uid="uid://cmqumoy663xqo" path="res://data_core/scripts/debug/visuallizer_pokemon.gd" id="1_f7ekv"]
+[ext_resource type="Resource" uid="uid://bi6shfukslf2n" path="res://data_core/pokemon/gen1/bulbasaur.tres" id="2_is43h"]
+[ext_resource type="Texture2D" uid="uid://bi4yc3ecgq00l" path="res://graphics/debug/debug_background.png" id="2_jqs34"]
+[ext_resource type="Texture2D" uid="uid://bfkixxba6onoy" path="res://graphics/pokemon/bulbasaur/front.png" id="4_erqjm"]
+[ext_resource type="Texture2D" uid="uid://dore3eqgbkhd" path="res://graphics/pokemon/bulbasaur/back.png" id="5_6ok8e"]
+[ext_resource type="Texture2D" uid="uid://dilf2pixxiya6" path="res://graphics/pokemon/bulbasaur/icon.png" id="6_n3bih"]
 [ext_resource type="FontFile" uid="uid://b1kovm1rv2n1q" path="res://pokemon-emerald-pro.ttf" id="8_erqjm"]
 
 [sub_resource type="LabelSettings" id="LabelSettings_7khe0"]
