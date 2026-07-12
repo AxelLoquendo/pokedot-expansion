@@ -1,92 +1,205 @@
 [gd_scene format=3 uid="uid://chhe7vvlyqivg"]
 
 [ext_resource type="Script" uid="uid://dfwcmlw66nmxs" path="res://scenes/battlefield/battlefield.gd" id="1_n2w7h"]
-[ext_resource type="Texture2D" uid="uid://dore3eqgbkhd" path="res://grafics/pokemon/bulbasaur/back.png" id="1_opvdi"]
-[ext_resource type="Texture2D" uid="uid://bfkixxba6onoy" path="res://grafics/pokemon/bulbasaur/front.png" id="2_n2w7h"]
+[ext_resource type="Texture2D" uid="uid://bt2vm7phoj6gj" path="res://grafics/battle_back/forest_bg.png" id="2_mhs4e"]
+[ext_resource type="Texture2D" uid="uid://b0s2glffhuxqo" path="res://grafics/battle_back/forest_base1.png" id="3_siwgj"]
+[ext_resource type="Texture2D" uid="uid://cx63nbc3jbe57" path="res://grafics/ui/battle/databox_normal_foe.png" id="3_stskl"]
+[ext_resource type="Texture2D" uid="uid://dgih4rd7ey24t" path="res://grafics/battle_back/forest_base0.png" id="4_56ovr"]
+[ext_resource type="Texture2D" uid="uid://b5u37u4gbj626" path="res://grafics/ui/battle/databox_normal.png" id="4_b6xkt"]
 [ext_resource type="FontFile" uid="uid://b1kovm1rv2n1q" path="res://pokemon-emerald-pro.ttf" id="4_tvsma"]
+[ext_resource type="Texture2D" uid="uid://bmd6exyy64hn5" path="res://grafics/ui/battle/BV1dOps.png" id="5_7nanj"]
+[ext_resource type="Texture2D" uid="uid://b7r5k7rgjpx4l" path="res://grafics/pokemon/gen3/charizard.png" id="6_stskl"]
+[ext_resource type="Texture2D" uid="uid://bkcusqjyu6oct" path="res://grafics/pokemon/gen3_back/pidgeotto.png" id="7_4ok02"]
+[ext_resource type="Texture2D" uid="uid://bisr46f4jxs2j" path="res://grafics/ui/battle/overlay_fight.png" id="8_4ok02"]
+[ext_resource type="Texture2D" uid="uid://b2xmhss23l26e" path="res://grafics/ui/battle/cursor_command.png" id="12_56ovr"]
+[ext_resource type="Texture2D" uid="uid://dilfn18sbnfoq" path="res://grafics/ui/battle/overlay_message.png" id="12_upguu"]
+[ext_resource type="Texture2D" uid="uid://b568aqofayx5c" path="res://grafics/ui/battle/ability_bar.png" id="13_siwgj"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ahrt7"]
+bg_color = Color(0.4509804, 1, 0.6784314, 1)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8hrwj"]
+texture = ExtResource("12_56ovr")
+texture_margin_left = 5.0
+
+[sub_resource type="Theme" id="Theme_sbqex"]
+Button/colors/font_color = Color(0.19219694, 0.19219697, 0.19219697, 1)
+Button/colors/font_focus_color = Color(0.19215687, 0.19215687, 0.19215687, 1)
+Button/colors/font_hover_color = Color(0.19215687, 0.19215687, 0.19215687, 1)
+Button/styles/hover = SubResource("StyleBoxTexture_8hrwj")
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ok02"]
+content_margin_left = 10.0
+bg_color = Color(0.6, 0.6, 0.6, 0)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_4ok02"]
+atlas = ExtResource("12_upguu")
 
 [node name="Battlefield" type="Node2D" unique_id=98054996]
 script = ExtResource("1_n2w7h")
 
-[node name="PlayerPokemon" type="Sprite2D" parent="." unique_id=1952873216]
-position = Vector2(47, 91)
-texture = ExtResource("1_opvdi")
+[node name="ForestBg" type="Sprite2D" parent="." unique_id=203537329]
+position = Vector2(119.799995, 79.7)
+scale = Vector2(0.46953127, 0.54375)
+texture = ExtResource("2_mhs4e")
 
-[node name="FoePokemon" type="Sprite2D" parent="." unique_id=345623751]
-position = Vector2(181, 34)
-texture = ExtResource("2_n2w7h")
+[node name="ForestBase1" type="Sprite2D" parent="." unique_id=1860239420]
+position = Vector2(181, 70)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("3_siwgj")
 
-[node name="PlayerPanel" type="Panel" parent="." unique_id=1212200781]
-offset_left = 148.0
-offset_top = 76.0
-offset_right = 220.0
-offset_bottom = 102.0
+[node name="ForestBase0" type="Sprite2D" parent="." unique_id=1349378247]
+position = Vector2(70.00001, 115.00001)
+scale = Vector2(0.4, 0.4)
+texture = ExtResource("4_56ovr")
 
-[node name="HPBar" type="ProgressBar" parent="PlayerPanel" unique_id=1539200473]
-layout_mode = 0
-offset_left = 25.0
-offset_top = 11.0
-offset_right = 72.0
-offset_bottom = 17.0
-value = 100.0
-show_percentage = false
+[node name="Bv1dOps" type="Sprite2D" parent="." unique_id=1571363080]
+visible = false
+position = Vector2(120.24749, 79.54199)
+scale = Vector2(0.46596298, 0.4160105)
+texture = ExtResource("5_7nanj")
 
-[node name="Label" type="Label" parent="PlayerPanel" unique_id=963169895]
-layout_mode = 0
-offset_left = 26.0
-offset_right = 68.0
-offset_bottom = 8.0
-theme_override_fonts/font = ExtResource("4_tvsma")
-theme_override_font_sizes/font_size = 12
-text = "Bulbasaur"
-
-[node name="FoePanel" type="Panel" parent="." unique_id=2062308927]
-offset_left = 21.0
-offset_top = 25.0
-offset_right = 93.0
-offset_bottom = 51.0
+[node name="FoePanel" type="Sprite2D" parent="." unique_id=1177841219]
+position = Vector2(55, 27)
+texture = ExtResource("3_stskl")
 
 [node name="HPBar" type="ProgressBar" parent="FoePanel" unique_id=972228942]
-layout_mode = 0
-offset_left = 25.0
-offset_top = 11.0
-offset_right = 72.0
-offset_bottom = 17.0
+offset_left = -5.0
+offset_top = 4.0
+offset_right = 81.66669
+offset_bottom = 8.0
+scale = Vector2(0.45, 0.45)
+theme_override_styles/fill = SubResource("StyleBoxFlat_ahrt7")
 value = 100.0
 show_percentage = false
 
 [node name="Label" type="Label" parent="FoePanel" unique_id=861230904]
-layout_mode = 0
-offset_left = 25.0
-offset_right = 70.0
-offset_bottom = 11.0
+offset_left = -45.0
+offset_top = -10.0
+offset_right = 4.0
+offset_bottom = 4.0
+theme_override_colors/font_color = Color(0.2585664, 0.2585664, 0.25856638, 1)
+theme_override_colors/font_shadow_color = Color(0.1893278, 0.18932778, 0.1893278, 0)
 theme_override_fonts/font = ExtResource("4_tvsma")
-theme_override_font_sizes/font_size = 12
+theme_override_font_sizes/font_size = 14
 text = "Bulbasaur"
 
-[node name="Moveset" type="GridContainer" parent="." unique_id=1354815587]
-offset_left = 9.0
-offset_top = 111.0
-offset_right = 107.0
-offset_bottom = 157.0
+[node name="PlayerPanel" type="Sprite2D" parent="." unique_id=2071723325]
+position = Vector2(186, 97)
+texture = ExtResource("4_b6xkt")
+
+[node name="HPBar" type="ProgressBar" parent="PlayerPanel" unique_id=1129748111]
+offset_left = 2.0
+offset_top = -1.0
+offset_right = 88.66669
+offset_bottom = 3.0
+scale = Vector2(0.45, 0.45)
+theme_override_styles/fill = SubResource("StyleBoxFlat_ahrt7")
+value = 100.0
+show_percentage = false
+
+[node name="Label" type="Label" parent="PlayerPanel" unique_id=1358859176]
+offset_left = -35.0
+offset_top = -15.999998
+offset_right = 14.0
+offset_bottom = -1.9999981
+theme_override_colors/font_color = Color(0.2585664, 0.2585664, 0.25856638, 1)
+theme_override_colors/font_shadow_color = Color(0.1893278, 0.18932778, 0.1893278, 0)
+theme_override_fonts/font = ExtResource("4_tvsma")
+theme_override_font_sizes/font_size = 14
+text = "Bulbasaur"
+
+[node name="FoePokemon" type="Sprite2D" parent="." unique_id=205467624]
+position = Vector2(181, 42)
+texture = ExtResource("6_stskl")
+
+[node name="PlayerPokemon" type="Sprite2D" parent="." unique_id=901560793]
+position = Vector2(64, 89)
+texture = ExtResource("7_4ok02")
+
+[node name="OverlayFight" type="Sprite2D" parent="." unique_id=2098167]
+visible = false
+position = Vector2(120, 140)
+texture = ExtResource("8_4ok02")
+
+[node name="Moveset" type="GridContainer" parent="OverlayFight" unique_id=1354815587]
+offset_left = -92.0
+offset_top = -12.0
+offset_right = -48.0
+offset_bottom = 2.0
+theme_override_constants/v_separation = 0
 columns = 2
 
-[node name="Button" type="Button" parent="Moveset" unique_id=1847365844]
+[node name="Button" type="Button" parent="OverlayFight/Moveset" unique_id=1847365844]
 layout_mode = 2
-theme_override_font_sizes/font_size = 9
+theme = SubResource("Theme_sbqex")
+theme_override_fonts/font = ExtResource("4_tvsma")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_4ok02")
 text = "Ataque 1"
 
-[node name="Button2" type="Button" parent="Moveset" unique_id=1479662037]
+[node name="Button2" type="Button" parent="OverlayFight/Moveset" unique_id=433824294]
 layout_mode = 2
-theme_override_font_sizes/font_size = 9
+theme = SubResource("Theme_sbqex")
+theme_override_fonts/font = ExtResource("4_tvsma")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_4ok02")
 text = "Ataque 1"
 
-[node name="Button3" type="Button" parent="Moveset" unique_id=495923622]
+[node name="Button3" type="Button" parent="OverlayFight/Moveset" unique_id=1569736442]
 layout_mode = 2
-theme_override_font_sizes/font_size = 9
+theme = SubResource("Theme_sbqex")
+theme_override_fonts/font = ExtResource("4_tvsma")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_4ok02")
 text = "Ataque 1"
 
-[node name="Button4" type="Button" parent="Moveset" unique_id=827565721]
+[node name="Button4" type="Button" parent="OverlayFight/Moveset" unique_id=954456744]
 layout_mode = 2
-theme_override_font_sizes/font_size = 9
+theme = SubResource("Theme_sbqex")
+theme_override_fonts/font = ExtResource("4_tvsma")
+theme_override_font_sizes/font_size = 12
+theme_override_styles/normal = SubResource("StyleBoxFlat_4ok02")
 text = "Ataque 1"
+
+[node name="OverlayMessage" type="Sprite2D" parent="." unique_id=1537880779]
+visible = false
+position = Vector2(118.45144, 140)
+scale = Vector2(1.1897918, 1)
+texture = SubResource("AtlasTexture_4ok02")
+
+[node name="RichTextLabel" type="RichTextLabel" parent="OverlayMessage" unique_id=1724496015]
+offset_left = -91.15161
+offset_top = -12.0
+offset_right = 90.39276
+offset_bottom = 14.0
+theme_override_colors/default_color = Color(0.89145625, 0.89145625, 0.8914562, 1)
+theme_override_fonts/normal_font = ExtResource("4_tvsma")
+theme_override_font_sizes/normal_font_size = 14
+bbcode_enabled = true
+text = "Bulbasaur used move
+sumer man"
+
+[node name="AbilityBar" type="Sprite2D" parent="." unique_id=245919120]
+position = Vector2(298, 25)
+texture = ExtResource("13_siwgj")
+vframes = 2
+
+[node name="Pokemon" type="Label" parent="AbilityBar" unique_id=797203151]
+offset_left = -47.0
+offset_top = -13.0
+offset_right = 2.0
+offset_bottom = 1.0
+theme_override_fonts/font = ExtResource("4_tvsma")
+theme_override_font_sizes/font_size = 14
+text = "Bulbasaur"
+
+[node name="Ability" type="Label" parent="AbilityBar" unique_id=557761730]
+offset_left = -48.0
+offset_top = -3.0
+offset_right = 1.0
+offset_bottom = 11.0
+theme_override_colors/font_color = Color(0.21806103, 0.21806103, 0.21806103, 1)
+theme_override_fonts/font = ExtResource("4_tvsma")
+theme_override_font_sizes/font_size = 14
+text = "Ability"

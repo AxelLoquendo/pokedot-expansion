@@ -423294,14 +423294,15 @@ ${team}`);
   Teams2.setGeneratorFactory(TeamGenerators);
   var streams = battle_stream_exports.getPlayerStreams(new battle_stream_exports.BattleStream());
   var spec = { formatid: "gen9customgame" };
-  var p1spec = { name: "Bot 1", team: Teams2.pack([Teams2.generate("gen1randombattle")[0]]) };
-  var p2spec = { name: "Bot 2", team: Teams2.pack([Teams2.generate("gen1randombattle")[0]]) };
+  var p1spec = { name: "Bot 1", team: Teams2.pack([Teams2.generate("gen3randombattle")[0]]) };
+  var p2spec = { name: "Bot 2", team: "Arcanine||Leftovers|Intimidate|Flareblitz,Extremespeed,Wildcharge,Morningsun|Impish|252,0,252,0,4,0||||||||" };
   var p22 = new RandomPlayerAI(streams.p2);
   void p22.start();
-  globalThis.write = (input) => {
-    console.log("> " + input);
-    streams.p1.write(input);
-  };
+  function write(choice) {
+    console.log("> " + choice);
+    streams.p1.write(choice);
+  }
+  globalThis.write = write;
   void (async () => {
     for await (const chunk of streams.p1) {
       console.log(chunk);

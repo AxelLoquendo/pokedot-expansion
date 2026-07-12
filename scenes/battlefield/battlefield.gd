@@ -1,6 +1,8 @@
 extends Node2D
 
-@onready var moveset_container: GridContainer = $Moveset
+signal animation_completed(result: Variant)
+
+@onready var moveset_container: GridContainer = $OverlayFight/Moveset
 @onready var player_pokemon: Sprite2D = $PlayerPokemon
 @onready var foe_pokemon: Sprite2D = $FoePokemon
 
@@ -12,20 +14,20 @@ extends Node2D
 
 
 func _ready() -> void:
-	var sd := Showdown.new()
-	add_child(sd)
+	var pbattle := PBattle.new()
+	add_child(pbattle)
 
 func display_moveset(moveset: Array) -> void:
 	for i in range(moveset.size()):
 		var btn: Button = moveset_container.get_child(i)
 		btn.text = moveset[i]
-	moveset_container.show()
+	show_options()
 
 func show_options() -> void:
-	moveset_container.show()
+	$OverlayFight.show()
 
 func hide_options() -> void:
-	moveset_container.hide()
+	$OverlayFight.hide()
 	
 func take_damage(position: String, damage: int) -> void:
 	var tw = create_tween()
@@ -35,3 +37,29 @@ func take_damage(position: String, damage: int) -> void:
 	tw.tween_property(hp_bar, "value", damage, duration).set_ease(Tween.EASE_OUT)
 	
 	await tw.finished
+	
+func message(msg: String) -> void:
+	$OverlayMessage/RichTextLabel.visible_ratio = 0
+	$OverlayMessage/RichTextLabel.text = msg
+	
+	$OverlayMessage.show()
+	var tw = create_tween()
+	const SECONDS_PER_CHAR: float = 1.0/15
+	tw.tween_property($OverlayMessage/RichTextLabel, "visible_ratio", 1, msg.length() * SECONDS_PER_CHAR)
+	await tw.finished
+	await get_tree().create_timer(1).timeout
+	$OverlayMessage.hide()
+
+func splash(pokemon: String, ability: String) -> void:
+	$AbilityBar/Pokemon.text = pokemon
+	$AbilityBar/Ability.text = ability
+	
+	var tw = create_tween()
+	tw.tween_property($AbilityBar, "position:x", 216, 1)
+	tw.tween_property($AbilityBar, "position:x", 216, 1)
+	tw.tween_property($AbilityBar, "position:x", 296, 0.6)
+	await tw.finished
+	
+func animate(func_str: String, argv: Array) -> void:
+	await callv(func_str, argv)
+	emit_signal("animation_completed", null)
