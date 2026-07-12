@@ -247110,7 +247110,13 @@
 
   // dex.js
   function getSpecies(species) {
-    return JSON.stringify(Dex.species.get(species));
+    const species_data = Dex.species.get(species);
+    if (!("formeOrder" in species_data)) {
+      species_data.formeOrder = Dex.species.get(
+        species_data.baseSpecies
+      ).formeOrder;
+    }
+    return JSON.stringify(species_data);
   }
   globalThis.getSpecies = getSpecies;
 })();

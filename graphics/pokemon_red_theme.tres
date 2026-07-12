@@ -1,0 +1,14 @@
+[gd_resource type="Theme" format=3 uid="uid://7b2tvqct3805"]
+
+[ext_resource type="FontFile" uid="uid://b1kovm1rv2n1q" path="res://pokemon-emerald-pro.ttf" id="1_35307"]
+
+[resource]
+Label/colors/font_color = Color(0.34509805, 0.3529412, 0.36862746, 1)
+Label/colors/font_shadow_color = Color(0.34509805, 0.3529412, 0.36862746, 0.58431375)
+Label/constants/line_spacing = 2
+Label/font_sizes/font_size = 32
+Label/fonts/font = ExtResource("1_35307")
+RichTextLabel/colors/default_color = Color(0.34509805, 0.3529412, 0.36862746, 1)
+RichTextLabel/colors/font_shadow_color = Color(0.34509805, 0.3529412, 0.36862746, 0.58431375)
+RichTextLabel/font_sizes/normal_font_size = 32
+RichTextLabel/fonts/normal_font = ExtResource("1_35307")

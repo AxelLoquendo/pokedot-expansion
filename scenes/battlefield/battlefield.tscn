@@ -1,205 +1,301 @@
 [gd_scene format=3 uid="uid://chhe7vvlyqivg"]
 
 [ext_resource type="Script" uid="uid://dfwcmlw66nmxs" path="res://scenes/battlefield/battlefield.gd" id="1_n2w7h"]
-[ext_resource type="Texture2D" uid="uid://bt2vm7phoj6gj" path="res://graphics/battle_back/forest_bg.png" id="2_mhs4e"]
-[ext_resource type="Texture2D" uid="uid://b0s2glffhuxqo" path="res://graphics/battle_back/forest_base1.png" id="3_siwgj"]
-[ext_resource type="Texture2D" uid="uid://cx63nbc3jbe57" path="res://graphics/ui/battle/databox_normal_foe.png" id="3_stskl"]
-[ext_resource type="Texture2D" uid="uid://dgih4rd7ey24t" path="res://graphics/battle_back/forest_base0.png" id="4_56ovr"]
-[ext_resource type="Texture2D" uid="uid://b5u37u4gbj626" path="res://graphics/ui/battle/databox_normal.png" id="4_b6xkt"]
-[ext_resource type="FontFile" uid="uid://b1kovm1rv2n1q" path="res://pokemon-emerald-pro.ttf" id="4_tvsma"]
-[ext_resource type="Texture2D" uid="uid://bmd6exyy64hn5" path="res://graphics/ui/battle/BV1dOps.png" id="5_7nanj"]
-[ext_resource type="Texture2D" uid="uid://b7r5k7rgjpx4l" path="res://graphics/pokemon/gen3/charizard.png" id="6_stskl"]
-[ext_resource type="Texture2D" uid="uid://bkcusqjyu6oct" path="res://graphics/pokemon/gen3_back/pidgeotto.png" id="7_4ok02"]
-[ext_resource type="Texture2D" uid="uid://bisr46f4jxs2j" path="res://graphics/ui/battle/overlay_fight.png" id="8_4ok02"]
-[ext_resource type="Texture2D" uid="uid://b2xmhss23l26e" path="res://graphics/ui/battle/cursor_command.png" id="12_56ovr"]
-[ext_resource type="Texture2D" uid="uid://dilfn18sbnfoq" path="res://graphics/ui/battle/overlay_message.png" id="12_upguu"]
-[ext_resource type="Texture2D" uid="uid://b568aqofayx5c" path="res://graphics/ui/battle/ability_bar.png" id="13_siwgj"]
+[ext_resource type="Texture2D" uid="uid://copndvqjaq401" path="res://graphics/ui/battle/ability_bar.png" id="13_siwgj"]
+[ext_resource type="Texture2D" uid="uid://cvy07smku4gu3" path="res://graphics/ui/battle/databox_normal.png" id="15_upguu"]
+[ext_resource type="Texture2D" uid="uid://cwsa7naocjcci" path="res://graphics/ui/battle/overlay_command.png" id="16_yexbb"]
+[ext_resource type="Texture2D" uid="uid://dfuyvkuftnfpj" path="res://graphics/ui/battle/cursor_command.png" id="17_26eqi"]
+[ext_resource type="Theme" uid="uid://7b2tvqct3805" path="res://graphics/pokemon_red_theme.tres" id="17_ale3b"]
+[ext_resource type="Texture2D" uid="uid://vkorhvfd6xce" path="res://graphics/ui/battle/overlay_fight.png" id="18_kjtcb"]
+[ext_resource type="Texture2D" uid="uid://x61t2iskwvgb" path="res://graphics/ui/battle/overlay_hp.png" id="19_kjtcb"]
+[ext_resource type="Texture2D" uid="uid://daklciwfppudk" path="res://graphics/ui/battle/cursor_fight.png" id="19_tsw4x"]
+[ext_resource type="Texture2D" uid="uid://dvq1unggol3l1" path="res://graphics/ui/battle/databox_normal_foe.png" id="20_tsw4x"]
+[ext_resource type="Texture2D" uid="uid://0f0pimvh6xws" path="res://graphics/ui/battle/overlay_message.png" id="21_efjdo"]
+[ext_resource type="Texture2D" uid="uid://b2nn7fnem6dql" path="res://graphics/battle_back/champion1_base0.png" id="21_sv6pa"]
+[ext_resource type="Texture2D" uid="uid://dctw3tw6assjj" path="res://graphics/battle_back/champion1_base1.png" id="22_6sfjh"]
+[ext_resource type="Texture2D" uid="uid://b7vuwkplq5u5h" path="res://graphics/pokemon/back/PIKACHU.png" id="23_6sfjh"]
+[ext_resource type="Texture2D" uid="uid://b2q7a0nl6a3pe" path="res://graphics/pokemon/front/PIDGEY.png" id="24_ipa0q"]
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_ahrt7"]
-bg_color = Color(0.4509804, 1, 0.6784314, 1)
+[sub_resource type="AtlasTexture" id="AtlasTexture_qxaqh"]
+atlas = ExtResource("19_kjtcb")
+region = Rect2(0, 0, 96, 6)
 
-[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8hrwj"]
-texture = ExtResource("12_56ovr")
-texture_margin_left = 5.0
+[sub_resource type="AtlasTexture" id="AtlasTexture_b4sra"]
+atlas = ExtResource("13_siwgj")
+region = Rect2(-0.45158386, 64.00045, 256.02234, 63.7911)
 
-[sub_resource type="Theme" id="Theme_sbqex"]
-Button/colors/font_color = Color(0.19219694, 0.19219697, 0.19219697, 1)
-Button/colors/font_focus_color = Color(0.19215687, 0.19215687, 0.19215687, 1)
-Button/colors/font_hover_color = Color(0.19215687, 0.19215687, 0.19215687, 1)
-Button/styles/hover = SubResource("StyleBoxTexture_8hrwj")
+[sub_resource type="AtlasTexture" id="AtlasTexture_ae1jm"]
+atlas = ExtResource("16_yexbb")
+region = Rect2(0, 0, 248.813, 93.538)
 
-[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_4ok02"]
-content_margin_left = 10.0
-bg_color = Color(0.6, 0.6, 0.6, 0)
+[sub_resource type="AtlasTexture" id="AtlasTexture_kjtcb"]
+atlas = ExtResource("17_26eqi")
+region = Rect2(0, 0, 130, 46)
 
-[sub_resource type="AtlasTexture" id="AtlasTexture_4ok02"]
-atlas = ExtResource("12_upguu")
+[sub_resource type="AtlasTexture" id="AtlasTexture_tsw4x"]
+atlas = ExtResource("17_26eqi")
+region = Rect2(130, 0, 130, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_yexbb"]
+atlas = ExtResource("17_26eqi")
+region = Rect2(0, 92, 130, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sbqex"]
+atlas = ExtResource("17_26eqi")
+region = Rect2(130, 92, 130, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_ale3b"]
+atlas = ExtResource("17_26eqi")
+region = Rect2(0, 46, 130, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_26eqi"]
+atlas = ExtResource("17_26eqi")
+region = Rect2(130, 46, 130, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_efjdo"]
+atlas = ExtResource("17_26eqi")
+region = Rect2(0, 138, 130, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_sv6pa"]
+atlas = ExtResource("17_26eqi")
+region = Rect2(130, 138, 130, 46)
+
+[sub_resource type="AtlasTexture" id="AtlasTexture_qy52e"]
+atlas = ExtResource("19_tsw4x")
+region = Rect2(0, 0, 190, 45)
 
 [node name="Battlefield" type="Node2D" unique_id=98054996]
 script = ExtResource("1_n2w7h")
 
-[node name="ForestBg" type="Sprite2D" parent="." unique_id=203537329]
-position = Vector2(119.799995, 79.7)
-scale = Vector2(0.46953127, 0.54375)
-texture = ExtResource("2_mhs4e")
+[node name="Champion1Base0" type="Sprite2D" parent="." unique_id=458118716]
+position = Vector2(110, 272)
+texture = ExtResource("21_sv6pa")
 
-[node name="ForestBase1" type="Sprite2D" parent="." unique_id=1860239420]
-position = Vector2(181, 70)
-scale = Vector2(0.4, 0.4)
-texture = ExtResource("3_siwgj")
+[node name="Champion1Base1" type="Sprite2D" parent="." unique_id=1424061308]
+position = Vector2(384, 170)
+texture = ExtResource("22_6sfjh")
 
-[node name="ForestBase0" type="Sprite2D" parent="." unique_id=1349378247]
-position = Vector2(70.00001, 115.00001)
-scale = Vector2(0.4, 0.4)
-texture = ExtResource("4_56ovr")
+[node name="Pikachu" type="Sprite2D" parent="." unique_id=403713853]
+position = Vector2(118, 223)
+texture = ExtResource("23_6sfjh")
 
-[node name="Bv1dOps" type="Sprite2D" parent="." unique_id=1571363080]
-visible = false
-position = Vector2(120.24749, 79.54199)
-scale = Vector2(0.46596298, 0.4160105)
-texture = ExtResource("5_7nanj")
+[node name="Pidgey" type="Sprite2D" parent="." unique_id=1366582258]
+position = Vector2(388, 134)
+texture = ExtResource("24_ipa0q")
 
-[node name="FoePanel" type="Sprite2D" parent="." unique_id=1177841219]
-position = Vector2(55, 27)
-texture = ExtResource("3_stskl")
+[node name="UI" type="CanvasLayer" parent="." unique_id=2057128594]
 
-[node name="HPBar" type="ProgressBar" parent="FoePanel" unique_id=972228942]
-offset_left = -5.0
-offset_top = 4.0
-offset_right = 81.66669
-offset_bottom = 8.0
-scale = Vector2(0.45, 0.45)
-theme_override_styles/fill = SubResource("StyleBoxFlat_ahrt7")
+[node name="PlayerPanel" type="TextureRect" parent="UI" unique_id=2088317414]
+offset_left = 268.0
+offset_top = 191.0
+offset_right = 528.0
+offset_bottom = 275.0
+texture = ExtResource("15_upguu")
+
+[node name="Label" type="Label" parent="UI/PlayerPanel" unique_id=627425730]
+layout_mode = 0
+offset_left = 41.0
+offset_top = 8.0
+offset_right = 123.0
+offset_bottom = 36.0
+theme = ExtResource("17_ale3b")
+text = "Pikachu"
+
+[node name="TextureProgressBar" type="TextureProgressBar" parent="UI/PlayerPanel" unique_id=607646873]
+layout_mode = 0
+offset_left = 136.0
+offset_top = 40.0
+offset_right = 232.0
+offset_bottom = 80.0
 value = 100.0
-show_percentage = false
+texture_progress = SubResource("AtlasTexture_qxaqh")
 
-[node name="Label" type="Label" parent="FoePanel" unique_id=861230904]
-offset_left = -45.0
-offset_top = -10.0
-offset_right = 4.0
-offset_bottom = 4.0
-theme_override_colors/font_color = Color(0.2585664, 0.2585664, 0.25856638, 1)
-theme_override_colors/font_shadow_color = Color(0.1893278, 0.18932778, 0.1893278, 0)
-theme_override_fonts/font = ExtResource("4_tvsma")
-theme_override_font_sizes/font_size = 14
-text = "Bulbasaur"
+[node name="FoePanel" type="TextureRect" parent="UI" unique_id=1268156317]
+offset_left = -16.0
+offset_top = 37.0
+offset_right = 244.0
+offset_bottom = 121.0
+texture = ExtResource("20_tsw4x")
 
-[node name="PlayerPanel" type="Sprite2D" parent="." unique_id=2071723325]
-position = Vector2(186, 97)
-texture = ExtResource("4_b6xkt")
+[node name="Label" type="Label" parent="UI/FoePanel" unique_id=705510367]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 12.0
+offset_right = 110.0
+offset_bottom = 40.0
+theme = ExtResource("17_ale3b")
+text = "Pidgey"
 
-[node name="HPBar" type="ProgressBar" parent="PlayerPanel" unique_id=1129748111]
-offset_left = 2.0
-offset_top = -1.0
-offset_right = 88.66669
-offset_bottom = 3.0
-scale = Vector2(0.45, 0.45)
-theme_override_styles/fill = SubResource("StyleBoxFlat_ahrt7")
+[node name="TextureProgressBar" type="TextureProgressBar" parent="UI/FoePanel" unique_id=505390443]
+layout_mode = 0
+offset_left = 118.0
+offset_top = 56.5
+offset_right = 216.0
+offset_bottom = 65.5
 value = 100.0
-show_percentage = false
+texture_progress = SubResource("AtlasTexture_qxaqh")
 
-[node name="Label" type="Label" parent="PlayerPanel" unique_id=1358859176]
-offset_left = -35.0
-offset_top = -15.999998
-offset_right = 14.0
-offset_bottom = -1.9999981
-theme_override_colors/font_color = Color(0.2585664, 0.2585664, 0.25856638, 1)
-theme_override_colors/font_shadow_color = Color(0.1893278, 0.18932778, 0.1893278, 0)
-theme_override_fonts/font = ExtResource("4_tvsma")
-theme_override_font_sizes/font_size = 14
-text = "Bulbasaur"
+[node name="AbilityBar" type="TextureRect" parent="UI" unique_id=1938243131]
+offset_left = 521.0
+offset_top = 11.0
+offset_right = 777.0
+offset_bottom = 75.0
+texture = SubResource("AtlasTexture_b4sra")
 
-[node name="FoePokemon" type="Sprite2D" parent="." unique_id=205467624]
-position = Vector2(181, 42)
-texture = ExtResource("6_stskl")
+[node name="Label" type="Label" parent="UI/AbilityBar" unique_id=1910020428]
+layout_mode = 0
+offset_left = 75.0
+offset_top = 36.0
+offset_right = 195.0
+offset_bottom = 64.0
+theme = ExtResource("17_ale3b")
+text = "Intimidacion"
 
-[node name="PlayerPokemon" type="Sprite2D" parent="." unique_id=901560793]
-position = Vector2(64, 89)
-texture = ExtResource("7_4ok02")
+[node name="ColorRect" type="ColorRect" parent="UI" unique_id=2112942707]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -95.0
+grow_horizontal = 2
+grow_vertical = 0
+color = Color(0.52912915, 0.79595864, 0.4822746, 1)
 
-[node name="OverlayFight" type="Sprite2D" parent="." unique_id=2098167]
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/ColorRect" unique_id=1737231380]
 visible = false
-position = Vector2(120, 140)
-texture = ExtResource("8_4ok02")
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
 
-[node name="Moveset" type="GridContainer" parent="OverlayFight" unique_id=1354815587]
-offset_left = -92.0
-offset_top = -12.0
-offset_right = -48.0
-offset_bottom = 2.0
+[node name="TextureRect" type="TextureRect" parent="UI/ColorRect/HBoxContainer" unique_id=547608938]
+layout_mode = 2
+texture = SubResource("AtlasTexture_ae1jm")
+
+[node name="Label" type="Label" parent="UI/ColorRect/HBoxContainer/TextureRect" unique_id=1548066542]
+layout_mode = 0
+offset_left = 29.0
+offset_top = 22.0
+offset_right = 147.0
+offset_bottom = 80.0
+theme = ExtResource("17_ale3b")
+text = "Wha will
+Pikachu do?"
+
+[node name="OverlayFight" type="GridContainer" parent="UI/ColorRect/HBoxContainer" unique_id=2078500596]
+layout_mode = 2
+theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 2
 
-[node name="Button" type="Button" parent="OverlayFight/Moveset" unique_id=1847365844]
+[node name="TextureButton" type="TextureButton" parent="UI/ColorRect/HBoxContainer/OverlayFight" unique_id=1504605296]
 layout_mode = 2
-theme = SubResource("Theme_sbqex")
-theme_override_fonts/font = ExtResource("4_tvsma")
-theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = SubResource("StyleBoxFlat_4ok02")
-text = "Ataque 1"
+texture_normal = SubResource("AtlasTexture_kjtcb")
+texture_hover = SubResource("AtlasTexture_tsw4x")
+texture_focused = SubResource("AtlasTexture_tsw4x")
 
-[node name="Button2" type="Button" parent="OverlayFight/Moveset" unique_id=433824294]
+[node name="TextureButton2" type="TextureButton" parent="UI/ColorRect/HBoxContainer/OverlayFight" unique_id=799624183]
 layout_mode = 2
-theme = SubResource("Theme_sbqex")
-theme_override_fonts/font = ExtResource("4_tvsma")
-theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = SubResource("StyleBoxFlat_4ok02")
-text = "Ataque 1"
+texture_normal = SubResource("AtlasTexture_yexbb")
+texture_hover = SubResource("AtlasTexture_sbqex")
+texture_focused = SubResource("AtlasTexture_sbqex")
 
-[node name="Button3" type="Button" parent="OverlayFight/Moveset" unique_id=1569736442]
+[node name="TextureButton3" type="TextureButton" parent="UI/ColorRect/HBoxContainer/OverlayFight" unique_id=426390760]
 layout_mode = 2
-theme = SubResource("Theme_sbqex")
-theme_override_fonts/font = ExtResource("4_tvsma")
-theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = SubResource("StyleBoxFlat_4ok02")
-text = "Ataque 1"
+texture_normal = SubResource("AtlasTexture_ale3b")
+texture_hover = SubResource("AtlasTexture_26eqi")
+texture_focused = SubResource("AtlasTexture_26eqi")
 
-[node name="Button4" type="Button" parent="OverlayFight/Moveset" unique_id=954456744]
+[node name="TextureButton4" type="TextureButton" parent="UI/ColorRect/HBoxContainer/OverlayFight" unique_id=80901315]
 layout_mode = 2
-theme = SubResource("Theme_sbqex")
-theme_override_fonts/font = ExtResource("4_tvsma")
-theme_override_font_sizes/font_size = 12
-theme_override_styles/normal = SubResource("StyleBoxFlat_4ok02")
-text = "Ataque 1"
+texture_normal = SubResource("AtlasTexture_efjdo")
+texture_hover = SubResource("AtlasTexture_sv6pa")
+texture_focused = SubResource("AtlasTexture_sv6pa")
 
-[node name="OverlayMessage" type="Sprite2D" parent="." unique_id=1537880779]
+[node name="TextureRect" type="TextureRect" parent="UI/ColorRect" unique_id=1027738753]
+layout_mode = 0
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("18_kjtcb")
+
+[node name="GridContainer" type="GridContainer" parent="UI/ColorRect/TextureRect" unique_id=1153310283]
+layout_mode = 0
+offset_left = 2.0
+offset_top = 3.0
+offset_right = 386.0
+offset_bottom = 97.0
+theme_override_constants/h_separation = 0
+theme_override_constants/v_separation = 0
+columns = 2
+
+[node name="TextureButton" type="TextureButton" parent="UI/ColorRect/TextureRect/GridContainer" unique_id=1853850375]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_qy52e")
+
+[node name="Label" type="Label" parent="UI/ColorRect/TextureRect/GridContainer/TextureButton" unique_id=1333233125]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 9.0
+offset_right = 177.0
+offset_bottom = 37.0
+theme = ExtResource("17_ale3b")
+text = "Super move"
+
+[node name="TextureButton2" type="TextureButton" parent="UI/ColorRect/TextureRect/GridContainer" unique_id=2026680274]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_qy52e")
+
+[node name="Label" type="Label" parent="UI/ColorRect/TextureRect/GridContainer/TextureButton2" unique_id=1988866387]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 9.0
+offset_right = 177.0
+offset_bottom = 37.0
+theme = ExtResource("17_ale3b")
+text = "Super move"
+
+[node name="TextureButton3" type="TextureButton" parent="UI/ColorRect/TextureRect/GridContainer" unique_id=629602814]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_qy52e")
+
+[node name="Label" type="Label" parent="UI/ColorRect/TextureRect/GridContainer/TextureButton3" unique_id=216014278]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 9.0
+offset_right = 177.0
+offset_bottom = 37.0
+theme = ExtResource("17_ale3b")
+text = "Super move"
+
+[node name="TextureButton4" type="TextureButton" parent="UI/ColorRect/TextureRect/GridContainer" unique_id=1754485062]
+layout_mode = 2
+texture_normal = SubResource("AtlasTexture_qy52e")
+
+[node name="Label" type="Label" parent="UI/ColorRect/TextureRect/GridContainer/TextureButton4" unique_id=2125827456]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 9.0
+offset_right = 177.0
+offset_bottom = 37.0
+theme = ExtResource("17_ale3b")
+text = "Super move"
+
+[node name="Message" type="TextureRect" parent="UI" unique_id=1161604255]
 visible = false
-position = Vector2(118.45144, 140)
-scale = Vector2(1.1897918, 1)
-texture = SubResource("AtlasTexture_4ok02")
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = -96.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("21_efjdo")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="OverlayMessage" unique_id=1724496015]
-offset_left = -91.15161
-offset_top = -12.0
-offset_right = 90.39276
-offset_bottom = 14.0
-theme_override_colors/default_color = Color(0.89145625, 0.89145625, 0.8914562, 1)
-theme_override_fonts/normal_font = ExtResource("4_tvsma")
-theme_override_font_sizes/normal_font_size = 14
-bbcode_enabled = true
-text = "Bulbasaur used move
-sumer man"
-
-[node name="AbilityBar" type="Sprite2D" parent="." unique_id=245919120]
-position = Vector2(298, 25)
-texture = ExtResource("13_siwgj")
-vframes = 2
-
-[node name="Pokemon" type="Label" parent="AbilityBar" unique_id=797203151]
-offset_left = -47.0
-offset_top = -13.0
-offset_right = 2.0
-offset_bottom = 1.0
-theme_override_fonts/font = ExtResource("4_tvsma")
-theme_override_font_sizes/font_size = 14
-text = "Bulbasaur"
-
-[node name="Ability" type="Label" parent="AbilityBar" unique_id=557761730]
-offset_left = -48.0
-offset_top = -3.0
-offset_right = 1.0
-offset_bottom = 11.0
-theme_override_colors/font_color = Color(0.21806103, 0.21806103, 0.21806103, 1)
-theme_override_fonts/font = ExtResource("4_tvsma")
-theme_override_font_sizes/font_size = 14
-text = "Ability"
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/Message" unique_id=480513542]
+layout_mode = 0
+offset_left = 28.0
+offset_top = 23.0
+offset_right = 486.0
+offset_bottom = 78.0
+theme = ExtResource("17_ale3b")
+text = "Pikachu use
+Eletrick"
