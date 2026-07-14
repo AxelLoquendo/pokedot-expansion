@@ -5,6 +5,9 @@
 [ext_resource type="Texture2D" uid="uid://b8h7oaq5byh5h" path="res://graphics/tilesets/Dungeon forest.png" id="2_yqjtg"]
 [ext_resource type="Texture2D" uid="uid://h7tbkix6rcva" path="res://graphics/characters/trainer_SUPERNERD.png" id="3_lnu2h"]
 [ext_resource type="Script" uid="uid://d3x03o20l3nv" path="res://scenes/overworld/character.gd" id="4_lbhrr"]
+[ext_resource type="Script" uid="uid://ijpplobc0p53" path="res://scenes/gui.gd" id="6_gee14"]
+[ext_resource type="Texture2D" uid="uid://c8k0ljd42ns2l" path="res://graphics/pictures/fondos_tipos/fondo_poke_dragon.png" id="6_u5sy4"]
+[ext_resource type="Theme" uid="uid://7b2tvqct3805" path="res://graphics/pokemon_red_theme.tres" id="7_gee14"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("2_yqjtg")
@@ -102,6 +105,71 @@ vframes = 4
 script = ExtResource("4_lbhrr")
 
 [node name="GUI" type="CanvasLayer" parent="." unique_id=11632804]
+script = ExtResource("6_gee14")
+
+[node name="PauseMenu" type="NinePatchRect" parent="GUI" unique_id=312082085]
+anchors_preset = -1
+anchor_left = 0.5
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 66.0
+offset_top = 28.0
+offset_bottom = -138.0
+grow_horizontal = 0
+grow_vertical = 2
+texture = ExtResource("6_u5sy4")
+region_rect = Rect2(166, 88, 180, 180)
+patch_margin_left = 14
+patch_margin_top = 14
+patch_margin_right = 14
+patch_margin_bottom = 14
+axis_stretch_horizontal = 1
+axis_stretch_vertical = 1
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/PauseMenu" unique_id=79039700]
+layout_mode = 0
+offset_left = 20.0
+offset_top = 20.0
+offset_right = 60.0
+offset_bottom = 60.0
+
+[node name="Button" type="Button" parent="GUI/PauseMenu/VBoxContainer" unique_id=1111259962]
+layout_mode = 2
+theme = ExtResource("7_gee14")
+text = "Pokédex"
+alignment = 0
+
+[node name="Button2" type="Button" parent="GUI/PauseMenu/VBoxContainer" unique_id=146837978]
+layout_mode = 2
+theme = ExtResource("7_gee14")
+text = "Pokémon"
+alignment = 0
+
+[node name="Button3" type="Button" parent="GUI/PauseMenu/VBoxContainer" unique_id=1658725322]
+layout_mode = 2
+theme = ExtResource("7_gee14")
+text = "Mochila"
+alignment = 0
+
+[node name="Button4" type="Button" parent="GUI/PauseMenu/VBoxContainer" unique_id=1883224575]
+layout_mode = 2
+theme = ExtResource("7_gee14")
+text = "Guardar"
+alignment = 0
+
+[node name="Button5" type="Button" parent="GUI/PauseMenu/VBoxContainer" unique_id=1762974965]
+layout_mode = 2
+theme = ExtResource("7_gee14")
+text = "Opciones"
+alignment = 0
+
+[node name="Button6" type="Button" parent="GUI/PauseMenu/VBoxContainer" unique_id=179657667]
+layout_mode = 2
+theme = ExtResource("7_gee14")
+text = "Salir del Juego"
+alignment = 0
+
+[node name="SfxPlayer" type="AudioStreamPlayer" parent="GUI" unique_id=1286352321]
 
 [node name="BattleScene" type="Node2D" parent="." unique_id=1334551997]
 

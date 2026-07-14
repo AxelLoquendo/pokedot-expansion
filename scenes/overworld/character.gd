@@ -14,14 +14,17 @@ func _ready() -> void:
 	hframes = 4
 	vframes = 4
 	frame = 0
-	global_position = global_position.snapped(Vector2(TILE_SIZE, TILE_SIZE)) - Vector2(TILE_SIZE, TILE_SIZE) * 0.5
+	# Las coodernadas del sprites se deben encontrar en la mitad del tile
+	# dando que esta centrado
+	var sprite_off_set = - Vector2(TILE_SIZE, TILE_SIZE) * 0.5
+	global_position = global_position.snapped(Vector2(TILE_SIZE, TILE_SIZE)) - sprite_off_set
 
 func _process(_delta: float) -> void:
 	if is_moving:
 		return
 	_process_input()
 
-
+# Este nombre no me gusta nada
 func move(start: Vector2, target: Vector2, lerp: float):
 	global_position = start.lerp(target, lerp / 16.0)
 	if lerp == 16.0:
@@ -45,7 +48,8 @@ func _process_input() -> void:
 
 	if direction == Vector2.ZERO:
 		return
-
+	
+	# Ventana de cambio de direccion
 	if direction != current_direction:
 		current_direction = direction
 		frame = _get_frame_by_direction(current_direction)

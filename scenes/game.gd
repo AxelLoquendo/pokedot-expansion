@@ -1,8 +1,6 @@
 extends Node
 
 @onready var p_server: PServer = $PServer
-@onready var pokemon: Sprite2D = $Pokemon
-
 
 func _ready() -> void:
 	pass
