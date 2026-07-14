@@ -8,6 +8,7 @@
 [ext_resource type="Script" uid="uid://ijpplobc0p53" path="res://scenes/gui.gd" id="6_gee14"]
 [ext_resource type="Texture2D" uid="uid://c8k0ljd42ns2l" path="res://graphics/pictures/fondos_tipos/fondo_poke_dragon.png" id="6_u5sy4"]
 [ext_resource type="Theme" uid="uid://7b2tvqct3805" path="res://graphics/pokemon_red_theme.tres" id="7_gee14"]
+[ext_resource type="Texture2D" uid="uid://cuae5ceccrbbh" path="res://graphics/windowskins/speech hgss 10.png" id="9_0tnpc"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("2_yqjtg")
@@ -168,6 +169,33 @@ layout_mode = 2
 theme = ExtResource("7_gee14")
 text = "Salir del Juego"
 alignment = 0
+
+[node name="Speech" type="NinePatchRect" parent="GUI" unique_id=1819060083]
+anchors_preset = 12
+anchor_top = 1.0
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_left = 7.0
+offset_top = -121.0
+offset_right = -7.0
+offset_bottom = -5.0
+grow_horizontal = 2
+grow_vertical = 0
+texture = ExtResource("9_0tnpc")
+region_rect = Rect2(4, 2, 88, 44)
+patch_margin_left = 20
+patch_margin_top = 12
+patch_margin_right = 45
+patch_margin_bottom = 12
+
+[node name="RichTextLabel" type="RichTextLabel" parent="GUI/Speech" unique_id=1251211074]
+layout_mode = 0
+offset_left = 27.0
+offset_top = 20.0
+offset_right = 451.0
+offset_bottom = 97.0
+theme = ExtResource("7_gee14")
+text = "Would you like to save the game?"
 
 [node name="SfxPlayer" type="AudioStreamPlayer" parent="GUI" unique_id=1286352321]
 
