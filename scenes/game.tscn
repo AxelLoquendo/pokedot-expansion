@@ -13,6 +13,7 @@
 [ext_resource type="Texture2D" uid="uid://002supfflwk3" path="res://graphics/ui/bag/bag_1.png" id="11_kvpfn"]
 [ext_resource type="Texture2D" uid="uid://kqai8q7tg466" path="res://graphics/ui/bag/cursor.png" id="12_dinhu"]
 [ext_resource type="Texture2D" uid="uid://b5xrxpnyseajf" path="res://graphics/ui/bag/icon_pocket.png" id="13_kvuet"]
+[ext_resource type="Texture2D" uid="uid://bsip5ltrwh06d" path="res://graphics/windowskins/choice 1.png" id="14_trtic"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("2_yqjtg")
@@ -371,6 +372,118 @@ theme_override_styles/focus = SubResource("StyleBoxTexture_x3a6k")
 text = "REPEL                         x 12"
 
 [node name="SfxPlayer" type="AudioStreamPlayer" parent="GUI" unique_id=1286352321]
+
+[node name="SaveMenu" type="NinePatchRect" parent="GUI" unique_id=776790066]
+offset_left = 11.0
+offset_top = 11.0
+offset_right = 235.0
+offset_bottom = 200.0
+texture = ExtResource("14_trtic")
+region_rect = Rect2(2, 2, 45, 44)
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/SaveMenu" unique_id=1410815857]
+layout_mode = 0
+offset_left = 19.0
+offset_top = 18.0
+offset_right = 206.0
+offset_bottom = 174.0
+
+[node name="Location" type="Label" parent="GUI/SaveMenu/VBoxContainer" unique_id=1228056675]
+layout_mode = 2
+theme = ExtResource("7_gee14")
+theme_override_colors/font_color = Color(1.1070073e-06, 0.39330694, 0.486475, 1)
+text = "Unknown"
+horizontal_alignment = 1
+
+[node name="HBoxContainer" type="HBoxContainer" parent="GUI/SaveMenu/VBoxContainer" unique_id=108236495]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GUI/SaveMenu/VBoxContainer/HBoxContainer" unique_id=1510916812]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7_gee14")
+text = "Player"
+
+[node name="Label2" type="Label" parent="GUI/SaveMenu/VBoxContainer/HBoxContainer" unique_id=495831136]
+layout_mode = 2
+theme = ExtResource("7_gee14")
+text = "Red"
+
+[node name="HBoxContainer2" type="HBoxContainer" parent="GUI/SaveMenu/VBoxContainer" unique_id=1742005056]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GUI/SaveMenu/VBoxContainer/HBoxContainer2" unique_id=2078971814]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7_gee14")
+text = "Time"
+
+[node name="Label2" type="Label" parent="GUI/SaveMenu/VBoxContainer/HBoxContainer2" unique_id=221153809]
+layout_mode = 2
+theme = ExtResource("7_gee14")
+text = "38:04"
+
+[node name="HBoxContainer3" type="HBoxContainer" parent="GUI/SaveMenu/VBoxContainer" unique_id=937006591]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GUI/SaveMenu/VBoxContainer/HBoxContainer3" unique_id=1935686311]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7_gee14")
+text = "Badges"
+
+[node name="Label2" type="Label" parent="GUI/SaveMenu/VBoxContainer/HBoxContainer3" unique_id=273933343]
+layout_mode = 2
+theme = ExtResource("7_gee14")
+text = "8"
+
+[node name="HBoxContainer4" type="HBoxContainer" parent="GUI/SaveMenu/VBoxContainer" unique_id=1000218533]
+layout_mode = 2
+
+[node name="Label" type="Label" parent="GUI/SaveMenu/VBoxContainer/HBoxContainer4" unique_id=2052330403]
+layout_mode = 2
+size_flags_horizontal = 3
+theme = ExtResource("7_gee14")
+text = "Pokédex"
+
+[node name="Label2" type="Label" parent="GUI/SaveMenu/VBoxContainer/HBoxContainer4" unique_id=1148580629]
+layout_mode = 2
+theme = ExtResource("7_gee14")
+text = "493/493"
+
+[node name="Confirm" type="NinePatchRect" parent="GUI/SaveMenu" unique_id=1765435025]
+layout_mode = 0
+offset_left = 404.0
+offset_top = 166.0
+offset_right = 498.0
+offset_bottom = 247.0
+texture = ExtResource("14_trtic")
+region_rect = Rect2(2, 2, 44, 44)
+patch_margin_left = 12
+patch_margin_top = 12
+patch_margin_right = 12
+patch_margin_bottom = 12
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/SaveMenu/Confirm" unique_id=745285495]
+layout_mode = 0
+offset_left = 11.0
+offset_top = 11.0
+offset_right = 55.0
+offset_bottom = 51.0
+
+[node name="Yes" type="Button" parent="GUI/SaveMenu/Confirm/VBoxContainer" unique_id=356410959]
+layout_mode = 2
+theme = ExtResource("7_gee14")
+text = "Yes"
+
+[node name="No" type="Button" parent="GUI/SaveMenu/Confirm/VBoxContainer" unique_id=962248200]
+layout_mode = 2
+theme = ExtResource("7_gee14")
+text = "No"
 
 [node name="BattleScene" type="Node2D" parent="." unique_id=1334551997]
 
