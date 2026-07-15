@@ -2,6 +2,7 @@
 
 [ext_resource type="FontFile" uid="uid://b1kovm1rv2n1q" path="res://pokemon-emerald-pro.ttf" id="1_35307"]
 [ext_resource type="Texture2D" uid="uid://b5afoh1p2708" path="res://graphics/ui/sel_arrow.png" id="2_owf57"]
+[ext_resource type="Texture2D" uid="uid://dj4825c68uxbj" path="res://graphics/ui/bag/icon_slider.png" id="3_x3a6k"]
 
 [sub_resource type="StyleBoxTexture" id="StyleBoxTexture_gee14"]
 texture = ExtResource("2_owf57")
@@ -10,6 +11,22 @@ draw_center = false
 
 [sub_resource type="StyleBoxEmpty" id="StyleBoxEmpty_x3a6k"]
 content_margin_left = 12.0
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_8hrwj"]
+texture = ExtResource("3_x3a6k")
+texture_margin_left = 5.0
+texture_margin_top = 4.0
+texture_margin_right = 5.0
+texture_margin_bottom = 6.0
+region_rect = Rect2(36, 0, 36, 38)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_sbqex"]
+texture = ExtResource("3_x3a6k")
+texture_margin_left = 18.0
+texture_margin_top = 37.0
+texture_margin_right = 18.0
+texture_margin_bottom = 38.0
+region_rect = Rect2(0, 0, 36, 76)
 
 [resource]
 Button/colors/font_color = Color(0.34509805, 0.3529412, 0.36862746, 1)
@@ -29,3 +46,8 @@ RichTextLabel/colors/default_color = Color(0.34509805, 0.3529412, 0.36862746, 1)
 RichTextLabel/colors/font_shadow_color = Color(0.34509805, 0.3529412, 0.36862746, 0.58431375)
 RichTextLabel/font_sizes/normal_font_size = 32
 RichTextLabel/fonts/normal_font = ExtResource("1_35307")
+VScrollBar/styles/grabber = SubResource("StyleBoxTexture_8hrwj")
+VScrollBar/styles/grabber_highlight = SubResource("StyleBoxTexture_8hrwj")
+VScrollBar/styles/grabber_pressed = SubResource("StyleBoxTexture_8hrwj")
+VScrollBar/styles/scroll = SubResource("StyleBoxTexture_sbqex")
+VScrollBar/styles/scroll_focus = SubResource("StyleBoxTexture_sbqex")

@@ -16,10 +16,11 @@ func _ready() -> void:
 	frame = 0
 	# Las coodernadas del sprites se deben encontrar en la mitad del tile
 	# dando que esta centrado
-	var sprite_off_set = - Vector2(TILE_SIZE, TILE_SIZE) * 0.5
+	var sprite_off_set = Vector2(TILE_SIZE, TILE_SIZE) * 0.5
 	global_position = global_position.snapped(Vector2(TILE_SIZE, TILE_SIZE)) - sprite_off_set
 
 func _process(_delta: float) -> void:
+	var sprite_off_set = Vector2(TILE_SIZE, TILE_SIZE) * 0.5
 	if is_moving:
 		return
 	_process_input()

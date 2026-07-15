@@ -9,6 +9,10 @@
 [ext_resource type="Texture2D" uid="uid://c8k0ljd42ns2l" path="res://graphics/pictures/fondos_tipos/fondo_poke_dragon.png" id="6_u5sy4"]
 [ext_resource type="Theme" uid="uid://7b2tvqct3805" path="res://graphics/pokemon_red_theme.tres" id="7_gee14"]
 [ext_resource type="Texture2D" uid="uid://cuae5ceccrbbh" path="res://graphics/windowskins/speech hgss 10.png" id="9_0tnpc"]
+[ext_resource type="Texture2D" uid="uid://clqxlbyh173rb" path="res://graphics/ui/bag/bg_1.png" id="10_vtaks"]
+[ext_resource type="Texture2D" uid="uid://002supfflwk3" path="res://graphics/ui/bag/bag_1.png" id="11_kvpfn"]
+[ext_resource type="Texture2D" uid="uid://kqai8q7tg466" path="res://graphics/ui/bag/cursor.png" id="12_dinhu"]
+[ext_resource type="Texture2D" uid="uid://b5xrxpnyseajf" path="res://graphics/ui/bag/icon_pocket.png" id="13_kvuet"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("2_yqjtg")
@@ -74,6 +78,66 @@ texture_region_size = Vector2i(32, 32)
 tile_size = Vector2i(32, 32)
 sources/0 = SubResource("TileSetAtlasSource_lnu2h")
 
+[sub_resource type="AtlasTexture" id="AtlasTexture_sbqex"]
+atlas = ExtResource("13_kvuet")
+region = Rect2(0, 0, 28, 28)
+
+[sub_resource type="StyleBoxTexture" id="StyleBoxTexture_x3a6k"]
+texture = ExtResource("12_dinhu")
+texture_margin_left = 16.0
+texture_margin_top = 4.0
+texture_margin_right = 16.0
+texture_margin_bottom = 4.0
+region_rect = Rect2(0, 12, 282, 44)
+
+[sub_resource type="Animation" id="Animation_0tnpc"]
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Overworld/Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(42, 88)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../GUI/Speech/RichTextLabel:text")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0.2),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": ["Would you like to save the game?"]
+}
+
+[sub_resource type="Animation" id="Animation_vtaks"]
+resource_name = "new_animation"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("../Overworld/Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.7, 0.96),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Vector2(95, 167), Vector2(227, 63), Vector2(227, 63)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_kvpfn"]
+_data = {
+&"RESET": SubResource("Animation_0tnpc"),
+&"new_animation": SubResource("Animation_vtaks")
+}
+
 [node name="Game" type="Node" unique_id=918859073]
 script = ExtResource("1_uwrxv")
 
@@ -85,6 +149,7 @@ script = ExtResource("2_iywne")
 [node name="Map" type="Node2D" parent="Overworld" unique_id=1147602038]
 
 [node name="TileMapLayer" type="TileMapLayer" parent="Overworld/Map" unique_id=728833701]
+position = Vector2(0, 1)
 tile_map_data = PackedByteArray("AAAAAAAAAAACAAUAAAAAAAEAAAACAAUAAAAAAAIAAAAEAAUAAAAAAAMAAAACAAUAAAAAAAQAAAACAAUAAAAAAAUAAAAEAAUAAAAAAAYAAAADAAUAAAAAAAcAAAAFAAUAAAAAAAgAAAADAAUAAAAAAAkAAAACAAUAAAABAAAAAAAEAAUAAAABAAEAAAACAAUAAAABAAIAAAADAAUAAAABAAMAAAACAAUAAAABAAQAAAAFAAUAAAABAAUAAAAFAAUAAAABAAYAAAAEAAUAAAABAAcAAAADAAUAAAABAAgAAAAFAAUAAAABAAkAAAADAAUAAAACAAAAAAAFAAUAAAACAAEAAAAEAAUAAAACAAIAAAAFAAUAAAACAAMAAAAFAAUAAAACAAQAAAAGAAUAAAACAAUAAAACAAUAAAACAAYAAAAGAAUAAAACAAcAAAAFAAUAAAACAAgAAAAEAAUAAAACAAkAAAACAAUAAAADAAAAAAAGAAUAAAADAAEAAAAFAAUAAAADAAIAAAAEAAUAAAADAAMAAAACAAUAAAADAAQAAAAGAAUAAAADAAUAAAAGAAUAAAADAAYAAAAEAAUAAAADAAcAAAAGAAUAAAADAAgAAAAFAAUAAAADAAkAAAAFAAUAAAAEAAAAAAACAAUAAAAEAAEAAAAEAAUAAAAEAAIAAAAGAAUAAAAEAAMAAAAFAAUAAAAEAAQAAAADAAUAAAAEAAUAAAACAAUAAAAEAAYAAAAGAAUAAAAEAAcAAAAFAAUAAAAEAAgAAAAEAAUAAAAEAAkAAAAFAAUAAAAFAAAAAAADAAUAAAAFAAQAAAAFAAUAAAAFAAUAAAAEAAUAAAAFAAYAAAAEAAUAAAAFAAcAAAAGAAUAAAAFAAgAAAAGAAUAAAAFAAkAAAADAAUAAAAGAAAAAAADAAUAAAAGAAQAAAAFAAUAAAAGAAUAAAADAAUAAAAGAAYAAAAFAAUAAAAGAAcAAAAEAAUAAAAGAAgAAAAEAAUAAAAGAAkAAAAGAAUAAAAHAAAAAAAFAAUAAAAHAAEAAAAEAAUAAAAHAAIAAAADAAUAAAAHAAMAAAAGAAUAAAAHAAQAAAADAAUAAAAHAAUAAAADAAUAAAAHAAYAAAAEAAUAAAAHAAcAAAAEAAUAAAAHAAgAAAAEAAUAAAAHAAkAAAACAAUAAAAIAAAAAAAEAAUAAAAIAAEAAAAFAAUAAAAIAAIAAAACAAUAAAAIAAMAAAACAAUAAAAIAAQAAAAFAAUAAAAIAAUAAAAFAAUAAAAIAAYAAAAEAAUAAAAIAAcAAAAFAAUAAAAIAAgAAAAEAAUAAAAIAAkAAAAGAAUAAAAJAAAAAAADAAUAAAAJAAEAAAACAAUAAAAJAAIAAAAFAAUAAAAJAAMAAAAGAAUAAAAJAAQAAAADAAUAAAAJAAUAAAACAAUAAAAJAAYAAAAFAAUAAAAJAAcAAAAGAAUAAAAJAAgAAAADAAUAAAAJAAkAAAAEAAUAAAAKAAAAAAAFAAUAAAAKAAEAAAAFAAUAAAAKAAIAAAADAAUAAAAKAAMAAAADAAUAAAAKAAQAAAAGAAUAAAAKAAUAAAADAAUAAAAKAAYAAAAFAAUAAAAKAAcAAAACAAUAAAAKAAgAAAAEAAUAAAAKAAkAAAAGAAUAAAALAAAAAAAFAAUAAAALAAEAAAACAAUAAAALAAIAAAACAAUAAAALAAMAAAACAAUAAAALAAQAAAACAAUAAAALAAUAAAAGAAUAAAALAAYAAAAGAAUAAAALAAcAAAADAAUAAAALAAgAAAAGAAUAAAALAAkAAAACAAUAAAAMAAAAAAACAAUAAAAMAAEAAAADAAUAAAAMAAIAAAACAAUAAAAMAAMAAAAGAAUAAAAMAAQAAAACAAUAAAAMAAUAAAADAAUAAAAMAAYAAAACAAUAAAAMAAcAAAADAAUAAAAMAAgAAAADAAUAAAAMAAkAAAADAAUAAAANAAAAAAAFAAUAAAANAAEAAAADAAUAAAANAAIAAAAGAAUAAAANAAMAAAAEAAUAAAANAAQAAAADAAUAAAANAAUAAAACAAUAAAANAAYAAAAFAAUAAAANAAcAAAAFAAUAAAANAAgAAAACAAUAAAANAAkAAAADAAUAAAAOAAAAAAACAAUAAAAOAAEAAAADAAUAAAAOAAIAAAAGAAUAAAAOAAMAAAAGAAUAAAAOAAQAAAAFAAUAAAAOAAUAAAADAAUAAAAOAAYAAAAGAAUAAAAOAAcAAAAGAAUAAAAOAAgAAAADAAUAAAAOAAkAAAACAAUAAAAAAAoAAAADAAUAAAABAAoAAAAFAAUAAAACAAoAAAACAAUAAAADAAoAAAACAAUAAAAEAAoAAAACAAUAAAAFAAoAAAACAAUAAAAGAAoAAAAGAAUAAAAHAAoAAAAEAAUAAAAIAAoAAAADAAUAAAAJAAoAAAAEAAUAAAAKAAoAAAAFAAUAAAALAAoAAAACAAUAAAAMAAoAAAAGAAUAAAANAAoAAAAGAAUAAAAOAAoAAAAEAAUAAAAPAAAAAAAGAAUAAAAPAAEAAAAGAAUAAAAPAAIAAAAEAAUAAAAPAAMAAAAGAAUAAAAPAAQAAAADAAUAAAAPAAUAAAACAAUAAAAPAAYAAAADAAUAAAAPAAcAAAADAAUAAAAPAAgAAAACAAUAAAAPAAkAAAACAAUAAAAPAAoAAAADAAUAAAAFAAEAAAACAAUAAAAFAAIAAAADAAUAAAAFAAMAAAADAAUAAAAGAAEAAAAEAAUAAAAGAAIAAAAEAAUAAAAGAAMAAAAFAAUAAAA=")
 tile_set = SubResource("TileSet_8hrwj")
 
@@ -103,12 +168,14 @@ texture = ExtResource("3_lnu2h")
 offset = Vector2(0, -16)
 hframes = 4
 vframes = 4
+frame = 8
 script = ExtResource("4_lbhrr")
 
 [node name="GUI" type="CanvasLayer" parent="." unique_id=11632804]
 script = ExtResource("6_gee14")
 
 [node name="PauseMenu" type="NinePatchRect" parent="GUI" unique_id=312082085]
+visible = false
 anchors_preset = -1
 anchor_left = 0.5
 anchor_right = 1.0
@@ -171,6 +238,7 @@ text = "Salir del Juego"
 alignment = 0
 
 [node name="Speech" type="NinePatchRect" parent="GUI" unique_id=1819060083]
+visible = false
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -197,8 +265,116 @@ offset_bottom = 97.0
 theme = ExtResource("7_gee14")
 text = "Would you like to save the game?"
 
+[node name="Bag" type="TextureRect" parent="GUI" unique_id=102240498]
+visible = false
+offset_right = 40.0
+offset_bottom = 40.0
+texture = ExtResource("10_vtaks")
+
+[node name="Bag" type="TextureRect" parent="GUI/Bag" unique_id=1837705877]
+layout_mode = 0
+offset_left = 32.0
+offset_top = 32.0
+offset_right = 160.0
+offset_bottom = 160.0
+texture = ExtResource("11_kvpfn")
+
+[node name="BagPocketLabel" type="Label" parent="GUI/Bag" unique_id=296549558]
+layout_mode = 0
+offset_left = 60.0
+offset_top = 182.0
+offset_right = 120.0
+offset_bottom = 210.0
+theme = ExtResource("7_gee14")
+text = "Items"
+
+[node name="BagPocketIcon" type="TextureRect" parent="GUI/Bag" unique_id=342892516]
+layout_mode = 0
+offset_top = 225.0
+offset_right = 30.0
+offset_bottom = 255.0
+texture = SubResource("AtlasTexture_sbqex")
+
+[node name="ScrollContainer" type="ScrollContainer" parent="GUI/Bag" unique_id=854534884]
+layout_mode = 0
+offset_left = 184.0
+offset_top = 16.0
+offset_right = 506.0
+offset_bottom = 266.0
+theme = ExtResource("7_gee14")
+
+[node name="VBoxContainer" type="VBoxContainer" parent="GUI/Bag/ScrollContainer" unique_id=437168908]
+layout_mode = 2
+
+[node name="Button" type="Button" parent="GUI/Bag/ScrollContainer/VBoxContainer" unique_id=354554570]
+layout_mode = 2
+theme = ExtResource("7_gee14")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/hover = SubResource("StyleBoxTexture_x3a6k")
+theme_override_styles/focus = SubResource("StyleBoxTexture_x3a6k")
+text = "REPEL                         x 12"
+
+[node name="Button2" type="Button" parent="GUI/Bag/ScrollContainer/VBoxContainer" unique_id=1022093479]
+layout_mode = 2
+theme = ExtResource("7_gee14")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/hover = SubResource("StyleBoxTexture_x3a6k")
+theme_override_styles/focus = SubResource("StyleBoxTexture_x3a6k")
+text = "REPEL                         x 12"
+
+[node name="Button3" type="Button" parent="GUI/Bag/ScrollContainer/VBoxContainer" unique_id=2009490555]
+layout_mode = 2
+theme = ExtResource("7_gee14")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/hover = SubResource("StyleBoxTexture_x3a6k")
+theme_override_styles/focus = SubResource("StyleBoxTexture_x3a6k")
+text = "REPEL                         x 12"
+
+[node name="Button4" type="Button" parent="GUI/Bag/ScrollContainer/VBoxContainer" unique_id=1349129738]
+layout_mode = 2
+theme = ExtResource("7_gee14")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/hover = SubResource("StyleBoxTexture_x3a6k")
+theme_override_styles/focus = SubResource("StyleBoxTexture_x3a6k")
+text = "REPEL                         x 12"
+
+[node name="Button5" type="Button" parent="GUI/Bag/ScrollContainer/VBoxContainer" unique_id=1214785671]
+layout_mode = 2
+theme = ExtResource("7_gee14")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/hover = SubResource("StyleBoxTexture_x3a6k")
+theme_override_styles/focus = SubResource("StyleBoxTexture_x3a6k")
+text = "REPEL                         x 12"
+
+[node name="Button6" type="Button" parent="GUI/Bag/ScrollContainer/VBoxContainer" unique_id=65770167]
+layout_mode = 2
+theme = ExtResource("7_gee14")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/hover = SubResource("StyleBoxTexture_x3a6k")
+theme_override_styles/focus = SubResource("StyleBoxTexture_x3a6k")
+text = "REPEL                         x 12"
+
+[node name="Button7" type="Button" parent="GUI/Bag/ScrollContainer/VBoxContainer" unique_id=1269852838]
+layout_mode = 2
+theme = ExtResource("7_gee14")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/hover = SubResource("StyleBoxTexture_x3a6k")
+theme_override_styles/focus = SubResource("StyleBoxTexture_x3a6k")
+text = "REPEL                         x 12"
+
+[node name="Button8" type="Button" parent="GUI/Bag/ScrollContainer/VBoxContainer" unique_id=620875085]
+layout_mode = 2
+theme = ExtResource("7_gee14")
+theme_override_font_sizes/font_size = 32
+theme_override_styles/hover = SubResource("StyleBoxTexture_x3a6k")
+theme_override_styles/focus = SubResource("StyleBoxTexture_x3a6k")
+text = "REPEL                         x 12"
+
 [node name="SfxPlayer" type="AudioStreamPlayer" parent="GUI" unique_id=1286352321]
 
 [node name="BattleScene" type="Node2D" parent="." unique_id=1334551997]
 
 [node name="Event" type="Node" parent="." unique_id=1824268668]
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="Event" unique_id=55547330]
+libraries/ = SubResource("AnimationLibrary_kvpfn")
