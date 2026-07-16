@@ -1,0 +1,21 @@
+[gd_scene format=3 uid="uid://dt3625qpytvo"]
+
+[ext_resource type="Texture2D" uid="uid://h7tbkix6rcva" path="res://graphics/characters/trainer_SUPERNERD.png" id="1_3vyb7"]
+[ext_resource type="Script" uid="uid://bub50qvsb7cda" path="res://scenes/player.gd" id="1_g2els"]
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
+size = Vector2(32, 32)
+
+[node name="Player" type="CharacterBody2D" unique_id=1661253606]
+script = ExtResource("1_g2els")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=136135596]
+texture = ExtResource("1_3vyb7")
+centered = false
+offset = Vector2(0, -16)
+hframes = 4
+vframes = 4
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1003477592]
+position = Vector2(16, 16)
+shape = SubResource("RectangleShape2D_g2els")

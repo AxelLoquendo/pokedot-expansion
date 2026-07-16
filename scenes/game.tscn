@@ -1,10 +1,8 @@
 [gd_scene format=4 uid="uid://dptfc76n1chbj"]
 
 [ext_resource type="Script" uid="uid://cojt4iu5rc13u" path="res://scenes/game.gd" id="1_uwrxv"]
-[ext_resource type="Script" uid="uid://efxfkbh02sh" path="res://scenes/overworld/overworld.gd" id="2_iywne"]
 [ext_resource type="Texture2D" uid="uid://b8h7oaq5byh5h" path="res://graphics/tilesets/Dungeon forest.png" id="2_yqjtg"]
-[ext_resource type="Texture2D" uid="uid://h7tbkix6rcva" path="res://graphics/characters/trainer_SUPERNERD.png" id="3_lnu2h"]
-[ext_resource type="Script" uid="uid://d3x03o20l3nv" path="res://scenes/overworld/character.gd" id="4_lbhrr"]
+[ext_resource type="PackedScene" uid="uid://dt3625qpytvo" path="res://scenes/player.tscn" id="3_dinhu"]
 [ext_resource type="Script" uid="uid://ijpplobc0p53" path="res://scenes/gui.gd" id="6_gee14"]
 [ext_resource type="Texture2D" uid="uid://c8k0ljd42ns2l" path="res://graphics/pictures/fondos_tipos/fondo_poke_dragon.png" id="6_u5sy4"]
 [ext_resource type="Theme" uid="uid://7b2tvqct3805" path="res://graphics/pokemon_red_theme.tres" id="7_gee14"]
@@ -19,47 +17,69 @@
 texture = ExtResource("2_yqjtg")
 texture_region_size = Vector2i(32, 32)
 0:0/0 = 0
+0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 1:0/0 = 0
+1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 2:0/0 = 0
+2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 3:0/0 = 0
+3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 4:0/0 = 0
 5:0/0 = 0
 6:0/0 = 0
 7:0/0 = 0
 0:1/0 = 0
+0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 1:1/0 = 0
+1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 2:1/0 = 0
+2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 3:1/0 = 0
+3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 4:1/0 = 0
+4:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 5:1/0 = 0
+5:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 6:1/0 = 0
 7:1/0 = 0
 0:2/0 = 0
+0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 1:2/0 = 0
 2:2/0 = 0
 3:2/0 = 0
+3:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 4:2/0 = 0
+4:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 5:2/0 = 0
+5:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 6:2/0 = 0
 7:2/0 = 0
 0:3/0 = 0
+0:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 1:3/0 = 0
 2:3/0 = 0
 3:3/0 = 0
+3:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 4:3/0 = 0
 5:3/0 = 0
 6:3/0 = 0
 7:3/0 = 0
 0:4/0 = 0
+0:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 1:4/0 = 0
+1:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 2:4/0 = 0
+2:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 3:4/0 = 0
+3:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 4:4/0 = 0
 5:4/0 = 0
 6:4/0 = 0
 7:4/0 = 0
 0:5/0 = 0
+0:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 1:5/0 = 0
+1:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 2:5/0 = 0
 3:5/0 = 0
 4:5/0 = 0
@@ -67,7 +87,9 @@ texture_region_size = Vector2i(32, 32)
 6:5/0 = 0
 7:5/0 = 0
 0:6/0 = 0
+0:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 1:6/0 = 0
+1:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
 2:6/0 = 0
 3:6/0 = 0
 4:6/0 = 0
@@ -77,6 +99,7 @@ texture_region_size = Vector2i(32, 32)
 
 [sub_resource type="TileSet" id="TileSet_8hrwj"]
 tile_size = Vector2i(32, 32)
+physics_layer_0/collision_layer = 1
 sources/0 = SubResource("TileSetAtlasSource_lnu2h")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sbqex"]
@@ -92,46 +115,35 @@ texture_margin_bottom = 4.0
 region_rect = Rect2(0, 12, 282, 44)
 
 [sub_resource type="Animation" id="Animation_0tnpc"]
-length = 0.5
+length = 6.000003646257892
+step = 0.016666668
 tracks/0/type = "value"
 tracks/0/imported = false
 tracks/0/enabled = true
-tracks/0/path = NodePath("../Overworld/Sprite2D:position")
+tracks/0/path = NodePath("../GUI/Speech/RichTextLabel:text")
 tracks/0/interp = 1
 tracks/0/loop_wrap = true
 tracks/0/keys = {
-"times": PackedFloat32Array(0),
-"transitions": PackedFloat32Array(1),
-"update": 0,
-"values": [Vector2(42, 88)]
-}
-tracks/1/type = "value"
-tracks/1/imported = false
-tracks/1/enabled = true
-tracks/1/path = NodePath("../GUI/Speech/RichTextLabel:text")
-tracks/1/interp = 1
-tracks/1/loop_wrap = true
-tracks/1/keys = {
 "times": PackedFloat32Array(0.2),
 "transitions": PackedFloat32Array(1),
 "update": 1,
 "values": ["Would you like to save the game?"]
 }
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("../Overworld/Player:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.39),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(320, 240), Vector2(240, 112)]
+}
 
 [sub_resource type="Animation" id="Animation_vtaks"]
 resource_name = "new_animation"
-tracks/0/type = "value"
-tracks/0/imported = false
-tracks/0/enabled = true
-tracks/0/path = NodePath("../Overworld/Sprite2D:position")
-tracks/0/interp = 1
-tracks/0/loop_wrap = true
-tracks/0/keys = {
-"times": PackedFloat32Array(0, 0.7, 0.96),
-"transitions": PackedFloat32Array(1, 1, 1),
-"update": 0,
-"values": [Vector2(95, 167), Vector2(227, 63), Vector2(227, 63)]
-}
 
 [sub_resource type="AnimationLibrary" id="AnimationLibrary_kvpfn"]
 _data = {
@@ -145,7 +157,6 @@ script = ExtResource("1_uwrxv")
 [node name="PServer" type="PServer" parent="." unique_id=1803942334]
 
 [node name="Overworld" type="Node" parent="." unique_id=2095790102]
-script = ExtResource("2_iywne")
 
 [node name="Map" type="Node2D" parent="Overworld" unique_id=1147602038]
 
@@ -163,14 +174,8 @@ z_index = 1
 tile_map_data = PackedByteArray("AAACAAEAAAABAAMAAAADAAEAAAACAAMAAAA=")
 tile_set = SubResource("TileSet_8hrwj")
 
-[node name="Sprite2D" type="Sprite2D" parent="Overworld" unique_id=828329704]
-position = Vector2(42, 88)
-texture = ExtResource("3_lnu2h")
-offset = Vector2(0, -16)
-hframes = 4
-vframes = 4
-frame = 8
-script = ExtResource("4_lbhrr")
+[node name="Player" parent="Overworld" unique_id=1661253606 instance=ExtResource("3_dinhu")]
+position = Vector2(320, 240)
 
 [node name="GUI" type="CanvasLayer" parent="." unique_id=11632804]
 script = ExtResource("6_gee14")
@@ -371,9 +376,8 @@ theme_override_styles/hover = SubResource("StyleBoxTexture_x3a6k")
 theme_override_styles/focus = SubResource("StyleBoxTexture_x3a6k")
 text = "REPEL                         x 12"
 
-[node name="SfxPlayer" type="AudioStreamPlayer" parent="GUI" unique_id=1286352321]
-
 [node name="SaveMenu" type="NinePatchRect" parent="GUI" unique_id=776790066]
+visible = false
 offset_left = 11.0
 offset_top = 11.0
 offset_right = 235.0
@@ -484,6 +488,8 @@ text = "Yes"
 layout_mode = 2
 theme = ExtResource("7_gee14")
 text = "No"
+
+[node name="SfxPlayer" type="AudioStreamPlayer" parent="GUI" unique_id=1286352321]
 
 [node name="BattleScene" type="Node2D" parent="." unique_id=1334551997]
 
