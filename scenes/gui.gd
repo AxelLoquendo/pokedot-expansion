@@ -7,12 +7,7 @@ const songs = {
 
 @onready var sfx_player: AudioStreamPlayer = $SfxPlayer
 @onready var pause_menu: NinePatchRect = $PauseMenu
-@onready var speech: NinePatchRect = $Speech
-
-
-func _ready() -> void:
-	pause_menu.hide()
-	speech.hide()
+@onready var speech_menu: NinePatchRect = $SpeechMenu
 
 func _unhandled_input(event):
 	if event is InputEventKey:
