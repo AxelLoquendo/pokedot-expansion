@@ -162,7 +162,6 @@ grow_vertical = 0
 color = Color(0.52912915, 0.79595864, 0.4822746, 1)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/ColorRect" unique_id=1737231380]
-visible = false
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -212,7 +211,6 @@ texture_hover = SubResource("AtlasTexture_sv6pa")
 texture_focused = SubResource("AtlasTexture_sv6pa")
 
 [node name="TextureRect" type="TextureRect" parent="UI/ColorRect" unique_id=1027738753]
-visible = false
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
