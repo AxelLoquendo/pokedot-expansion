@@ -153,10 +153,11 @@ _data = {
 &"new_animation": SubResource("Animation_vtaks")
 }
 
-[node name="Game" type="Node" unique_id=918859073]
+[node name="Game" type="Node" unique_id=918859073 node_paths=PackedStringArray("battle_scene")]
 script = ExtResource("1_uwrxv")
+battle_scene = NodePath("")
 
-[node name="PServer" type="PServer" parent="." unique_id=1803942334]
+[node name="PServer" type="Node" parent="." unique_id=1803942334]
 
 [node name="Overworld" type="Node" parent="." unique_id=2095790102]
 
@@ -351,6 +352,7 @@ theme_override_styles/focus = SubResource("StyleBoxTexture_x3a6k")
 text = "REPEL                         x 12"
 
 [node name="SaveMenu" type="NinePatchRect" parent="GUI" unique_id=776790066]
+visible = false
 offset_left = 11.0
 offset_top = 11.0
 offset_right = 235.0
@@ -490,8 +492,6 @@ offset_bottom = 97.0
 theme = ExtResource("7_gee14")
 
 [node name="SfxPlayer" type="AudioStreamPlayer" parent="GUI" unique_id=1286352321]
-
-[node name="BattleScene" type="Node2D" parent="." unique_id=1334551997]
 
 [node name="Event" type="Node" parent="." unique_id=1824268668]
 

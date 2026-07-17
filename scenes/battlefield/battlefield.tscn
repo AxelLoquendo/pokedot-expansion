@@ -212,6 +212,7 @@ texture_hover = SubResource("AtlasTexture_sv6pa")
 texture_focused = SubResource("AtlasTexture_sv6pa")
 
 [node name="TextureRect" type="TextureRect" parent="UI/ColorRect" unique_id=1027738753]
+visible = false
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
