@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://chhe7vvlyqivg"]
 
 [ext_resource type="Script" uid="uid://dfwcmlw66nmxs" path="res://scenes/battlefield/battlefield.gd" id="1_n2w7h"]
+[ext_resource type="Texture2D" uid="uid://escu6wouljed" path="res://graphics/battle_back/champion1_bg.png" id="2_ql7mu"]
 [ext_resource type="Texture2D" uid="uid://copndvqjaq401" path="res://graphics/ui/battle/ability_bar.png" id="13_siwgj"]
 [ext_resource type="Texture2D" uid="uid://cvy07smku4gu3" path="res://graphics/ui/battle/databox_normal.png" id="15_upguu"]
 [ext_resource type="Texture2D" uid="uid://cwsa7naocjcci" path="res://graphics/ui/battle/overlay_command.png" id="16_yexbb"]
@@ -66,6 +67,10 @@ region = Rect2(0, 0, 190, 45)
 
 [node name="Battlefield" type="Node2D" unique_id=98054996]
 script = ExtResource("1_n2w7h")
+
+[node name="Champion1Bg" type="Sprite2D" parent="." unique_id=1671324257]
+texture = ExtResource("2_ql7mu")
+centered = false
 
 [node name="Champion1Base0" type="Sprite2D" parent="." unique_id=458118716]
 position = Vector2(110, 272)
@@ -162,6 +167,7 @@ grow_vertical = 0
 color = Color(0.52912915, 0.79595864, 0.4822746, 1)
 
 [node name="HBoxContainer" type="HBoxContainer" parent="UI/ColorRect" unique_id=1737231380]
+visible = false
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
@@ -211,6 +217,7 @@ texture_hover = SubResource("AtlasTexture_sv6pa")
 texture_focused = SubResource("AtlasTexture_sv6pa")
 
 [node name="TextureRect" type="TextureRect" parent="UI/ColorRect" unique_id=1027738753]
+visible = false
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0

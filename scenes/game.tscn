@@ -14,6 +14,7 @@
 [ext_resource type="Texture2D" uid="uid://b5xrxpnyseajf" path="res://graphics/ui/bag/icon_pocket.png" id="13_kvuet"]
 [ext_resource type="Script" uid="uid://b53bpo0lxyuac" path="res://scenes/menus/speech_menu.gd" id="13_trtic"]
 [ext_resource type="Texture2D" uid="uid://bsip5ltrwh06d" path="res://graphics/windowskins/choice 1.png" id="14_trtic"]
+[ext_resource type="PackedScene" uid="uid://chhe7vvlyqivg" path="res://scenes/battlefield/battlefield.tscn" id="15_ir15t"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
 texture = ExtResource("2_yqjtg")
@@ -155,9 +156,7 @@ _data = {
 
 [node name="Game" type="Node" unique_id=918859073 node_paths=PackedStringArray("battle_scene")]
 script = ExtResource("1_uwrxv")
-battle_scene = NodePath("")
-
-[node name="PServer" type="Node" parent="." unique_id=1803942334]
+battle_scene = NodePath("Battlefield")
 
 [node name="Overworld" type="Node" parent="." unique_id=2095790102]
 
@@ -493,6 +492,12 @@ theme = ExtResource("7_gee14")
 
 [node name="SfxPlayer" type="AudioStreamPlayer" parent="GUI" unique_id=1286352321]
 
+[node name="Battlefield" parent="." unique_id=98054996 instance=ExtResource("15_ir15t")]
+visible = false
+
+[node name="UI" parent="Battlefield" index="5" unique_id=2057128594]
+visible = false
+
 [node name="Event" type="Node" parent="." unique_id=1824268668]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Event" unique_id=55547330]
@@ -500,3 +505,5 @@ libraries/ = SubResource("AnimationLibrary_kvpfn")
 
 [connection signal="pressed" from="GUI/SaveMenu/Confirm/VBoxContainer/Yes" to="GUI/SaveMenu" method="_on_yes_pressed"]
 [connection signal="pressed" from="GUI/SaveMenu/Confirm/VBoxContainer/No" to="GUI/SaveMenu" method="_on_no_pressed"]
+
+[editable path="Battlefield"]

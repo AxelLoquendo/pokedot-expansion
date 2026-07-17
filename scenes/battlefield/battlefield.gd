@@ -1,9 +1,13 @@
 extends Node2D
 
+signal battle_finished(result: String)
+
 var is_animation_running := false
 var pbattlepeer = PBattlePeer.new()
 var packet: String
+var player_name := "nerfis"
 
+@onready var moveset_panel: TextureRect = $UI/ColorRect/TextureRect
 @onready var moveset_container: GridContainer = $UI/ColorRect/TextureRect/GridContainer
 @onready var player_pokemon: Sprite2D = $Pikachu
 @onready var foe_pokemon: Sprite2D = $Pidgey
@@ -22,11 +26,6 @@ var packet: String
 @onready var ability_label: Label = $UI/AbilityBar/Label
 
 
-func _ready() -> void:
-	bind_choices(pbattlepeer.send)
-	pbattlepeer.start("nerfis", "Arcanine||Leftovers|Intimidate|Flareblitz,Extremespeed,Wildcharge,Morningsun|Impish|252,0,252,0,4,0||||||||")
-
-
 func _physics_process(delta: float) -> void:
 	if is_animation_running:
 		return
@@ -43,8 +42,18 @@ func _physics_process(delta: float) -> void:
 
 
 func present() -> void:
+	bind_choices(pbattlepeer.send)
+	
+	message_container.hide()
+	moveset_panel.hide()
+	
 	show()
 	ui.show()
+
+
+func dispose() -> void:
+	hide()
+	ui.hide()
 
 
 func bind_choices(callback: Callable) -> void:
@@ -61,12 +70,14 @@ func display_moveset(moveset: Array) -> void:
 
 
 func show_options() -> void:
-	moveset_container.show()
+	message_container.hide()
+	moveset_panel.show()
 	move_button_1.grab_focus()
 
 
 func hide_options() -> void:
-	moveset_container.hide()
+	moveset_panel.hide()
+	message_container.hide()
 
 
 func take_damage(position: String, damage: int) -> void:
@@ -74,12 +85,13 @@ func take_damage(position: String, damage: int) -> void:
 	var hp_bar = player_hp_bar if position == "p1a" else foe_hp_bar
 	const FACTOR_MILISECONDS_PER_POINTS = 0.006
 	var duration = abs(hp_bar.value - damage) * FACTOR_MILISECONDS_PER_POINTS
-	tw.tween_property(hp_bar, "value", damage, duration).set_ease(Tween.EASE_OUT)
+	tw.tween_property(hp_bar, "value", damage, duration).set_ease(Tween.EASE_OUT).set_delay(0.3)
 
 	await tw.finished
 
 
 func message(msg: String) -> void:
+	moveset_panel.hide()
 	message_label.visible_ratio = 0
 	message_label.text = msg
 
@@ -118,8 +130,8 @@ func switch(ident: String, max_hp: int, hp: int) -> void:
 	var pokemon = ident.substr(5).replace("-", "").replace(" ", "")
 	var pokemon_id = pokemon.to_lower()
 
-	player_hp_bar.set_max(max_hp)
-	player_hp_bar.set_value(hp)
+	hp_bar.set_max(max_hp)
+	hp_bar.set_value(hp)
 	label.text = pokemon
 	sprite2d.texture = load("res://graphics/pokemon/front/%s.png" % pokemon_id)
 
@@ -234,6 +246,7 @@ func handle_action(action: String) -> void:
 			switch(ident, max_hp, hp)
 		"win":
 			await message("%s win!\n" % args[1])
+			battle_finished.emit("win" if args[1] == player_name else "lose")
 		"faint":
 			var position: String = args[1].substr(0, 3)
 			await take_damage(position, 0)
@@ -297,7 +310,6 @@ func handle_action(action: String) -> void:
 		"poke", "teampreview", "teamsize", "t:", "upkeep", "done":
 			# Acciones de metadata/setup que no requieren animación
 			return
-
 
 
 class ParsedBattleLine:
