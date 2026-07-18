@@ -2,10 +2,11 @@ extends Node
 
 #@onready var p_server: PServer = $PServer
 @export var battle_scene: Node
+@onready var gui: CanvasLayer = $GUI
 
 
 func _ready() -> void:
-	pass
+	battle_scene.connect("battle_finished", _battle_finished)
 	#p_battle = PBattle.new()
 	#battle_scene.add_child(p_battle)
 	# - No de incluye las versiones femeninas
@@ -28,13 +29,7 @@ func _ready() -> void:
 
 func _input(event: InputEvent) -> void:
 	if event.is_pressed() and event.as_text() == "B":
-		battle_scene.pbattlepeer = PBattlePeer.new()
-		battle_scene.pbattlepeer.start(battle_scene.player_name, "Arcanine||Leftovers|Intimidate|Flareblitz,Extremespeed,Wildcharge,Morningsun|Impish|252,0,252,0,4,0||||||||")
-		battle_scene.connect("battle_finished", _battle_finished)
-		battle_scene.present()
-
-		$Overworld/Player.process_mode = Node.PROCESS_MODE_DISABLED
-
+		start_battle()
 		get_viewport().set_input_as_handled()
 
 	if event.is_pressed() and event.as_text() == "F":
@@ -50,6 +45,20 @@ func _battle_finished(result: String) -> void:
 
 	$Overworld/Player.process_mode = Node.PROCESS_MODE_INHERIT
 
+func start_battle() -> void:
+	$Overworld/Player.process_mode = Node.PROCESS_MODE_DISABLED
+	
+	var trasition_end = gui.transition_progress_1()
+	
+	battle_scene.pbattlepeer = PBattlePeer.new()
+	battle_scene.pbattlepeer.start(battle_scene.player_name, "Arcanine||Leftovers|Intimidate|Flareblitz,Extremespeed,Wildcharge,Morningsun|Impish|252,0,252,0,4,0||||||||")
+	await trasition_end
+	
+	battle_scene.present()
+	battle_scene.ui.visible = false
+	await gui.transition_progress_0()
+	battle_scene.ui.visible = true
+	
 
 func _on_player_interact(message: String) -> void:
 	$GUI/SpeechMenu.speech(message)

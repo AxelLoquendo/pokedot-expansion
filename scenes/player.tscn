@@ -2,12 +2,42 @@
 
 [ext_resource type="Texture2D" uid="uid://h7tbkix6rcva" path="res://graphics/characters/trainer_SUPERNERD.png" id="1_3vyb7"]
 [ext_resource type="Script" uid="uid://bub50qvsb7cda" path="res://scenes/player.gd" id="1_g2els"]
+[ext_resource type="Texture2D" uid="uid://cpjd77co7e5oq" path="res://graphics/characters/shadows/MAUSHOLD.png" id="3_qhqgy"]
 
 [sub_resource type="RectangleShape2D" id="RectangleShape2D_g2els"]
 size = Vector2(32, 32)
 
-[node name="Player" type="CharacterBody2D" unique_id=1661253606]
+[sub_resource type="Animation" id="Animation_dqkch"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Sprite2D:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(0, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_qlg0r"]
+_data = {
+&"RESET": SubResource("Animation_dqkch")
+}
+
+[node name="Player" type="Area2D" unique_id=792443673 groups=["player"]]
 script = ExtResource("1_g2els")
+
+[node name="Shadown" type="Sprite2D" parent="." unique_id=739650453]
+visible = false
+modulate = Color(1, 1, 1, 0.652)
+position = Vector2(2, 20)
+texture = ExtResource("3_qhqgy")
+centered = false
+region_enabled = true
+region_rect = Rect2(9, 93, 28, 14)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=136135596]
 texture = ExtResource("1_3vyb7")
@@ -16,9 +46,18 @@ offset = Vector2(0, -16)
 hframes = 4
 vframes = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1003477592 groups=["player"]]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1003477592]
 position = Vector2(16, 16)
 shape = SubResource("RectangleShape2D_g2els")
 
-[node name="RayCast2D" type="RayCast2D" parent="CollisionShape2D" unique_id=763315776]
-target_position = Vector2(0, 36)
+[node name="Node2D" type="Node2D" parent="CollisionShape2D" unique_id=2035877686]
+position = Vector2(0, 17)
+
+[node name="RayCast2D" type="RayCast2D" parent="CollisionShape2D/Node2D" unique_id=763315776]
+target_position = Vector2(0, 16)
+collision_mask = 3
+hit_from_inside = true
+collide_with_areas = true
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1494741068]
+libraries/ = SubResource("AnimationLibrary_qlg0r")

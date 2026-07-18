@@ -1,9 +1,9 @@
-extends CharacterBody2D
+extends Area2D
 
-const WALK_SPEED = 2
-const FRAMES_PER_STEP = 4
-const FRAME_COUNT = 16
+const FRAME_COUNT = 32
 const TILE_SIZE = 32
+const WALK_SPEED = TILE_SIZE/float(FRAME_COUNT)
+const FRAMES_PER_STEP = FRAME_COUNT/4
 
 var frame_timer := 0
 var facing_direction := Vector2.DOWN
@@ -11,7 +11,7 @@ var is_walking := false
 var rice_index := 0
 var rice := [Vector2.RIGHT, Vector2.RIGHT, Vector2.RIGHT, Vector2.LEFT, Vector2.LEFT, Vector2.LEFT]
 
-@onready var ray_cast_2d: RayCast2D = $CollisionShape2D/RayCast2D
+@onready var ray_cast_2d: RayCast2D = $CollisionShape2D/Node2D/RayCast2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
 
 
@@ -32,12 +32,12 @@ func _physics_process(_delta: float) -> void:
 	elif input_direction != Vector2.ZERO:
 		if input_direction != facing_direction:
 			facing_direction = input_direction
-			ray_cast_2d.rotation_degrees = _get_rotation_by_dir(facing_direction)
+			$CollisionShape2D.rotation_degrees = _get_rotation_by_dir(facing_direction)
 			sprite_2d.frame = _get_base_frame(facing_direction)
 			return
 		if ray_cast_2d.is_colliding():
 			return
-		
+			
 		position += facing_direction * Vector2(TILE_SIZE, TILE_SIZE)
 		sprite_2d.position -= facing_direction * Vector2(TILE_SIZE, TILE_SIZE)
 		is_walking = true
@@ -56,19 +56,16 @@ func _advance_walk_animation() -> void:
 	var step = _get_step_by_frame(frame_timer)
 	sprite_2d.frame = _get_base_frame(facing_direction) + step
 	sprite_2d.position += facing_direction * WALK_SPEED
-	move_and_slide()
 
 func _get_step_by_frame(frame_timer: int) -> int:
-	match frame_timer:
-		1, 2, 3, 4:
-			return 0
-		5, 6, 7, 8:
-			return 1
-		9, 10, 11, 12:
-			return 2
-		13, 14, 15, 16:
-			return 3
-		
+	if frame_timer <= FRAMES_PER_STEP:
+		return 0
+	if frame_timer <= FRAMES_PER_STEP * 2:
+		return 1
+	if frame_timer <= FRAMES_PER_STEP * 3:
+		return 2
+	if frame_timer <= FRAMES_PER_STEP * 4:
+		return 3
 	return 0
 
 func _get_base_frame(direction: Vector2) -> int:

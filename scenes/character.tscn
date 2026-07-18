@@ -3,5 +3,5 @@
 [ext_resource type="PackedScene" uid="uid://dt3625qpytvo" path="res://scenes/player.tscn" id="1_agfs1"]
 [ext_resource type="Script" uid="uid://dhk6gm2b0v7vq" path="res://scenes/character.gd" id="2_rkhd4"]
 
-[node name="Player" unique_id=1661253606 instance=ExtResource("1_agfs1")]
+[node name="Player" unique_id=792443673 instance=ExtResource("1_agfs1")]
 script = ExtResource("2_rkhd4")
