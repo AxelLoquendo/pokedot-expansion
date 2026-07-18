@@ -133,7 +133,9 @@ func switch(ident: String, max_hp: int, hp: int) -> void:
 	hp_bar.set_max(max_hp)
 	hp_bar.set_value(hp)
 	label.text = pokemon
-	sprite2d.texture = load("res://graphics/pokemon/front/%s.png" % pokemon_id)
+	
+	var face = "back" if ident.begins_with("p1a") else "front"
+	sprite2d.texture = load("res://graphics/pokemon/%s/%s.png" % [face, pokemon_id])
 
 
 func parse_battle_line(line: String) -> ParsedBattleLine:

@@ -16,6 +16,9 @@ offset = Vector2(0, -16)
 hframes = 4
 vframes = 4
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1003477592]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1003477592 groups=["player"]]
 position = Vector2(16, 16)
 shape = SubResource("RectangleShape2D_g2els")
+
+[node name="RayCast2D" type="RayCast2D" parent="CollisionShape2D" unique_id=763315776]
+target_position = Vector2(0, 36)

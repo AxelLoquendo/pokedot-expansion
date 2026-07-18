@@ -8,15 +8,21 @@ const TILE_SIZE = 32
 var frame_timer := 0
 var facing_direction := Vector2.DOWN
 var is_walking := false
+var rice_index := 0
+var rice := [Vector2.RIGHT, Vector2.RIGHT, Vector2.RIGHT, Vector2.LEFT, Vector2.LEFT, Vector2.LEFT]
 
 @onready var ray_cast_2d: RayCast2D = $CollisionShape2D/RayCast2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
 
-signal interact(message: String)
 
 func _ready() -> void:
 	#fix pos
 	global_position = global_position.snapped(Vector2(TILE_SIZE, TILE_SIZE))
+
+func _get_locked_input() -> Vector2:
+	if rice_index == rice.size():
+		rice_index = 0
+	return rice[rice_index]
 
 func _physics_process(_delta: float) -> void:
 	var input_direction = _get_locked_input()
@@ -36,28 +42,13 @@ func _physics_process(_delta: float) -> void:
 		sprite_2d.position -= facing_direction * Vector2(TILE_SIZE, TILE_SIZE)
 		is_walking = true
 
-func _get_locked_input() -> Vector2:
-	var x = Input.get_axis("ui_left", "ui_right")
-	var y = Input.get_axis("ui_up", "ui_down")
-	if x != 0 and y != 0:
-		x = 0
-	return Vector2(x, y)
-
-func _unhandled_input(event: InputEvent) -> void:
-	if event is InputEventKey and event.is_action_pressed("ui_accept"):
-		var collider = ray_cast_2d.get_collider() as CharacterBody2D
-		if collider != null:
-			var interactive = collider.get_node("Interactive")
-			
-			if interactive:
-				interact.emit(interactive.message)
-				get_viewport().set_input_as_handled()
 
 func _advance_walk_animation() -> void:
 	frame_timer += 1
 
 	if frame_timer > FRAME_COUNT:
 		frame_timer = 0
+		rice_index += 1
 		is_walking = false
 		sprite_2d.frame = _get_base_frame(facing_direction)
 		return

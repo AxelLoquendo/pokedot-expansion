@@ -3,9 +3,12 @@
 [ext_resource type="Script" uid="uid://cojt4iu5rc13u" path="res://scenes/game.gd" id="1_uwrxv"]
 [ext_resource type="Texture2D" uid="uid://b8h7oaq5byh5h" path="res://graphics/tilesets/Dungeon forest.png" id="2_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://dt3625qpytvo" path="res://scenes/player.tscn" id="3_dinhu"]
+[ext_resource type="PackedScene" uid="uid://d0pqxjardtbcf" path="res://scenes/character.tscn" id="4_ca42v"]
+[ext_resource type="Script" uid="uid://dje6nglaxxe4h" path="res://scenes/interactive.gd" id="5_rysoc"]
 [ext_resource type="Script" uid="uid://ijpplobc0p53" path="res://scenes/gui.gd" id="6_gee14"]
 [ext_resource type="Texture2D" uid="uid://c8k0ljd42ns2l" path="res://graphics/pictures/fondos_tipos/fondo_poke_dragon.png" id="6_u5sy4"]
 [ext_resource type="Theme" uid="uid://7b2tvqct3805" path="res://graphics/pokemon_red_theme.tres" id="7_gee14"]
+[ext_resource type="Script" uid="uid://df8y5ar5h8y8c" path="res://scenes/menus/pause_menu.gd" id="8_ssvqc"]
 [ext_resource type="Texture2D" uid="uid://cuae5ceccrbbh" path="res://graphics/windowskins/speech hgss 10.png" id="9_0tnpc"]
 [ext_resource type="Texture2D" uid="uid://clqxlbyh173rb" path="res://graphics/ui/bag/bg_1.png" id="10_vtaks"]
 [ext_resource type="Texture2D" uid="uid://002supfflwk3" path="res://graphics/ui/bag/bag_1.png" id="11_kvpfn"]
@@ -176,13 +179,21 @@ z_index = 1
 tile_map_data = PackedByteArray("AAACAAEAAAABAAMAAAADAAEAAAACAAMAAAA=")
 tile_set = SubResource("TileSet_8hrwj")
 
-[node name="Player" parent="Overworld" unique_id=1661253606 instance=ExtResource("3_dinhu")]
+[node name="Player" parent="Overworld" unique_id=1661253606 groups=["player"] instance=ExtResource("3_dinhu")]
 position = Vector2(320, 240)
+
+[node name="Player2" parent="Overworld" unique_id=1555280779 groups=["npcs"] instance=ExtResource("4_ca42v")]
+position = Vector2(192, 160)
+
+[node name="Interactive" type="Node" parent="Overworld/Player2" unique_id=643965106]
+script = ExtResource("5_rysoc")
+message = "Conoces a satoru gojo?"
+metadata/_custom_type_script = "uid://dje6nglaxxe4h"
 
 [node name="GUI" type="CanvasLayer" parent="." unique_id=11632804]
 script = ExtResource("6_gee14")
 
-[node name="PauseMenu" type="NinePatchRect" parent="GUI" unique_id=312082085]
+[node name="PauseMenu" type="NinePatchRect" parent="GUI" unique_id=312082085 node_paths=PackedStringArray("save_menu")]
 visible = false
 anchors_preset = -1
 anchor_left = 0.5
@@ -201,6 +212,8 @@ patch_margin_right = 14
 patch_margin_bottom = 14
 axis_stretch_horizontal = 1
 axis_stretch_vertical = 1
+script = ExtResource("8_ssvqc")
+save_menu = NodePath("../SaveMenu")
 
 [node name="VBoxContainer" type="VBoxContainer" parent="GUI/PauseMenu" unique_id=79039700]
 layout_mode = 0
@@ -503,6 +516,8 @@ visible = false
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Event" unique_id=55547330]
 libraries/ = SubResource("AnimationLibrary_kvpfn")
 
+[connection signal="interact" from="Overworld/Player" to="." method="_on_player_interact"]
+[connection signal="pressed" from="GUI/PauseMenu/VBoxContainer/Button4" to="GUI/PauseMenu" method="_on_button_4_pressed"]
 [connection signal="pressed" from="GUI/SaveMenu/Confirm/VBoxContainer/Yes" to="GUI/SaveMenu" method="_on_yes_pressed"]
 [connection signal="pressed" from="GUI/SaveMenu/Confirm/VBoxContainer/No" to="GUI/SaveMenu" method="_on_no_pressed"]
 

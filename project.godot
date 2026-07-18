@@ -12,7 +12,7 @@ config_version=5
 
 config/name="Pkmn-E-B"
 config/version="0.0"
-run/main_scene="uid://chhe7vvlyqivg"
+run/main_scene="uid://dptfc76n1chbj"
 config/features=PackedStringArray("4.7", "GL Compatibility")
 run/max_fps=60
 config/icon="uid://dwytgt4ciynv3"
@@ -40,7 +40,8 @@ enabled=PackedStringArray("res://addons/GDQuest_GDScript_formatter/plugin.cfg", 
 
 [global_group]
 
-jugador=""
+player=""
+npcs=""
 
 [input]
 

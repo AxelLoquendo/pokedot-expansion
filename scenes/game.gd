@@ -49,3 +49,7 @@ func _battle_finished(result: String) -> void:
 	battle_scene.dispose()
 
 	$Overworld/Player.process_mode = Node.PROCESS_MODE_INHERIT
+
+
+func _on_player_interact(message: String) -> void:
+	$GUI/SpeechMenu.speech(message)
