@@ -43,10 +43,10 @@ func _battle_finished(result: String) -> void:
 	await get_tree().create_timer(1.0).timeout
 	battle_scene.dispose()
 
-	$Overworld/Player.process_mode = Node.PROCESS_MODE_INHERIT
+	$Overworld.process_mode = Node.PROCESS_MODE_INHERIT
 
 func start_battle() -> void:
-	$Overworld/Player.process_mode = Node.PROCESS_MODE_DISABLED
+	$Overworld.process_mode = Node.PROCESS_MODE_DISABLED
 	
 	var trasition_end = gui.transition_progress_1()
 	

@@ -1,4 +1,5 @@
-extends Area2D
+class_name Player
+extends CharacterBody2D
 
 const FRAME_COUNT = 16
 const TILE_SIZE = 32
@@ -8,12 +9,14 @@ const FRAMES_PER_STEP = FRAME_COUNT/4
 var frame_timer := 0
 var facing_direction := Vector2.DOWN
 var is_walking := false
-var has_encounter := false
 
+@onready var collision_shape_2d: CollisionShape2D = $CollisionShape2D
 @onready var ray_cast_2d: RayCast2D = $CollisionShape2D/Node2D/RayCast2D
 @onready var sprite_2d: Sprite2D = $Sprite2D
 
-signal interact(message: String)
+signal interact(body: CollisionObject2D)
+signal movement_finished
+signal entered_tile(cell: Vector2i)
 
 func _ready() -> void:
 	#fix pos
@@ -27,38 +30,17 @@ func _physics_process(_delta: float) -> void:
 	elif input_direction != Vector2.ZERO:
 		if input_direction != facing_direction:
 			facing_direction = input_direction
-			$CollisionShape2D.rotation_degrees = _get_rotation_by_dir(facing_direction)
+			collision_shape_2d.rotation_degrees = _get_rotation_by_dir(facing_direction)
 			sprite_2d.frame = _get_base_frame(facing_direction)
 			return
-		if _is_move_blocked():
+			
+		if ray_cast_2d.get_collider():
 			return
 		
 		position += facing_direction * Vector2(TILE_SIZE, TILE_SIZE)
 		sprite_2d.position -= facing_direction * Vector2(TILE_SIZE, TILE_SIZE)
 		is_walking = true
 
-func _is_move_blocked() -> bool:
-	var collider := ray_cast_2d.get_collider()
-	if not collider:
-		return false
-
-	var tile_map := collider as TileMapLayer
-
-	if not tile_map:
-		return true
-
-	#var collision_point := ray_cast_2d.get_collision_point()
-	var collision_point := global_position + facing_direction * Vector2(TILE_SIZE, TILE_SIZE)
-
-	var local_pos := tile_map.to_local(collision_point)
-	var tile_coords := tile_map.local_to_map(local_pos)
-	
-	var tile_data := tile_map.get_cell_tile_data(tile_coords)
-	if tile_data and tile_data.get_custom_data("tall_grass"):
-		if randi_range(0, 255) > 37:
-			has_encounter = true
-		return false
-	return true
 
 func _get_locked_input() -> Vector2:
 	var x = Input.get_axis("ui_left", "ui_right")
@@ -69,13 +51,12 @@ func _get_locked_input() -> Vector2:
 
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventKey and event.is_action_pressed("ui_accept"):
-		var collider = ray_cast_2d.get_collider() as Area2D
-		if collider != null:
-			var interactive = collider.get_node_or_null("Interactive")
+		var collider := ray_cast_2d.get_collider()
+
+		if collider:
+			interact.emit(collider)
+			get_viewport().set_input_as_handled()
 			
-			if interactive:
-				interact.emit(interactive.message)
-				get_viewport().set_input_as_handled()
 
 func _advance_walk_animation() -> void:
 	frame_timer += 1
@@ -84,10 +65,9 @@ func _advance_walk_animation() -> void:
 		frame_timer = 0
 		is_walking = false
 		sprite_2d.frame = _get_base_frame(facing_direction)
+		movement_finished.emit()
+		entered_tile.emit(position)
 		
-		if has_encounter:
-			$"../..".call_deferred("start_battle")
-			has_encounter = false
 		return
 
 	var step = _get_step_by_frame(frame_timer)
