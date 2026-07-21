@@ -177,7 +177,9 @@ tile_map_data = PackedByteArray("AAADAAIAAAAFAAEAAAACAAIAAAAEAAEAAAACAAMAAAAEAAI
 tile_set = SubResource("TileSet_8hrwj")
 use_kinematic_bodies = true
 
-[node name="Player2" parent="Overworld" unique_id=788056533 instance=ExtResource("4_ca42v")]
+[node name="NPCs" type="Node2D" parent="Overworld/Map" unique_id=274810972]
+
+[node name="Player2" parent="Overworld/Map/NPCs" unique_id=788056533 instance=ExtResource("4_ca42v")]
 position = Vector2(256, 192)
 
 [node name="Player" parent="Overworld" unique_id=320177763 instance=ExtResource("3_dinhu")]

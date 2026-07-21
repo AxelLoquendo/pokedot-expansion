@@ -4,6 +4,7 @@ extends Node
 @export var battle_scene: Node
 @onready var gui: CanvasLayer = $GUI
 
+var packed_team = """Arcanine||Leftovers|Intimidate|Flareblitz,Extremespeed,Wildcharge,Morningsun|Impish|252,0,252,0,4,0||||||||"""
 
 func _ready() -> void:
 	battle_scene.connect("battle_finished", _battle_finished)
@@ -51,12 +52,14 @@ func start_battle() -> void:
 	var trasition_end = gui.transition_progress_1()
 	
 	battle_scene.pbattlepeer = PBattlePeer.new()
-	battle_scene.pbattlepeer.start(battle_scene.player_name, "Arcanine||Leftovers|Intimidate|Flareblitz,Extremespeed,Wildcharge,Morningsun|Impish|252,0,252,0,4,0||||||||")
+	battle_scene.pbattlepeer.prepare(battle_scene.player_name, packed_team)
 	await trasition_end
 	
 	battle_scene.present()
 	battle_scene.ui.visible = false
+	
 	await gui.transition_progress_0()
+	battle_scene.pbattlepeer.start()
 	battle_scene.ui.visible = true
 	
 

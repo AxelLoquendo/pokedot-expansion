@@ -12,7 +12,12 @@ var tile_data_by_cell: Dictionary
 
 
 func _ready() -> void:
-	for layer: TileMapLayer in $Map.get_children():
+	var children := $Map.get_children()
+	for child in children:
+		if not child is TileMapLayer:
+			continue
+			
+		var layer := child as TileMapLayer
 		var used_cells := layer.get_used_cells()
 
 		for used_cell in used_cells:
