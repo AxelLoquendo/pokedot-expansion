@@ -4,7 +4,7 @@
 [ext_resource type="Script" uid="uid://c1fji1t3sg484" path="res://scenes/overworld.gd" id="2_ssvqc"]
 [ext_resource type="PackedScene" uid="uid://dt3625qpytvo" path="res://scenes/player.tscn" id="3_dinhu"]
 [ext_resource type="PackedScene" uid="uid://5s3o17mtgcb3" path="res://scenes/maps/village.tscn" id="3_ssvqc"]
-[ext_resource type="Script" uid="uid://ijpplobc0p53" path="res://scenes/gui.gd" id="6_gee14"]
+[ext_resource type="Script" uid="uid://ijpplobc0p53" path="res://scenes/menus/gui.gd" id="6_gee14"]
 [ext_resource type="Texture2D" uid="uid://c8k0ljd42ns2l" path="res://graphics/pictures/fondos_tipos/fondo_poke_dragon.png" id="6_u5sy4"]
 [ext_resource type="Theme" uid="uid://7b2tvqct3805" path="res://graphics/pokemon_red_theme.tres" id="7_gee14"]
 [ext_resource type="Script" uid="uid://df8y5ar5h8y8c" path="res://scenes/menus/pause_menu.gd" id="8_ssvqc"]
