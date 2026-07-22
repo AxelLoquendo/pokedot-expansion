@@ -305,3 +305,6 @@ offset_bottom = 78.0
 theme = ExtResource("17_ale3b")
 text = "Pikachu use
 Eletrick"
+
+[node name="Camera2D" type="Camera2D" parent="." unique_id=1484281042]
+anchor_mode = 0

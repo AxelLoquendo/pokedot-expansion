@@ -1,10 +1,9 @@
-[gd_scene format=4 uid="uid://dptfc76n1chbj"]
+[gd_scene format=3 uid="uid://dptfc76n1chbj"]
 
 [ext_resource type="Script" uid="uid://cojt4iu5rc13u" path="res://scenes/game.gd" id="1_uwrxv"]
 [ext_resource type="Script" uid="uid://c1fji1t3sg484" path="res://scenes/overworld.gd" id="2_ssvqc"]
-[ext_resource type="Texture2D" uid="uid://b8h7oaq5byh5h" path="res://graphics/tilesets/Dungeon forest.png" id="2_yqjtg"]
 [ext_resource type="PackedScene" uid="uid://dt3625qpytvo" path="res://scenes/player.tscn" id="3_dinhu"]
-[ext_resource type="PackedScene" uid="uid://d0pqxjardtbcf" path="res://scenes/character.tscn" id="4_ca42v"]
+[ext_resource type="PackedScene" uid="uid://5s3o17mtgcb3" path="res://scenes/maps/village.tscn" id="3_ssvqc"]
 [ext_resource type="Script" uid="uid://ijpplobc0p53" path="res://scenes/gui.gd" id="6_gee14"]
 [ext_resource type="Texture2D" uid="uid://c8k0ljd42ns2l" path="res://graphics/pictures/fondos_tipos/fondo_poke_dragon.png" id="6_u5sy4"]
 [ext_resource type="Theme" uid="uid://7b2tvqct3805" path="res://graphics/pokemon_red_theme.tres" id="7_gee14"]
@@ -19,101 +18,6 @@
 [ext_resource type="Texture2D" uid="uid://bsip5ltrwh06d" path="res://graphics/windowskins/choice 1.png" id="14_trtic"]
 [ext_resource type="PackedScene" uid="uid://chhe7vvlyqivg" path="res://scenes/battlefield/battlefield.tscn" id="15_ir15t"]
 [ext_resource type="Shader" uid="uid://dt41cwl1p5rck" path="res://scenes/super_mario_world_transition.gdshader" id="18_264po"]
-
-[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_lnu2h"]
-texture = ExtResource("2_yqjtg")
-texture_region_size = Vector2i(32, 32)
-0:0/0 = 0
-0:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-1:0/0 = 0
-1:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-2:0/0 = 0
-2:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-3:0/0 = 0
-3:0/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-4:0/0 = 0
-5:0/0 = 0
-6:0/0 = 0
-7:0/0 = 0
-0:1/0 = 0
-0:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-1:1/0 = 0
-1:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-2:1/0 = 0
-2:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-3:1/0 = 0
-3:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-4:1/0 = 0
-4:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-5:1/0 = 0
-5:1/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-6:1/0 = 0
-7:1/0 = 0
-0:2/0 = 0
-0:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-1:2/0 = 0
-2:2/0 = 0
-3:2/0 = 0
-3:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-4:2/0 = 0
-4:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-5:2/0 = 0
-5:2/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-6:2/0 = 0
-7:2/0 = 0
-0:3/0 = 0
-0:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-1:3/0 = 0
-1:3/0/z_index = 1
-2:3/0 = 0
-2:3/0/z_index = 1
-3:3/0 = 0
-3:3/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-4:3/0 = 0
-5:3/0 = 0
-6:3/0 = 0
-7:3/0 = 0
-0:4/0 = 0
-0:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-1:4/0 = 0
-1:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-2:4/0 = 0
-2:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-3:4/0 = 0
-3:4/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-4:4/0 = 0
-5:4/0 = 0
-6:4/0 = 0
-7:4/0 = 0
-0:5/0 = 0
-0:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-1:5/0 = 0
-1:5/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-2:5/0 = 0
-3:5/0 = 0
-4:5/0 = 0
-5:5/0 = 0
-6:5/0 = 0
-7:5/0 = 0
-7:5/0/custom_data_0 = 1
-0:6/0 = 0
-0:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-1:6/0 = 0
-1:6/0/physics_layer_0/polygon_0/points = PackedVector2Array(-16, -16, 16, -16, 16, 16, -16, 16)
-2:6/0 = 0
-3:6/0 = 0
-4:6/0 = 0
-5:6/0 = 0
-6:6/0 = 0
-7:6/0 = 0
-
-[sub_resource type="TileSet" id="TileSet_8hrwj"]
-tile_size = Vector2i(32, 32)
-physics_layer_0/collision_layer = 1
-navigation_layer_0/layers = 1
-custom_data_layer_0/name = "tile_type"
-custom_data_layer_0/type = 2
-sources/0 = SubResource("TileSetAtlasSource_lnu2h")
 
 [sub_resource type="AtlasTexture" id="AtlasTexture_sbqex"]
 atlas = ExtResource("13_kvuet")
@@ -165,25 +69,10 @@ battle_scene = NodePath("Battlefield")
 y_sort_enabled = true
 script = ExtResource("2_ssvqc")
 
-[node name="Map" type="Node2D" parent="Overworld" unique_id=1147602038]
-
-[node name="TileMapLayer" type="TileMapLayer" parent="Overworld/Map" unique_id=728833701]
-position = Vector2(0, 1)
-tile_map_data = PackedByteArray("AAAAAAAAAAACAAUAAAAAAAEAAAACAAUAAAAAAAIAAAAEAAUAAAAAAAMAAAACAAUAAAAAAAQAAAACAAUAAAAAAAUAAAAEAAUAAAAAAAYAAAADAAUAAAAAAAcAAAAFAAUAAAAAAAgAAAADAAUAAAAAAAkAAAACAAUAAAABAAAAAAAEAAUAAAABAAEAAAACAAUAAAABAAIAAAADAAUAAAABAAMAAAACAAUAAAABAAQAAAAFAAUAAAABAAUAAAAFAAUAAAABAAYAAAAEAAUAAAABAAcAAAADAAUAAAABAAgAAAAFAAUAAAABAAkAAAADAAUAAAACAAAAAAAFAAUAAAACAAEAAAAEAAUAAAACAAIAAAAFAAUAAAACAAMAAAAFAAUAAAACAAQAAAAGAAUAAAACAAUAAAACAAUAAAACAAYAAAAGAAUAAAACAAcAAAAFAAUAAAACAAgAAAAEAAUAAAACAAkAAAACAAUAAAADAAAAAAAGAAUAAAADAAEAAAAFAAUAAAADAAIAAAAEAAUAAAADAAMAAAACAAUAAAADAAQAAAAGAAUAAAADAAUAAAAGAAUAAAADAAYAAAAEAAUAAAADAAcAAAAGAAUAAAADAAgAAAAFAAUAAAADAAkAAAAFAAUAAAAEAAAAAAACAAUAAAAEAAEAAAAEAAUAAAAEAAIAAAAGAAUAAAAEAAMAAAAFAAUAAAAEAAQAAAADAAUAAAAEAAUAAAACAAUAAAAEAAYAAAAGAAUAAAAEAAcAAAAFAAUAAAAEAAgAAAAEAAUAAAAEAAkAAAAFAAUAAAAFAAAAAAADAAUAAAAFAAQAAAAFAAUAAAAFAAUAAAAEAAUAAAAFAAYAAAAEAAUAAAAFAAcAAAAGAAUAAAAFAAgAAAAGAAUAAAAFAAkAAAADAAUAAAAGAAAAAAADAAUAAAAGAAQAAAAFAAUAAAAGAAUAAAADAAUAAAAGAAYAAAAFAAUAAAAGAAcAAAAEAAUAAAAGAAgAAAAEAAUAAAAGAAkAAAAGAAUAAAAHAAAAAAAFAAUAAAAHAAEAAAAEAAUAAAAHAAIAAAADAAUAAAAHAAMAAAAGAAUAAAAHAAQAAAADAAUAAAAHAAUAAAADAAUAAAAHAAYAAAAEAAUAAAAHAAcAAAAEAAUAAAAHAAgAAAAEAAUAAAAHAAkAAAACAAUAAAAIAAAAAAAEAAUAAAAIAAEAAAAFAAUAAAAIAAIAAAACAAUAAAAIAAMAAAACAAUAAAAIAAQAAAAFAAUAAAAIAAUAAAAFAAUAAAAIAAYAAAAEAAUAAAAIAAcAAAAFAAUAAAAIAAgAAAAEAAUAAAAIAAkAAAAGAAUAAAAJAAAAAAADAAUAAAAJAAEAAAACAAUAAAAJAAIAAAAFAAUAAAAJAAMAAAAGAAUAAAAJAAQAAAADAAUAAAAJAAUAAAACAAUAAAAJAAYAAAAFAAUAAAAJAAcAAAAGAAUAAAAJAAgAAAADAAUAAAAJAAkAAAAEAAUAAAAKAAAAAAAFAAUAAAAKAAEAAAAFAAUAAAAKAAIAAAADAAUAAAAKAAMAAAADAAUAAAAKAAQAAAAGAAUAAAAKAAUAAAADAAUAAAAKAAYAAAAFAAUAAAAKAAcAAAACAAUAAAAKAAgAAAAEAAUAAAAKAAkAAAAGAAUAAAALAAAAAAAFAAUAAAALAAEAAAACAAUAAAALAAIAAAACAAUAAAALAAMAAAACAAUAAAALAAQAAAACAAUAAAALAAUAAAAGAAUAAAALAAYAAAAGAAUAAAALAAcAAAADAAUAAAALAAgAAAAGAAUAAAALAAkAAAACAAUAAAAMAAAAAAACAAUAAAAMAAEAAAADAAUAAAAMAAIAAAACAAUAAAAMAAMAAAAGAAUAAAAMAAQAAAACAAUAAAAMAAUAAAADAAUAAAAMAAYAAAACAAUAAAAMAAcAAAADAAUAAAAMAAgAAAADAAUAAAAMAAkAAAADAAUAAAANAAAAAAAFAAUAAAANAAEAAAADAAUAAAANAAIAAAAGAAUAAAANAAMAAAAEAAUAAAANAAQAAAADAAUAAAANAAUAAAACAAUAAAANAAYAAAAFAAUAAAANAAcAAAAFAAUAAAANAAgAAAACAAUAAAANAAkAAAADAAUAAAAOAAAAAAACAAUAAAAOAAEAAAADAAUAAAAOAAIAAAAGAAUAAAAOAAMAAAAGAAUAAAAOAAQAAAAFAAUAAAAOAAUAAAADAAUAAAAOAAYAAAAGAAUAAAAOAAcAAAAGAAUAAAAOAAgAAAADAAUAAAAOAAkAAAACAAUAAAAAAAoAAAADAAUAAAABAAoAAAAFAAUAAAACAAoAAAACAAUAAAADAAoAAAACAAUAAAAEAAoAAAACAAUAAAAFAAoAAAACAAUAAAAGAAoAAAAGAAUAAAAHAAoAAAAEAAUAAAAIAAoAAAADAAUAAAAJAAoAAAAEAAUAAAAKAAoAAAAFAAUAAAALAAoAAAACAAUAAAAMAAoAAAAGAAUAAAANAAoAAAAGAAUAAAAOAAoAAAAEAAUAAAAPAAAAAAAGAAUAAAAPAAEAAAAGAAUAAAAPAAIAAAAEAAUAAAAPAAMAAAAGAAUAAAAPAAQAAAADAAUAAAAPAAUAAAACAAUAAAAPAAYAAAADAAUAAAAPAAcAAAADAAUAAAAPAAgAAAACAAUAAAAPAAkAAAACAAUAAAAPAAoAAAADAAUAAAAFAAEAAAACAAUAAAAFAAIAAAADAAUAAAAFAAMAAAADAAUAAAAGAAEAAAAEAAUAAAAGAAIAAAAEAAUAAAAGAAMAAAAFAAUAAAAAAAsAAAAGAAUAAAABAAsAAAAFAAUAAAACAAsAAAACAAUAAAADAAsAAAAFAAUAAAAEAAsAAAAEAAUAAAAFAAsAAAAGAAUAAAAGAAsAAAAFAAUAAAAHAAsAAAAGAAUAAAAIAAsAAAAEAAUAAAAJAAsAAAAFAAUAAAAKAAsAAAAEAAUAAAALAAsAAAAGAAUAAAAMAAsAAAAGAAUAAAANAAsAAAAGAAUAAAAOAAsAAAAEAAUAAAAPAAsAAAAFAAUAAAA=")
-tile_set = SubResource("TileSet_8hrwj")
-
-[node name="TileMapLayer2" type="TileMapLayer" parent="Overworld/Map" unique_id=1241859838]
-tile_map_data = PackedByteArray("AAADAAIAAAAFAAEAAAACAAIAAAAEAAEAAAACAAMAAAAEAAIAAAADAAMAAAAFAAIAAAACAAcAAAAHAAUAAAADAAcAAAAHAAUAAAAEAAcAAAAHAAUAAAAEAAgAAAAHAAUAAAADAAgAAAAHAAUAAAACAAgAAAAHAAUAAAABAAcAAAAHAAUAAAABAAgAAAAHAAUAAAACAAEAAAABAAMAAAADAAEAAAACAAMAAAA=")
-tile_set = SubResource("TileSet_8hrwj")
-use_kinematic_bodies = true
-
-[node name="NPCs" type="Node2D" parent="Overworld/Map" unique_id=274810972]
-
-[node name="Player2" parent="Overworld/Map/NPCs" unique_id=788056533 instance=ExtResource("4_ca42v")]
-position = Vector2(256, 192)
+[node name="Village" parent="Overworld" unique_id=963169815 instance=ExtResource("3_ssvqc")]
 
 [node name="Player" parent="Overworld" unique_id=320177763 instance=ExtResource("3_dinhu")]
-position = Vector2(320, 256)
+position = Vector2(160, 192)
 
 [node name="GUI" type="CanvasLayer" parent="." unique_id=11632804]
 script = ExtResource("6_gee14")

@@ -35,7 +35,7 @@ func _input(event: InputEvent) -> void:
 
 	if event.is_pressed() and event.as_text() == "F":
 		battle_scene.dispose()
-		$Overworld/Player.process_mode = Node.PROCESS_MODE_INHERIT
+		$Overworld.process_mode = Node.PROCESS_MODE_INHERIT
 
 		get_viewport().set_input_as_handled()
 

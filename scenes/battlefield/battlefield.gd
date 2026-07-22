@@ -49,11 +49,14 @@ func present() -> void:
 	
 	show()
 	ui.show()
+	$Camera2D.enabled = true
+	$Camera2D.make_current()
 
 
 func dispose() -> void:
 	hide()
 	ui.hide()
+	$Camera2D.enabled = false
 
 
 func bind_choices(callback: Callable) -> void:

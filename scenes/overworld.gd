@@ -9,10 +9,12 @@ enum TileType {
 
 
 var tile_data_by_cell: Dictionary
-
+var map: Node2D
 
 func _ready() -> void:
-	var children := $Map.get_children()
+	map = get_child(0)
+	
+	var children := map.get_children()
 	for child in children:
 		if not child is TileMapLayer:
 			continue
@@ -27,10 +29,10 @@ func _ready() -> void:
 
 
 func _on_player_entered_tile(local_position: Vector2i) -> void:
-	var coords = $Map.get_child(0).local_to_map(local_position)
+	var coords = map.get_child(0).local_to_map(local_position)
 	var tile_data: TileData = tile_data_by_cell.get(coords, null)
 	
-	if not tile_data:
+	if not tile_data and tile_data.has_custom_data("tile_type"):
 		return
 		
 	if tile_data.get_custom_data("tile_type") == TileType.GRASS:

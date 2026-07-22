@@ -46,6 +46,8 @@ offset = Vector2(0, -16)
 hframes = 4
 vframes = 4
 
+[node name="Camera2D" type="Camera2D" parent="Sprite2D" unique_id=1711052079]
+
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1003477592]
 position = Vector2(16, 16)
 shape = SubResource("RectangleShape2D_g2els")
