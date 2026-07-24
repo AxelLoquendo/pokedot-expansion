@@ -65,39 +65,128 @@ region = Rect2(130, 138, 130, 46)
 atlas = ExtResource("19_tsw4x")
 region = Rect2(0, 0, 190, 45)
 
+[sub_resource type="Curve2D" id="Curve2D_ql7mu"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 96, 256, 0, 0, 0, 0, -256, 256)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_yexbb"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 384, 160, 0, 0, 0, 0, 672, 160)
+}
+point_count = 2
+
+[sub_resource type="Animation" id="Animation_ql7mu"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path2D/PathFollow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Path2D2/PathFollow2D:progress_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [0.0]
+}
+
+[sub_resource type="Animation" id="Animation_yexbb"]
+resource_name = "intro"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("Path2D/PathFollow2D:progress_ratio")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(-0.06666667, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("Path2D2/PathFollow2D:progress_ratio")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [1.0, 0.0]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_26eqi"]
+_data = {
+&"RESET": SubResource("Animation_ql7mu"),
+&"intro": SubResource("Animation_yexbb")
+}
+
 [node name="Battlefield" type="Node2D" unique_id=98054996]
+z_index = 10
 script = ExtResource("1_n2w7h")
 
-[node name="Champion1Bg" type="Sprite2D" parent="." unique_id=1671324257]
+[node name="Bg" type="Node2D" parent="." unique_id=226805006]
+
+[node name="ColorRect" type="ColorRect" parent="Bg" unique_id=581578778]
+anchors_preset = -1
+offset_top = 288.0
+offset_right = 512.0
+offset_bottom = 384.0
+size_flags_horizontal = 3
+size_flags_vertical = 3
+color = Color(0.8967519, 0.5573358, 0.4565437, 1)
+
+[node name="Champion1Bg" type="Sprite2D" parent="Bg" unique_id=1671324257]
 texture = ExtResource("2_ql7mu")
 centered = false
 
-[node name="Champion1Base0" type="Sprite2D" parent="." unique_id=458118716]
-position = Vector2(110, 272)
+[node name="Base" type="Sprite2D" parent="." unique_id=458118716]
+position = Vector2(96, 256)
 texture = ExtResource("21_sv6pa")
+metadata/_edit_group_ = true
 
-[node name="Champion1Base1" type="Sprite2D" parent="." unique_id=1424061308]
-position = Vector2(384, 170)
-texture = ExtResource("22_6sfjh")
-
-[node name="Pikachu" type="Sprite2D" parent="." unique_id=403713853]
-position = Vector2(118, 223)
+[node name="Pokemon" type="Sprite2D" parent="Base" unique_id=403713853]
+position = Vector2(8, -49)
 texture = ExtResource("23_6sfjh")
 
-[node name="Pidgey" type="Sprite2D" parent="." unique_id=1366582258]
-position = Vector2(388, 134)
+[node name="BaseFoe" type="Sprite2D" parent="." unique_id=1424061308]
+position = Vector2(384, 160)
+texture = ExtResource("22_6sfjh")
+
+[node name="PokemonFoe" type="Sprite2D" parent="BaseFoe" unique_id=1366582258]
+position = Vector2(4, -36)
 texture = ExtResource("24_ipa0q")
 
-[node name="UI" type="CanvasLayer" parent="." unique_id=2057128594]
+[node name="UI" type="Control" parent="." unique_id=429593183]
+layout_mode = 3
+anchors_preset = 0
 
-[node name="PlayerPanel" type="TextureRect" parent="UI" unique_id=2088317414]
+[node name="DataBox" type="TextureRect" parent="UI" unique_id=2088317414 groups=["databoxes"]]
+layout_mode = 0
 offset_left = 268.0
 offset_top = 191.0
 offset_right = 528.0
 offset_bottom = 275.0
 texture = ExtResource("15_upguu")
 
-[node name="Label" type="Label" parent="UI/PlayerPanel" unique_id=627425730]
+[node name="Label" type="Label" parent="UI/DataBox" unique_id=627425730]
 layout_mode = 0
 offset_left = 41.0
 offset_top = 8.0
@@ -106,7 +195,7 @@ offset_bottom = 36.0
 theme = ExtResource("17_ale3b")
 text = "Pikachu"
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="UI/PlayerPanel" unique_id=607646873]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="UI/DataBox" unique_id=607646873]
 layout_mode = 0
 offset_left = 136.0
 offset_top = 40.0
@@ -115,14 +204,15 @@ offset_bottom = 80.0
 value = 100.0
 texture_progress = SubResource("AtlasTexture_qxaqh")
 
-[node name="FoePanel" type="TextureRect" parent="UI" unique_id=1268156317]
+[node name="DataBoxFoe" type="TextureRect" parent="UI" unique_id=1268156317 groups=["databoxes"]]
+layout_mode = 0
 offset_left = -16.0
 offset_top = 37.0
 offset_right = 244.0
 offset_bottom = 121.0
 texture = ExtResource("20_tsw4x")
 
-[node name="Label" type="Label" parent="UI/FoePanel" unique_id=705510367]
+[node name="Label" type="Label" parent="UI/DataBoxFoe" unique_id=705510367]
 layout_mode = 0
 offset_left = 28.0
 offset_top = 12.0
@@ -131,7 +221,7 @@ offset_bottom = 40.0
 theme = ExtResource("17_ale3b")
 text = "Pidgey"
 
-[node name="TextureProgressBar" type="TextureProgressBar" parent="UI/FoePanel" unique_id=505390443]
+[node name="TextureProgressBar" type="TextureProgressBar" parent="UI/DataBoxFoe" unique_id=505390443]
 layout_mode = 0
 offset_left = 118.0
 offset_top = 56.5
@@ -141,6 +231,7 @@ value = 100.0
 texture_progress = SubResource("AtlasTexture_qxaqh")
 
 [node name="AbilityBar" type="TextureRect" parent="UI" unique_id=1938243131]
+layout_mode = 0
 offset_left = 521.0
 offset_top = 11.0
 offset_right = 777.0
@@ -156,27 +247,32 @@ offset_bottom = 64.0
 theme = ExtResource("17_ale3b")
 text = "Intimidacion"
 
-[node name="ColorRect" type="ColorRect" parent="UI" unique_id=2112942707]
-anchors_preset = 12
-anchor_top = 1.0
+[node name="Control" type="Control" parent="UI" unique_id=892835699]
+anchors_preset = 0
+offset_top = 288.0
+offset_right = 512.0
+offset_bottom = 384.0
+
+[node name="Command" type="ColorRect" parent="UI/Control" unique_id=2112942707]
+unique_name_in_owner = true
+layout_mode = 1
+anchors_preset = 15
 anchor_right = 1.0
 anchor_bottom = 1.0
-offset_top = -95.0
 grow_horizontal = 2
-grow_vertical = 0
+grow_vertical = 2
 color = Color(0.52912915, 0.79595864, 0.4822746, 1)
 
-[node name="HBoxContainer" type="HBoxContainer" parent="UI/ColorRect" unique_id=1737231380]
-visible = false
+[node name="HBoxContainer" type="HBoxContainer" parent="UI/Control/Command" unique_id=1737231380]
 layout_mode = 0
 offset_right = 40.0
 offset_bottom = 40.0
 
-[node name="TextureRect" type="TextureRect" parent="UI/ColorRect/HBoxContainer" unique_id=547608938]
+[node name="TextureRect" type="TextureRect" parent="UI/Control/Command/HBoxContainer" unique_id=547608938]
 layout_mode = 2
 texture = SubResource("AtlasTexture_ae1jm")
 
-[node name="Label" type="Label" parent="UI/ColorRect/HBoxContainer/TextureRect" unique_id=1548066542]
+[node name="Label" type="Label" parent="UI/Control/Command/HBoxContainer/TextureRect" unique_id=1548066542]
 layout_mode = 0
 offset_left = 29.0
 offset_top = 22.0
@@ -186,44 +282,58 @@ theme = ExtResource("17_ale3b")
 text = "Wha will
 Pikachu do?"
 
-[node name="OverlayFight" type="GridContainer" parent="UI/ColorRect/HBoxContainer" unique_id=2078500596]
+[node name="GridContainer" type="GridContainer" parent="UI/Control/Command/HBoxContainer" unique_id=2078500596]
 layout_mode = 2
 theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 2
 
-[node name="TextureButton" type="TextureButton" parent="UI/ColorRect/HBoxContainer/OverlayFight" unique_id=1504605296]
+[node name="Fight" type="TextureButton" parent="UI/Control/Command/HBoxContainer/GridContainer" unique_id=1504605296]
+unique_name_in_owner = true
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_kjtcb")
 texture_hover = SubResource("AtlasTexture_tsw4x")
 texture_focused = SubResource("AtlasTexture_tsw4x")
 
-[node name="TextureButton2" type="TextureButton" parent="UI/ColorRect/HBoxContainer/OverlayFight" unique_id=799624183]
+[node name="Bag" type="TextureButton" parent="UI/Control/Command/HBoxContainer/GridContainer" unique_id=799624183]
+unique_name_in_owner = true
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_yexbb")
 texture_hover = SubResource("AtlasTexture_sbqex")
 texture_focused = SubResource("AtlasTexture_sbqex")
 
-[node name="TextureButton3" type="TextureButton" parent="UI/ColorRect/HBoxContainer/OverlayFight" unique_id=426390760]
+[node name="Pokemon" type="TextureButton" parent="UI/Control/Command/HBoxContainer/GridContainer" unique_id=426390760]
+unique_name_in_owner = true
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_ale3b")
 texture_hover = SubResource("AtlasTexture_26eqi")
 texture_focused = SubResource("AtlasTexture_26eqi")
 
-[node name="TextureButton4" type="TextureButton" parent="UI/ColorRect/HBoxContainer/OverlayFight" unique_id=80901315]
+[node name="Run" type="TextureButton" parent="UI/Control/Command/HBoxContainer/GridContainer" unique_id=80901315]
+unique_name_in_owner = true
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_efjdo")
 texture_hover = SubResource("AtlasTexture_sv6pa")
 texture_focused = SubResource("AtlasTexture_sv6pa")
 
-[node name="TextureRect" type="TextureRect" parent="UI/ColorRect" unique_id=1027738753]
+[node name="Move" type="ColorRect" parent="UI/Control" unique_id=1687851890]
+unique_name_in_owner = true
 visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.52912915, 0.79595864, 0.4822746, 1)
+
+[node name="TextureRect" type="TextureRect" parent="UI/Control/Move" unique_id=1027738753]
 layout_mode = 0
-offset_right = 40.0
-offset_bottom = 40.0
+offset_right = 512.0
+offset_bottom = 96.0
 texture = ExtResource("18_kjtcb")
 
-[node name="GridContainer" type="GridContainer" parent="UI/ColorRect/TextureRect" unique_id=1153310283]
+[node name="GridContainer" type="GridContainer" parent="UI/Control/Move/TextureRect" unique_id=1153310283]
 layout_mode = 0
 offset_left = 2.0
 offset_top = 3.0
@@ -233,11 +343,12 @@ theme_override_constants/h_separation = 0
 theme_override_constants/v_separation = 0
 columns = 2
 
-[node name="TextureButton" type="TextureButton" parent="UI/ColorRect/TextureRect/GridContainer" unique_id=1853850375]
+[node name="Move1" type="TextureButton" parent="UI/Control/Move/TextureRect/GridContainer" unique_id=1853850375]
+unique_name_in_owner = true
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_qy52e")
 
-[node name="Label" type="Label" parent="UI/ColorRect/TextureRect/GridContainer/TextureButton" unique_id=1333233125]
+[node name="Label" type="Label" parent="UI/Control/Move/TextureRect/GridContainer/Move1" unique_id=1333233125]
 layout_mode = 0
 offset_left = 27.0
 offset_top = 9.0
@@ -246,11 +357,12 @@ offset_bottom = 37.0
 theme = ExtResource("17_ale3b")
 text = "Super move"
 
-[node name="TextureButton2" type="TextureButton" parent="UI/ColorRect/TextureRect/GridContainer" unique_id=2026680274]
+[node name="Move2" type="TextureButton" parent="UI/Control/Move/TextureRect/GridContainer" unique_id=2026680274]
+unique_name_in_owner = true
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_qy52e")
 
-[node name="Label" type="Label" parent="UI/ColorRect/TextureRect/GridContainer/TextureButton2" unique_id=1988866387]
+[node name="Label" type="Label" parent="UI/Control/Move/TextureRect/GridContainer/Move2" unique_id=1988866387]
 layout_mode = 0
 offset_left = 27.0
 offset_top = 9.0
@@ -259,11 +371,12 @@ offset_bottom = 37.0
 theme = ExtResource("17_ale3b")
 text = "Super move"
 
-[node name="TextureButton3" type="TextureButton" parent="UI/ColorRect/TextureRect/GridContainer" unique_id=629602814]
+[node name="Move3" type="TextureButton" parent="UI/Control/Move/TextureRect/GridContainer" unique_id=629602814]
+unique_name_in_owner = true
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_qy52e")
 
-[node name="Label" type="Label" parent="UI/ColorRect/TextureRect/GridContainer/TextureButton3" unique_id=216014278]
+[node name="Label" type="Label" parent="UI/Control/Move/TextureRect/GridContainer/Move3" unique_id=216014278]
 layout_mode = 0
 offset_left = 27.0
 offset_top = 9.0
@@ -272,11 +385,12 @@ offset_bottom = 37.0
 theme = ExtResource("17_ale3b")
 text = "Super move"
 
-[node name="TextureButton4" type="TextureButton" parent="UI/ColorRect/TextureRect/GridContainer" unique_id=1754485062]
+[node name="Move4" type="TextureButton" parent="UI/Control/Move/TextureRect/GridContainer" unique_id=1754485062]
+unique_name_in_owner = true
 layout_mode = 2
 texture_normal = SubResource("AtlasTexture_qy52e")
 
-[node name="Label" type="Label" parent="UI/ColorRect/TextureRect/GridContainer/TextureButton4" unique_id=2125827456]
+[node name="Label" type="Label" parent="UI/Control/Move/TextureRect/GridContainer/Move4" unique_id=2125827456]
 layout_mode = 0
 offset_left = 27.0
 offset_top = 9.0
@@ -285,8 +399,21 @@ offset_bottom = 37.0
 theme = ExtResource("17_ale3b")
 text = "Super move"
 
-[node name="Message" type="TextureRect" parent="UI" unique_id=1161604255]
+[node name="Message" type="ColorRect" parent="UI/Control" unique_id=1682118673]
+unique_name_in_owner = true
 visible = false
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+offset_top = 1.0
+offset_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+color = Color(0.52912915, 0.79595864, 0.4822746, 1)
+
+[node name="TextureRect" type="TextureRect" parent="UI/Control/Message" unique_id=1161604255]
+layout_mode = 1
 anchors_preset = 12
 anchor_top = 1.0
 anchor_right = 1.0
@@ -296,15 +423,41 @@ grow_horizontal = 2
 grow_vertical = 0
 texture = ExtResource("21_efjdo")
 
-[node name="RichTextLabel" type="RichTextLabel" parent="UI/Message" unique_id=480513542]
+[node name="RichTextLabel" type="RichTextLabel" parent="UI/Control/Message" unique_id=480513542]
 layout_mode = 0
 offset_left = 28.0
-offset_top = 23.0
+offset_top = 22.0
 offset_right = 486.0
-offset_bottom = 78.0
+offset_bottom = 77.0
 theme = ExtResource("17_ale3b")
+theme_override_font_sizes/normal_font_size = 30
 text = "Pikachu use
 Eletrick"
 
 [node name="Camera2D" type="Camera2D" parent="." unique_id=1484281042]
 anchor_mode = 0
+
+[node name="Path2D" type="Path2D" parent="." unique_id=787934494]
+curve = SubResource("Curve2D_ql7mu")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D" unique_id=1508405270]
+position = Vector2(96, 256)
+rotates = false
+loop = false
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Path2D/PathFollow2D" unique_id=1907784730]
+remote_path = NodePath("../../../Base")
+
+[node name="Path2D2" type="Path2D" parent="." unique_id=776478300]
+curve = SubResource("Curve2D_yexbb")
+
+[node name="PathFollow2D" type="PathFollow2D" parent="Path2D2" unique_id=1540924237]
+position = Vector2(384, 160)
+rotates = false
+loop = false
+
+[node name="RemoteTransform2D" type="RemoteTransform2D" parent="Path2D2/PathFollow2D" unique_id=353583124]
+remote_path = NodePath("../../../BaseFoe")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1342182542]
+libraries/ = SubResource("AnimationLibrary_26eqi")

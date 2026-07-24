@@ -399,20 +399,15 @@ grow_vertical = 2
 color = Color(6.180691e-05, 6.180692e-05, 6.180691e-05, 1)
 metadata/_edit_lock_ = true
 
-[node name="Battlefield" parent="." unique_id=98054996 instance=ExtResource("15_ir15t")]
-visible = false
-
-[node name="UI" parent="Battlefield" index="5" unique_id=2057128594]
-visible = false
-
 [node name="Event" type="Node" parent="." unique_id=1824268668]
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="Event" unique_id=55547330]
 libraries/ = SubResource("AnimationLibrary_kvpfn")
 
+[node name="Battlefield" parent="." unique_id=98054996 instance=ExtResource("15_ir15t")]
+position = Vector2(1248, 32)
+
 [connection signal="entered_tile" from="Overworld/Player" to="Overworld" method="_on_player_entered_tile"]
 [connection signal="pressed" from="GUI/PauseMenu/VBoxContainer/Button4" to="GUI/PauseMenu" method="_on_button_4_pressed"]
 [connection signal="pressed" from="GUI/SaveMenu/Confirm/VBoxContainer/Yes" to="GUI/SaveMenu" method="_on_yes_pressed"]
 [connection signal="pressed" from="GUI/SaveMenu/Confirm/VBoxContainer/No" to="GUI/SaveMenu" method="_on_no_pressed"]
-
-[editable path="Battlefield"]

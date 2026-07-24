@@ -3,35 +3,68 @@ extends Node2D
 signal battle_finished(result: String)
 
 var is_animation_running := false
-var pbattlepeer = PBattlePeer.new()
+var pbattlepeer := PBattlePeer.new()
 var packet: String
 var player_name := "nerfis"
 
-@onready var moveset_panel: TextureRect = $UI/ColorRect/TextureRect
-@onready var moveset_container: GridContainer = $UI/ColorRect/TextureRect/GridContainer
-@onready var player_pokemon: Sprite2D = $Pikachu
-@onready var foe_pokemon: Sprite2D = $Pidgey
-@onready var player_label: Label = $UI/PlayerPanel/Label
-@onready var foe_label: Label = $UI/FoePanel/Label
-@onready var player_hp_bar: TextureProgressBar = $UI/PlayerPanel/TextureProgressBar
-@onready var foe_hp_bar: TextureProgressBar = $UI/FoePanel/TextureProgressBar
-@onready var ui: CanvasLayer = $UI
-@onready var move_button_1: TextureButton = $UI/ColorRect/TextureRect/GridContainer/TextureButton
-@onready var move_button_2: TextureButton = $UI/ColorRect/TextureRect/GridContainer/TextureButton2
-@onready var move_button_3: TextureButton = $UI/ColorRect/TextureRect/GridContainer/TextureButton3
-@onready var move_button_4: TextureButton = $UI/ColorRect/TextureRect/GridContainer/TextureButton4
-@onready var message_container: Control = $UI/Message
-@onready var message_label: RichTextLabel = $UI/Message/RichTextLabel
-@onready var ability_bar: Control = $UI/AbilityBar
-@onready var ability_label: Label = $UI/AbilityBar/Label
+# ── Pokémon sprites ────────────────────────────────────────────────────────────
+@onready var player_pokemon: Sprite2D    = $Base/Pokemon
+@onready var foe_pokemon: Sprite2D       = $BaseFoe/PokemonFoe
+
+@onready var player_base: Sprite2D    = $Base
+@onready var foe_base: Sprite2D       = $BaseFoe
+
+# ── Cajas de datos (DataBox = jugador, DataBoxFoe = rival) ────────────────────
+@onready var player_label: Label               = $UI/DataBox/Label
+@onready var foe_label: Label                  = $UI/DataBoxFoe/Label
+@onready var player_hp_bar: TextureProgressBar = $UI/DataBox/TextureProgressBar
+@onready var foe_hp_bar: TextureProgressBar    = $UI/DataBoxFoe/TextureProgressBar
+
+# ── UI principal ───────────────────────────────────────────────────────────────
+@onready var ui: Control = $UI
+
+# ── Panel de habilidad ─────────────────────────────────────────────────────────
+@onready var ability_bar: TextureRect = $UI/AbilityBar
+@onready var ability_label: Label     = $UI/AbilityBar/Label
+
+# ── Panel de movimientos ───────────────────────────────────────────────────────
+@onready var fight_overlay: ColorRect       = %Move
+@onready var fight_move1: TextureButton     = %Move1
+@onready var fight_move2: TextureButton     = %Move2
+@onready var fight_move3: TextureButton     = %Move3
+@onready var fight_move4: TextureButton     = %Move4
+
+# ── Menú de acción (Luchar / Bolsa / Pokémon / Huir) ─────────────────────────
+@onready var command_overlay: ColorRect = %Command
+@onready var command_fight: TextureButton = %Fight
+
+# ── Panel de mensajes ──────────────────────────────────────────────────────────
+@onready var message_overlay: ColorRect = %Message
+@onready var message_label: RichTextLabel = %Message/RichTextLabel
+
+# ── Cámara ─────────────────────────────────────────────────────────────────────
+@onready var camera: Camera2D = $Camera2D
+
+@onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
-func _physics_process(delta: float) -> void:
+func _ready() -> void:
+	command_fight.pressed.connect(func(): fight_overlay.show())
+	
+	message_overlay.hide()
+	fight_overlay.hide()
+	command_overlay.hide()
+	
+	$Path2D/PathFollow2D.progress_ratio = 1.0
+	$Path2D2/PathFollow2D.progress_ratio = 1.0
+	
+
+func _physics_process(_delta: float) -> void:
 	if is_animation_running:
 		return
 
 	pbattlepeer.poll()
-	var ready_state = pbattlepeer.get_ready_state()
+	var ready_state: int = pbattlepeer.get_ready_state()
 
 	if ready_state == PBattlePeer.STATE_OPEN:
 		if pbattlepeer.get_available_packet_count():
@@ -44,102 +77,105 @@ func _physics_process(delta: float) -> void:
 func present() -> void:
 	bind_choices(pbattlepeer.send)
 	
-	message_container.hide()
-	moveset_panel.hide()
-	
+	$Path2D/PathFollow2D.progress_ratio = 1.0
+	$Path2D2/PathFollow2D.progress_ratio = 1.0
+
 	show()
-	ui.show()
-	$Camera2D.enabled = true
-	$Camera2D.make_current()
+	camera.enabled = true
+	camera.make_current()
+	
+	get_tree().call_group("databoxes", "hide")
 
 
 func dispose() -> void:
 	hide()
-	ui.hide()
-	$Camera2D.enabled = false
+	camera.enabled = false
 
 
+## Conecta los cuatro botones de movimiento al callback indicado.
 func bind_choices(callback: Callable) -> void:
-	move_button_1.connect("pressed", callback.bind("move 1"))
-	move_button_2.connect("pressed", callback.bind("move 2"))
-	move_button_3.connect("pressed", callback.bind("move 3"))
-	move_button_4.connect("pressed", callback.bind("move 4"))
+	fight_move1.pressed.connect(callback.bind("move 1"))
+	fight_move2.pressed.connect(callback.bind("move 2"))
+	fight_move3.pressed.connect(callback.bind("move 3"))
+	fight_move4.pressed.connect(callback.bind("move 4"))
 
 
-func display_moveset(moveset: Array) -> void:
+## Actualiza los textos de los botones de movimiento y muestra el panel de lucha.
+func display_command(moveset: Array) -> void:
+	var moveset_container = fight_move1.get_parent()
+
 	for i in range(moveset.size()):
 		moveset_container.get_child(i).get_child(0).text = moveset[i]
-	show_options()
+	
+	command_overlay.show()
+	fight_overlay.hide()
+	message_overlay.hide()
 
 
-func show_options() -> void:
-	message_container.hide()
-	moveset_panel.show()
-	move_button_1.grab_focus()
+func show_commands() -> void:
+	command_overlay.show()
+	fight_overlay.hide()
+	message_overlay.hide()
 
 
-func hide_options() -> void:
-	moveset_panel.hide()
-	message_container.hide()
-
-
+## Anima la barra de HP hacia el nuevo valor de forma progresiva.
 func take_damage(position: String, damage: int) -> void:
-	var tw = create_tween()
-	var hp_bar = player_hp_bar if position == "p1a" else foe_hp_bar
-	const FACTOR_MILISECONDS_PER_POINTS = 0.006
-	var duration = abs(hp_bar.value - damage) * FACTOR_MILISECONDS_PER_POINTS
-	tw.tween_property(hp_bar, "value", damage, duration).set_ease(Tween.EASE_OUT).set_delay(0.3)
+	const FACTOR_MILISECONDS_PER_POINTS: float = 0.006
+	var hp_bar: TextureProgressBar = player_hp_bar if position == "p1a" else foe_hp_bar
+	var duration: float = abs(hp_bar.value - damage) * FACTOR_MILISECONDS_PER_POINTS
 
+	var tw: Tween = create_tween()
+	tw.tween_property(hp_bar, "value", damage, duration) \
+		.set_ease(Tween.EASE_OUT) \
+		.set_delay(0.3)
 	await tw.finished
 
 
+## Muestra un mensaje con efecto de escritura y lo oculta al terminar.
 func message(msg: String) -> void:
-	moveset_panel.hide()
-	message_label.visible_ratio = 0
+	message_label.visible_ratio = 0.0
 	message_label.text = msg
+	message_overlay.show()
 
-	message_container.show()
-	var tw = create_tween()
-	const SECONDS_PER_CHAR: float = 1.0 / 15
-	tw.tween_property(message_label, "visible_ratio", 1, msg.length() * SECONDS_PER_CHAR)
+	const SECONDS_PER_CHAR: float = 1.0 / 20.0
+	var tw: Tween = create_tween()
+	tw.tween_property(message_label, "visible_ratio", 1.0, msg.length() * SECONDS_PER_CHAR)
 	await tw.finished
-	await get_tree().create_timer(1).timeout
-	message_container.hide()
+	await get_tree().create_timer(1.0).timeout
 
 
-func splash(pokemon: String, ability: String) -> void:
-	#$AbilityBar/Pokemon.text = pokemon
+## Desliza la barra de habilidad desde fuera de la pantalla hacia adentro y la oculta.
+func splash(_pokemon: String, ability: String) -> void:
 	ability_label.text = ability
 
-	var tw = create_tween()
-	tw.tween_property(ability_bar, "position:x", 260, 0.8)
-	tw.tween_property(ability_bar, "position:x", 260, 1)
-	tw.tween_property(ability_bar, "position:x", 520, 0.4)
+	var tw: Tween = create_tween()
+	tw.tween_property(ability_bar, "position:x", 260.0, 0.8)
+	tw.tween_property(ability_bar, "position:x", 260.0, 1.0)
+	tw.tween_property(ability_bar, "position:x", 520.0, 0.4)
 	await tw.finished
 
 
-func animate(func_str: String, argv: Array) -> void:
-	await callv(func_str, argv)
-	emit_signal("animation_completed", null)
-
-
+## Cambia el sprite, la barra de HP y la etiqueta del Pokémon activo.
 func switch(ident: String, max_hp: int, hp: int) -> void:
-	var sprite2d = player_pokemon if ident.begins_with("p1a") else foe_pokemon
-	var label = player_label if ident.begins_with("p1a") else foe_label
-	var hp_bar = player_hp_bar if ident.begins_with("p1a") else foe_hp_bar
+	var is_player: bool            = ident.begins_with("p1a")
+	var sprite: Sprite2D           = player_pokemon if is_player else foe_pokemon
+	var label: Label               = player_label   if is_player else foe_label
+	var hp_bar: TextureProgressBar = player_hp_bar  if is_player else foe_hp_bar
 
 	# Incluir el manejo de pokemon con variantes
+	var pokemon: String    = ident.substr(5).replace("-", "").replace(" ", "")
+	var pokemon_id: String = pokemon.to_lower()
 
-	var pokemon = ident.substr(5).replace("-", "").replace(" ", "")
-	var pokemon_id = pokemon.to_lower()
+	hp_bar.max_value = max_hp
+	hp_bar.value     = hp
+	label.text       = pokemon
 
-	hp_bar.set_max(max_hp)
-	hp_bar.set_value(hp)
-	label.text = pokemon
+	var face: String = "back" if is_player else "front"
+	sprite.texture = load("res://graphics/pokemon/%s/%s.png" % [face, pokemon_id])
 	
-	var face = "back" if ident.begins_with("p1a") else "front"
-	sprite2d.texture = load("res://graphics/pokemon/%s/%s.png" % [face, pokemon_id])
-
+	if not is_player:
+		animation_player.play("intro")
+		get_tree().call_group("databoxes", "show")
 
 func parse_battle_line(line: String) -> ParsedBattleLine:
 	var result := ParsedBattleLine.new()
@@ -156,7 +192,7 @@ func parse_battle_line(line: String) -> ParsedBattleLine:
 		return result
 
 	# args = line.slice(1).split('|')
-	var rest: String = line.substr(1)
+	var rest: String            = line.substr(1)
 	var args: PackedStringArray = rest.split("|")
 
 	# Extraer kwArgs desde el final: mientras el último elemento
@@ -170,7 +206,7 @@ func parse_battle_line(line: String) -> ParsedBattleLine:
 		if bracket_pos <= 0:
 			break
 
-		var key: String = last_arg.substr(1, bracket_pos - 1)
+		var key: String       = last_arg.substr(1, bracket_pos - 1)
 		var value_str: String = last_arg.substr(bracket_pos + 1).strip_edges()
 
 		if value_str.is_empty():
@@ -185,29 +221,29 @@ func parse_battle_line(line: String) -> ParsedBattleLine:
 
 
 func handle_action(action: String) -> void:
-	var parsed := parse_battle_line(action)
-	var args := parsed.args
-	var kw_args := parsed.kw_args
+	var parsed: ParsedBattleLine = parse_battle_line(action)
+	var args: PackedStringArray  = parsed.args
+	var kw_args: Dictionary      = parsed.kw_args
 
 	match args[0]:
 		"request":
-			var request_payload = JSON.parse_string(action.substr(9))
-			var active = request_payload.get("active")
+			var request_payload: Dictionary = JSON.parse_string(action.substr(9))
+			var active: Variant = request_payload.get("active")
 
 			if active == null:
 				return
 
 			var moves: Array = active[0]["moves"]
-
 			var moveset: Array = []
-			for move in moves:
+			for move: Dictionary in moves:
 				moveset.push_back(String(move["move"]))
 
-			display_moveset(moveset)
+			display_command(moveset)
+
 		"-damage":
 			assert(args.size() >= 3, "Los args del action -damage deben tener al menos una longitud de 3")
 
-			var ident: String = args[1] # "p1a: Bulbasaur"
+			var ident: String    = args[1] # "p1a: Bulbasaur"
 			var position: String = ident.substr(0, 3)
 
 			if args[2].ends_with("fnt"):
@@ -215,8 +251,6 @@ func handle_action(action: String) -> void:
 				return
 
 			var hp_diff: PackedStringArray = args[2].split("/")
-
-			var hp_max: int = hp_diff[1].to_int()
 			var hp: int = hp_diff[0].to_int()
 			await take_damage(position, hp)
 
@@ -224,10 +258,11 @@ func handle_action(action: String) -> void:
 				var from: String = kw_args["from"]
 				if from == "Recoil":
 					await message("%s has taken recoil damage" % ident.substr(5))
+
 		"-heal":
 			assert(args.size() >= 3, "Los args del action -heal deben tener al menos una longitud de 3")
 
-			var ident: String = args[1]
+			var ident: String    = args[1]
 			var position: String = ident.substr(0, 3)
 
 			var hp_diff: PackedStringArray = args[2].split("/")
@@ -240,70 +275,68 @@ func handle_action(action: String) -> void:
 				if from.begins_with("item:"):
 					var item_name: String = from.substr(5).strip_edges()
 					await message("%s restored HP with its %s!" % [ident.substr(5), item_name])
+
 		"switch": # |switch|p1a: Arbok|Arbok, L78, M|254/254
 			assert(args.size() >= 4, "Los args del actions switch deben tener al menos una longitud de 4")
 
-			var ident: String = args[1] # p1a: Growlithe
-
+			var ident: String              = args[1] # p1a: Growlithe
 			var hp_diff: PackedStringArray = args[3].split("/")
-			var max_hp: int = hp_diff[1].to_int()
-			var hp: int = hp_diff[0].to_int()
+			var max_hp: int                = hp_diff[1].to_int()
+			var hp: int                    = hp_diff[0].to_int()
 			switch(ident, max_hp, hp)
+
 		"win":
 			await message("%s win!\n" % args[1])
 			battle_finished.emit("win" if args[1] == player_name else "lose")
+
 		"faint":
 			var position: String = args[1].substr(0, 3)
 			await take_damage(position, 0)
 			await message("%s has fainted!\n" % args[1].substr(5))
+
 		"error":
 			if kw_args.has("Invalid choice"):
-				show_options()
+				show_commands()
+
 		"move":
 			var ident: String = args[1]
-			var move: String = args[2]
-
+			var move: String  = args[2]
 			await message("%s has used \n%s" % [ident, move])
+
 		"-ability":
-			var ident: String = args[1]
+			var ident: String   = args[1]
 			var pokemon: String = ident.substr(5)
 			var ability: String = args[2]
-
 			await splash(pokemon, ability)
+
 		"-resisted":
 			await message("It's not very effective...")
+
 		"-supereffective":
 			await message("It's very effective...")
+
 		"-unboost":
 			assert(args.size() >= 4, "Los args del action -unboost deben tener al menos una longitud de 4")
-
 			var pokemon: String = args[1].substr(5) # quitar "p1a: "
-			var stat: String = args[2]
-			var stages: String = args[3]
-
+			var stat: String    = args[2]
 			await message("%s's %s fell!" % [pokemon, stat])
+
 		"-boost":
 			assert(args.size() >= 4, "Los args del action -boost deben tener al menos una longitud de 4")
-
 			var pokemon: String = args[1].substr(5) # quitar "p1a: "
-			var stat: String = args[2]
-			var stages: String = args[3]
-
+			var stat: String    = args[2]
 			await message("%s's %s rose!" % [pokemon, stat])
+
 		"-activate":
 			assert(args.size() >= 3, "Los args del action -activate deben tener al menos una longitud de 3")
-
 			var pokemon: String = args[1].substr(5)
-			var effect: String = args[2] # "move: Protect"
-
+			var effect: String  = args[2] # "move: Protect"
 			if effect.begins_with("move:"):
-				var move_name: String = effect.substr(5).strip_edges()
 				await message("%s protected itself!" % pokemon)
+
 		"-fail":
 			assert(args.size() >= 2, "Los args del action -fail deben tener al menos una longitud de 2")
-
 			var pokemon: String = args[1].substr(5)
-
 			if kw_args.has("from"):
 				var from: String = kw_args["from"]
 				# ej: "ability: Own Tempo"
@@ -312,6 +345,7 @@ func handle_action(action: String) -> void:
 					await message("%s's %s prevents that!" % [pokemon, ability_name])
 			else:
 				await message("But it failed for %s!" % pokemon)
+
 		"poke", "teampreview", "teamsize", "t:", "upkeep", "done":
 			# Acciones de metadata/setup que no requieren animación
 			return
@@ -319,4 +353,4 @@ func handle_action(action: String) -> void:
 
 class ParsedBattleLine:
 	var args: PackedStringArray = PackedStringArray()
-	var kw_args: Dictionary = { }
+	var kw_args: Dictionary     = {}
