@@ -4,7 +4,10 @@ signal battle_finished(result: String)
 
 var is_animation_running := false
 var packet: String
+var at_queue_end := false
+var ended := false
 var step_queue: Array[String]
+var current_step := 0
 var pbattlepeer: PBattlePeer
 var thread: Thread
 
@@ -52,7 +55,7 @@ func _ready() -> void:
 
 
 func _physics_process(_delta: float) -> void:
-	if pbattlepeer == null or is_animation_running:
+	if pbattlepeer == null:
 		return
 
 	pbattlepeer.poll()
@@ -60,14 +63,237 @@ func _physics_process(_delta: float) -> void:
 
 	if ready_state == PBattlePeer.STATE_OPEN:
 		if pbattlepeer.get_available_packet_count():
-			packet = pbattlepeer.get_packet()
-			is_animation_running = true
-			await handle_action(packet)
-			is_animation_running = false
+			step_queue.push_back(pbattlepeer.get_packet())
+
+			if at_queue_end and current_step < step_queue.size():
+				at_queue_end = false
+				next_step()
+			# is_animation_running = true
+			# await handle_action(packet)
+			# is_animation_running = false
 
 
 func _exit_tree() -> void:
 	thread.wait_to_finish()
+
+
+func should_step() -> bool:
+	return not at_queue_end
+
+
+func next_step() -> void:
+	while true:
+		if should_step:
+			return
+
+		run(step_queue[current_step])
+		current_step += 1
+
+
+func run(str: String) -> void:
+	if str.length() == 0:
+		return
+
+	var battle_line := parse_battle_line(str)
+	var args := battle_line.args
+	var kw_args := battle_line.kw_args
+
+	var prev_args: PackedStringArray
+	var prev_kw_args: Dictionary
+	var prev_line: String
+
+	if current_step > 0:
+		prev_line = step_queue[current_step - 1]
+
+	if prev_line.begins_with("|-"): # La linea anterior corresponde a un minor action
+		var prev_battle_line := parse_battle_line(str)
+		prev_args = prev_battle_line.args
+		prev_kw_args = prev_battle_line.kw_args
+
+	# La comprobación de igualdad con detailschange es algo heredado del código original
+	# no se que significa, y si tiene sentido en esta base de código
+	if args[0].begins_with("-") or args[0] == "detailschange":
+		run_minor(args, kw_args, prev_args, prev_kw_args)
+	else:
+		run_major(args, kw_args)
+
+
+func run_minor(args: PackedStringArray, kw_args: Dictionary, prev_args: PackedStringArray, prev_kw_args: Dictionary) -> void:
+	match args[0]:
+		"-damage":
+			pass
+		"-heal":
+			pass
+		"-sethp":
+			pass
+		"-boost":
+			pass
+		"-unboost":
+			pass
+		"-setboost":
+			pass
+		"-swapboost":
+			pass
+		"-clearpositiveboost":
+			pass
+		"-clearnegativeboost":
+			pass
+		"-copyboost":
+			pass
+		"-clearboost":
+			pass
+		"-invertboost":
+			pass
+		"-clearallboost":
+			pass
+		"-crit":
+			pass
+		"-supereffective":
+			pass
+		"-resisted":
+			pass
+		"-immune":
+			pass
+		"-miss":
+			pass
+		"-fail":
+			pass
+		"-block":
+			pass
+		"-center", "-notarget", "-ohko", "-combine", "-hitcount", "-waiting", "-zbroken":
+			pass
+		"-zpower":
+			pass
+		"-prepare":
+			pass
+		"-mustrecharge":
+			pass
+		"-status":
+			pass
+		"-curestatus":
+			pass
+		"-cureteam":
+			pass
+		"-item":
+			pass
+		"-enditem":
+			pass
+		"-ability":
+			pass
+		"-endability":
+			pass
+		"detailschange":
+			pass
+		"-transform":
+			pass
+		"-formechange":
+			pass
+		"-mega":
+			pass
+		"-primal", "-burst":
+			pass
+		"-terastallize":
+			pass
+		"-start":
+			pass
+		"-end":
+			pass
+		"-singleturn":
+			pass
+		"-singlemove":
+			pass
+		"-activate":
+			pass
+		"-sidestart":
+			pass
+		"-sideend":
+			pass
+		"-swapsideconditions":
+			pass
+		"-weather":
+			pass
+		"-fieldstart":
+			pass
+		"-fieldend":
+			pass
+		"-fieldactivate":
+			pass
+		"-anim":
+			pass
+		"-hint", "-message", "-candynamax":
+			pass
+		_:
+			pass
+
+
+func run_major(args: PackedStringArray, kw_args: Dictionary) -> void:
+	match args[0]:
+		"start":
+			pass
+		"upkeep":
+			pass
+		"turn":
+			pass
+		"tier":
+			pass
+		"gametype":
+			pass
+		"rule":
+			pass
+		"rated":
+			pass
+		"inactive":
+			pass
+		"inactiveoff":
+			pass
+		"join", "j", "J":
+			pass
+		"leave", "l", "L":
+			pass
+		"name", "n", "N":
+			pass
+		"player":
+			pass
+		"badge":
+			pass
+		"teamsize":
+			pass
+		"win", "tie":
+			pass
+		"prematureend":
+			pass
+		"clearpoke":
+			pass
+		"poke":
+			pass
+		"updatepoke":
+			pass
+		"teampreview":
+			pass
+		"showteam":
+			pass
+		"switch", "drag", "replace":
+			pass
+		"faint":
+			pass
+		"swap":
+			pass
+		"move":
+			pass
+		"cant":
+			pass
+		"gen":
+			pass
+		"callback":
+			pass
+		"fieldhtml":
+			pass
+		"controlshtml":
+			pass
+		"custom":
+			pass
+		_:
+			pass
 
 
 func start(player_name: String, packed_team: String) -> void:
@@ -94,7 +320,6 @@ func dispose() -> void:
 	camera.enabled = false
 
 
-## Conecta los cuatro botones de movimiento al callback indicado.
 func bind_choices(callback: Callable) -> void:
 	fight_move1.pressed.connect(callback.bind("move 1"))
 	fight_move2.pressed.connect(callback.bind("move 2"))
@@ -102,7 +327,6 @@ func bind_choices(callback: Callable) -> void:
 	fight_move4.pressed.connect(callback.bind("move 4"))
 
 
-## Actualiza los textos de los botones de movimiento y muestra el panel de lucha.
 func display_command(moveset: Array) -> void:
 	var moveset_container = fight_move1.get_parent()
 
@@ -120,7 +344,6 @@ func show_commands() -> void:
 	message_overlay.hide()
 
 
-## Anima la barra de HP hacia el nuevo valor de forma progresiva.
 func take_damage(position: String, damage: int) -> void:
 	const FACTOR_MILISECONDS_PER_POINTS: float = 0.006
 	var hp_bar: TextureProgressBar = player_hp_bar if position == "p1a" else foe_hp_bar
@@ -133,7 +356,6 @@ func take_damage(position: String, damage: int) -> void:
 	await tw.finished
 
 
-## Muestra un mensaje con efecto de escritura y lo oculta al terminar.
 func message(msg: String) -> void:
 	message_label.visible_ratio = 0.0
 	message_label.text = msg

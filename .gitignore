@@ -2,3 +2,6 @@
 .godot/
 /android/
 **/*.tmp
+
+bin/~PKMN-EXTENSION.windows.template_debug.x86_64.dll
+bin/~PKMN-EXTENSION.windows.template_debug.x86_64_0.pdb
