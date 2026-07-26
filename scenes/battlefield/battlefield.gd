@@ -1,15 +1,27 @@
+class_name Battle
 extends Node2D
 
 signal battle_finished(result: String)
 
 var is_animation_running := false
 var packet: String
-var at_queue_end := false
+var at_queue_end := true
 var ended := false
 var step_queue: Array[String]
+var log: Array[Array]
 var current_step := 0
 var pbattlepeer: PBattlePeer
 var thread: Thread
+
+# ── Battle ──────────────────────────────────────────────────────────────────────
+var my_side: Side
+var near_side: Side
+var far_side: Side
+var p1: Side
+var p2: Side
+var sides: Array[Side]
+var turns_since_moved: int
+var game_type: String
 
 # ── Pokémon sprites ────────────────────────────────────────────────────────────
 @onready var player_pokemon: Sprite2D = $Base/Pokemon
@@ -63,7 +75,9 @@ func _physics_process(_delta: float) -> void:
 
 	if ready_state == PBattlePeer.STATE_OPEN:
 		if pbattlepeer.get_available_packet_count():
-			step_queue.push_back(pbattlepeer.get_packet())
+			var packet := pbattlepeer.get_packet()
+			step_queue.push_back(packet)
+			print(packet)
 
 			if at_queue_end and current_step < step_queue.size():
 				at_queue_end = false
@@ -83,11 +97,14 @@ func should_step() -> bool:
 
 func next_step() -> void:
 	while true:
-		if should_step:
+		if at_queue_end == true:
 			return
 
 		run(step_queue[current_step])
 		current_step += 1
+
+		if current_step >= step_queue.size():
+			at_queue_end = true
 
 
 func run(str: String) -> void:
@@ -117,6 +134,89 @@ func run(str: String) -> void:
 	else:
 		run_major(args, kw_args)
 
+
+func _start() -> void:
+	log.push_back(["start"])
+	reset_turns_since_moved()
+
+
+func reset_turns_since_moved() -> void:
+	turns_since_moved = 0;
+
+
+func remember_team_preview_pokemon(sideid: String, details: String) -> Pokemon:
+	var parsed_pokemon_id := parse_pokemon_id(sideid)
+	var siden: int = parsed_pokemon_id.siden
+
+	return sides[siden].add_pokemon("", "", details)
+
+## Toma [param pokemonid] que puede llegar hacer:
+## [code]p1[/code] | [code]p1: Dragonite[/code] | [code]p1a: Sparky[/code][br]
+##
+## Retorna un [Dictionary] que cuenta con las siguiente entradas:[br]
+## [code]  name[/code][br]
+## [code]  siden[/code][br]
+## [code]  slot[/code][br]
+## [code]  pokemonid[/code]
+func parse_pokemon_id(pokemonid: String) -> Dictionary:
+	var name := pokemonid
+
+	var siden := -1
+	var slot := -1
+
+	# comprobar si se trata de un sideid o un pokemonid que corresponde a un pokemon inactivo
+	if RegEx.create_from_string("^p[1-9]($|: )").search(name):
+		siden = name.substr(1, 1).to_int() -1
+		name = name.substr(4) # p1: Dragonite
+													#     ^
+	# comprobar si se trata de un pokemonid de corresponde a un pokemon activo
+	elif RegEx.create_from_string("^p[1-9][a-f]: ").search(name):
+		const SLOT_CHAR = { "a": 0, "b": 1, "c": 2, "d": 3, "e": 4, "f": 5 }
+
+		siden = name.substr(1, 1).to_int() -1
+		slot = SLOT_CHAR[name.substr(2, 1)]
+
+		name = name.substr(5) # p1a: Dragonite
+													#      ^
+		pokemonid = "p%d: %s" % [siden + 1, name]
+
+	return { "name": name, "siden": siden, "slot": slot, "pokemonid": pokemonid }
+
+
+func parse_details(name: String, pokemonid: String, details: String, output: Dictionary={}) -> Dictionary:
+	var is_team_preview: bool = name == ""
+	output["details"] = details
+	output["name"] = name
+	output["species_forme"] = name
+	output["level"] = 100
+	output["shiny"] = false
+	output["gender"] = ""
+	output["ident"] = (pokemonid if not is_team_preview else "")
+	output["searchid"] = ("%s|%s" % [pokemonid, details] if not is_team_preview else "")
+
+	var split_details := details.split(", ")
+
+	if split_details[-1].begins_with("tera:"):
+		output["terastallized"] = split_details[-1].substr(5)
+		split_details.remove_at(split_details.size() - 1)
+
+	if split_details[-1] == "shiny":
+		output["shiny"] = true
+		split_details.remove_at(split_details.size() - 1)
+
+	if split_details[-1] == "M" or split_details[-1] == "F":
+		output["gender"] = split_details[-1]
+		split_details.remove_at(split_details.size() - 1)
+
+	if split_details.size() > 1 and split_details[1] != "":
+		output["level"] = split_details[1].substr(1).to_int() if split_details[1].substr(1).is_valid_int() else 100
+		if output["level"] == 0:
+			output["level"] = 100
+
+	if split_details.size() > 0 and split_details[0] != "":
+		output["speciesForme"] = split_details[0]
+
+	return output
 
 func run_minor(args: PackedStringArray, kw_args: Dictionary, prev_args: PackedStringArray, prev_kw_args: Dictionary) -> void:
 	match args[0]:
@@ -229,7 +329,11 @@ func run_minor(args: PackedStringArray, kw_args: Dictionary, prev_args: PackedSt
 func run_major(args: PackedStringArray, kw_args: Dictionary) -> void:
 	match args[0]:
 		"start":
-			pass
+			# this.nearSide.active[0] = null;
+			# this.farSide.active[0] = null;
+			# this.scene.resetSides();
+			# this.start();
+			_start()
 		"upkeep":
 			pass
 		"turn":
@@ -237,7 +341,7 @@ func run_major(args: PackedStringArray, kw_args: Dictionary) -> void:
 		"tier":
 			pass
 		"gametype":
-			pass
+			game_type = args[1]
 		"rule":
 			pass
 		"rated":
@@ -265,7 +369,19 @@ func run_major(args: PackedStringArray, kw_args: Dictionary) -> void:
 		"clearpoke":
 			pass
 		"poke":
-			pass
+			# let pokemon = this.rememberTeamPreviewPokemon(args[1], args[2]);
+			# if (args[3] === 'mail') {
+			# 	pokemon.item = '(mail)';
+			# } else if (args[3] === 'item') {
+			# 	pokemon.item = '(exists)';
+			# }
+			var pokemon: Pokemon = remember_team_preview_pokemon(args[1], args[2])
+			print("el pokemon se ha cargado con exito")
+			if args[3] == "mail":
+				pokemon.item = "(mail)"
+			elif args[3] == "item":
+				pokemon.item = "(exists)"
+
 		"updatepoke":
 			pass
 		"teampreview":
@@ -303,6 +419,15 @@ func start(player_name: String, packed_team: String) -> void:
 
 
 func present() -> void:
+	p1 = Side.new(self, 0)
+	p2 = Side.new(self, 1)
+	sides = [p1, p2]
+	p2.foe = p1
+	p1.foe = p2
+	my_side = p1
+	near_side = my_side
+	far_side = p2
+
 	bind_choices(pbattlepeer.send)
 
 	$Path2D/PathFollow2D.progress_ratio = 1.0
@@ -326,6 +451,10 @@ func bind_choices(callback: Callable) -> void:
 	fight_move3.pressed.connect(callback.bind("move 3"))
 	fight_move4.pressed.connect(callback.bind("move 4"))
 
+
+func add_pokemon_sprite(pokemon: Pokemon) -> Sprite2D:
+	# TODO: deberia retornar un sprite2D que se encuentre instanciado en la escena
+	return Sprite2D.new()
 
 func display_command(moveset: Array) -> void:
 	var moveset_container = fight_move1.get_parent()
