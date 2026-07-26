@@ -3,64 +3,56 @@ extends Node2D
 signal battle_finished(result: String)
 
 var is_animation_running := false
-var pbattlepeer := PBattlePeer.new()
 var packet: String
-var player_name := "nerfis"
+var step_queue: Array[String]
+var pbattlepeer: PBattlePeer
+var thread: Thread
 
 # ── Pokémon sprites ────────────────────────────────────────────────────────────
-@onready var player_pokemon: Sprite2D    = $Base/Pokemon
-@onready var foe_pokemon: Sprite2D       = $BaseFoe/PokemonFoe
-
-@onready var player_base: Sprite2D    = $Base
-@onready var foe_base: Sprite2D       = $BaseFoe
-
+@onready var player_pokemon: Sprite2D = $Base/Pokemon
+@onready var foe_pokemon: Sprite2D = $BaseFoe/PokemonFoe
+@onready var player_base: Sprite2D = $Base
+@onready var foe_base: Sprite2D = $BaseFoe
 # ── Cajas de datos (DataBox = jugador, DataBoxFoe = rival) ────────────────────
-@onready var player_label: Label               = $UI/DataBox/Label
-@onready var foe_label: Label                  = $UI/DataBoxFoe/Label
+@onready var player_label: Label = $UI/DataBox/Label
+@onready var foe_label: Label = $UI/DataBoxFoe/Label
 @onready var player_hp_bar: TextureProgressBar = $UI/DataBox/TextureProgressBar
-@onready var foe_hp_bar: TextureProgressBar    = $UI/DataBoxFoe/TextureProgressBar
-
+@onready var foe_hp_bar: TextureProgressBar = $UI/DataBoxFoe/TextureProgressBar
 # ── UI principal ───────────────────────────────────────────────────────────────
 @onready var ui: Control = $UI
-
 # ── Panel de habilidad ─────────────────────────────────────────────────────────
 @onready var ability_bar: TextureRect = $UI/AbilityBar
-@onready var ability_label: Label     = $UI/AbilityBar/Label
-
+@onready var ability_label: Label = $UI/AbilityBar/Label
 # ── Panel de movimientos ───────────────────────────────────────────────────────
-@onready var fight_overlay: ColorRect       = %Move
-@onready var fight_move1: TextureButton     = %Move1
-@onready var fight_move2: TextureButton     = %Move2
-@onready var fight_move3: TextureButton     = %Move3
-@onready var fight_move4: TextureButton     = %Move4
-
+@onready var fight_overlay: ColorRect = %Move
+@onready var fight_move1: TextureButton = %Move1
+@onready var fight_move2: TextureButton = %Move2
+@onready var fight_move3: TextureButton = %Move3
+@onready var fight_move4: TextureButton = %Move4
 # ── Menú de acción (Luchar / Bolsa / Pokémon / Huir) ─────────────────────────
 @onready var command_overlay: ColorRect = %Command
 @onready var command_fight: TextureButton = %Fight
-
 # ── Panel de mensajes ──────────────────────────────────────────────────────────
 @onready var message_overlay: ColorRect = %Message
 @onready var message_label: RichTextLabel = %Message/RichTextLabel
-
 # ── Cámara ─────────────────────────────────────────────────────────────────────
 @onready var camera: Camera2D = $Camera2D
-
 @onready var animation_player: AnimationPlayer = $AnimationPlayer
 
 
 func _ready() -> void:
 	command_fight.pressed.connect(func(): fight_overlay.show())
-	
+
 	message_overlay.hide()
 	fight_overlay.hide()
 	command_overlay.hide()
-	
+
 	$Path2D/PathFollow2D.progress_ratio = 1.0
 	$Path2D2/PathFollow2D.progress_ratio = 1.0
-	
+
 
 func _physics_process(_delta: float) -> void:
-	if is_animation_running:
+	if pbattlepeer == null or is_animation_running:
 		return
 
 	pbattlepeer.poll()
@@ -74,16 +66,26 @@ func _physics_process(_delta: float) -> void:
 			is_animation_running = false
 
 
+func _exit_tree() -> void:
+	thread.wait_to_finish()
+
+
+func start(player_name: String, packed_team: String) -> void:
+	pbattlepeer = PBattlePeer.new()
+	thread = Thread.new()
+	thread.start(pbattlepeer.prepare.bind(player_name, packed_team))
+
+
 func present() -> void:
 	bind_choices(pbattlepeer.send)
-	
+
 	$Path2D/PathFollow2D.progress_ratio = 1.0
 	$Path2D2/PathFollow2D.progress_ratio = 1.0
 
 	show()
 	camera.enabled = true
 	camera.make_current()
-	
+
 	get_tree().call_group("databoxes", "hide")
 
 
@@ -106,7 +108,7 @@ func display_command(moveset: Array) -> void:
 
 	for i in range(moveset.size()):
 		moveset_container.get_child(i).get_child(0).text = moveset[i]
-	
+
 	command_overlay.show()
 	fight_overlay.hide()
 	message_overlay.hide()
@@ -126,8 +128,8 @@ func take_damage(position: String, damage: int) -> void:
 
 	var tw: Tween = create_tween()
 	tw.tween_property(hp_bar, "value", damage, duration) \
-		.set_ease(Tween.EASE_OUT) \
-		.set_delay(0.3)
+			.set_ease(Tween.EASE_OUT) \
+			.set_delay(0.3)
 	await tw.finished
 
 
@@ -157,25 +159,26 @@ func splash(_pokemon: String, ability: String) -> void:
 
 ## Cambia el sprite, la barra de HP y la etiqueta del Pokémon activo.
 func switch(ident: String, max_hp: int, hp: int) -> void:
-	var is_player: bool            = ident.begins_with("p1a")
-	var sprite: Sprite2D           = player_pokemon if is_player else foe_pokemon
-	var label: Label               = player_label   if is_player else foe_label
-	var hp_bar: TextureProgressBar = player_hp_bar  if is_player else foe_hp_bar
+	var is_player: bool = ident.begins_with("p1a")
+	var sprite: Sprite2D = player_pokemon if is_player else foe_pokemon
+	var label: Label = player_label if is_player else foe_label
+	var hp_bar: TextureProgressBar = player_hp_bar if is_player else foe_hp_bar
 
 	# Incluir el manejo de pokemon con variantes
-	var pokemon: String    = ident.substr(5).replace("-", "").replace(" ", "")
+	var pokemon: String = ident.substr(5).replace("-", "").replace(" ", "")
 	var pokemon_id: String = pokemon.to_lower()
 
 	hp_bar.max_value = max_hp
-	hp_bar.value     = hp
-	label.text       = pokemon
+	hp_bar.value = hp
+	label.text = pokemon
 
 	var face: String = "back" if is_player else "front"
 	sprite.texture = load("res://graphics/pokemon/%s/%s.png" % [face, pokemon_id])
-	
+
 	if not is_player:
 		animation_player.play("intro")
 		get_tree().call_group("databoxes", "show")
+
 
 func parse_battle_line(line: String) -> ParsedBattleLine:
 	var result := ParsedBattleLine.new()
@@ -192,7 +195,7 @@ func parse_battle_line(line: String) -> ParsedBattleLine:
 		return result
 
 	# args = line.slice(1).split('|')
-	var rest: String            = line.substr(1)
+	var rest: String = line.substr(1)
 	var args: PackedStringArray = rest.split("|")
 
 	# Extraer kwArgs desde el final: mientras el último elemento
@@ -206,7 +209,7 @@ func parse_battle_line(line: String) -> ParsedBattleLine:
 		if bracket_pos <= 0:
 			break
 
-		var key: String       = last_arg.substr(1, bracket_pos - 1)
+		var key: String = last_arg.substr(1, bracket_pos - 1)
 		var value_str: String = last_arg.substr(bracket_pos + 1).strip_edges()
 
 		if value_str.is_empty():
@@ -222,8 +225,8 @@ func parse_battle_line(line: String) -> ParsedBattleLine:
 
 func handle_action(action: String) -> void:
 	var parsed: ParsedBattleLine = parse_battle_line(action)
-	var args: PackedStringArray  = parsed.args
-	var kw_args: Dictionary      = parsed.kw_args
+	var args: PackedStringArray = parsed.args
+	var kw_args: Dictionary = parsed.kw_args
 
 	match args[0]:
 		"request":
@@ -239,11 +242,10 @@ func handle_action(action: String) -> void:
 				moveset.push_back(String(move["move"]))
 
 			display_command(moveset)
-
 		"-damage":
 			assert(args.size() >= 3, "Los args del action -damage deben tener al menos una longitud de 3")
 
-			var ident: String    = args[1] # "p1a: Bulbasaur"
+			var ident: String = args[1] # "p1a: Bulbasaur"
 			var position: String = ident.substr(0, 3)
 
 			if args[2].ends_with("fnt"):
@@ -258,11 +260,10 @@ func handle_action(action: String) -> void:
 				var from: String = kw_args["from"]
 				if from == "Recoil":
 					await message("%s has taken recoil damage" % ident.substr(5))
-
 		"-heal":
 			assert(args.size() >= 3, "Los args del action -heal deben tener al menos una longitud de 3")
 
-			var ident: String    = args[1]
+			var ident: String = args[1]
 			var position: String = ident.substr(0, 3)
 
 			var hp_diff: PackedStringArray = args[2].split("/")
@@ -275,65 +276,53 @@ func handle_action(action: String) -> void:
 				if from.begins_with("item:"):
 					var item_name: String = from.substr(5).strip_edges()
 					await message("%s restored HP with its %s!" % [ident.substr(5), item_name])
-
 		"switch": # |switch|p1a: Arbok|Arbok, L78, M|254/254
 			assert(args.size() >= 4, "Los args del actions switch deben tener al menos una longitud de 4")
 
-			var ident: String              = args[1] # p1a: Growlithe
+			var ident: String = args[1] # p1a: Growlithe
 			var hp_diff: PackedStringArray = args[3].split("/")
-			var max_hp: int                = hp_diff[1].to_int()
-			var hp: int                    = hp_diff[0].to_int()
+			var max_hp: int = hp_diff[1].to_int()
+			var hp: int = hp_diff[0].to_int()
 			switch(ident, max_hp, hp)
-
 		"win":
 			await message("%s win!\n" % args[1])
-			battle_finished.emit("win" if args[1] == player_name else "lose")
-
+			battle_finished.emit("win")
 		"faint":
 			var position: String = args[1].substr(0, 3)
 			await take_damage(position, 0)
 			await message("%s has fainted!\n" % args[1].substr(5))
-
 		"error":
 			if kw_args.has("Invalid choice"):
 				show_commands()
-
 		"move":
 			var ident: String = args[1]
-			var move: String  = args[2]
+			var move: String = args[2]
 			await message("%s has used \n%s" % [ident, move])
-
 		"-ability":
-			var ident: String   = args[1]
+			var ident: String = args[1]
 			var pokemon: String = ident.substr(5)
 			var ability: String = args[2]
 			await splash(pokemon, ability)
-
 		"-resisted":
 			await message("It's not very effective...")
-
 		"-supereffective":
 			await message("It's very effective...")
-
 		"-unboost":
 			assert(args.size() >= 4, "Los args del action -unboost deben tener al menos una longitud de 4")
 			var pokemon: String = args[1].substr(5) # quitar "p1a: "
-			var stat: String    = args[2]
+			var stat: String = args[2]
 			await message("%s's %s fell!" % [pokemon, stat])
-
 		"-boost":
 			assert(args.size() >= 4, "Los args del action -boost deben tener al menos una longitud de 4")
 			var pokemon: String = args[1].substr(5) # quitar "p1a: "
-			var stat: String    = args[2]
+			var stat: String = args[2]
 			await message("%s's %s rose!" % [pokemon, stat])
-
 		"-activate":
 			assert(args.size() >= 3, "Los args del action -activate deben tener al menos una longitud de 3")
 			var pokemon: String = args[1].substr(5)
-			var effect: String  = args[2] # "move: Protect"
+			var effect: String = args[2] # "move: Protect"
 			if effect.begins_with("move:"):
 				await message("%s protected itself!" % pokemon)
-
 		"-fail":
 			assert(args.size() >= 2, "Los args del action -fail deben tener al menos una longitud de 2")
 			var pokemon: String = args[1].substr(5)
@@ -345,7 +334,6 @@ func handle_action(action: String) -> void:
 					await message("%s's %s prevents that!" % [pokemon, ability_name])
 			else:
 				await message("But it failed for %s!" % pokemon)
-
 		"poke", "teampreview", "teamsize", "t:", "upkeep", "done":
 			# Acciones de metadata/setup que no requieren animación
 			return
@@ -353,4 +341,4 @@ func handle_action(action: String) -> void:
 
 class ParsedBattleLine:
 	var args: PackedStringArray = PackedStringArray()
-	var kw_args: Dictionary     = {}
+	var kw_args: Dictionary = { }
