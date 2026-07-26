@@ -8,7 +8,6 @@ var packet: String
 var at_queue_end := true
 var ended := false
 var step_queue: Array[String]
-var log: Array[Array]
 var current_step := 0
 var pbattlepeer: PBattlePeer
 var thread: Thread
@@ -22,7 +21,9 @@ var p2: Side
 var sides: Array[Side]
 var turns_since_moved: int
 var game_type: String
-
+var end_last_turn_pending: bool
+var tier: String
+var gen: int = 9
 # ── Pokémon sprites ────────────────────────────────────────────────────────────
 @onready var player_pokemon: Sprite2D = $Base/Pokemon
 @onready var foe_pokemon: Sprite2D = $BaseFoe/PokemonFoe
@@ -134,9 +135,11 @@ func run(str: String) -> void:
 	else:
 		run_major(args, kw_args)
 
+func log_step(args: Variant, kw_args: Variant={}) -> void:
+	pass
 
 func _start() -> void:
-	log.push_back(["start"])
+	log_step(["start"])
 	reset_turns_since_moved()
 
 
@@ -325,8 +328,67 @@ func run_minor(args: PackedStringArray, kw_args: Dictionary, prev_args: PackedSt
 		_:
 			pass
 
+func update_statbars() -> void:
+	assert(false, "not implemed yet")
+
+func parse_health(hpstring: String, pokemon: Pokemon) -> void:
+	assert(false, "not implemed yet")
+
+func end_last_turn() -> void:
+	if end_last_turn_pending:
+		end_last_turn_pending = false
+		update_statbars()
+
+func get_switched_pokemon(pokemonid: String, details: String) -> Pokemon:
+	var parsed_pokemon_id = parse_pokemon_id(pokemonid)
+
+	var name = parsed_pokemon_id.name
+	var siden = parsed_pokemon_id.siden
+	var slot = parsed_pokemon_id.slot
+	pokemonid = parsed_pokemon_id.pokemonid
+
+	var searchid = pokemonid + "|" + details
+	var side = sides[siden]
+
+	# search inactive revealed pokemon
+	for i in range(side.pokemon.size()):
+		var pokemon: Pokemon = side.pokemon[i]
+
+		if pokemon.fainted:
+			continue
+		# already active, can't be switching in
+		if side.active.has(pokemon):
+			continue
+		# just switched out, can't be switching in
+		if pokemon == side.last_pokemon and not side.active[slot]:
+			continue
+		
+		if pokemon.searchid == searchid:
+			# exact match
+			if slot >= 0:
+				pokemon.slot = slot
+			return pokemon
+		
+		if not pokemon.searchid and pokemon.check_details(details):
+			# switch-in matches Team Preview entry
+			pokemon = side.add_pokemon(name, pokemonid, details, i)
+			if slot >= 0:
+				pokemon.slot = slot
+			return pokemon
+
+	var pokemon := side.add_pokemon(name, pokemonid, details)
+	if slot >= 0:
+		pokemon.slot = slot
+	return pokemon
+
+
+func update_weather() -> void:
+	assert(false, "not implemed yet")
+
 
 func run_major(args: PackedStringArray, kw_args: Dictionary) -> void:
+	#region
+
 	match args[0]:
 		"start":
 			# this.nearSide.active[0] = null;
@@ -368,6 +430,7 @@ func run_major(args: PackedStringArray, kw_args: Dictionary) -> void:
 			pass
 		"clearpoke":
 			pass
+	
 		"poke":
 			# let pokemon = this.rememberTeamPreviewPokemon(args[1], args[2]);
 			# if (args[3] === 'mail') {
@@ -376,7 +439,6 @@ func run_major(args: PackedStringArray, kw_args: Dictionary) -> void:
 			# 	pokemon.item = '(exists)';
 			# }
 			var pokemon: Pokemon = remember_team_preview_pokemon(args[1], args[2])
-			print("el pokemon se ha cargado con exito")
 			if args[3] == "mail":
 				pokemon.item = "(mail)"
 			elif args[3] == "item":
@@ -388,8 +450,47 @@ func run_major(args: PackedStringArray, kw_args: Dictionary) -> void:
 			pass
 		"showteam":
 			pass
+	#endregion
 		"switch", "drag", "replace":
-			pass
+			# this.endLastTurn();
+			# let poke = this.getSwitchedPokemon(args[1], args[2]);
+			# let slot = poke.slot;
+			# poke.healthParse(args[3]);
+			# poke.removeVolatile('itemremoved' as ID);
+			# poke.terastallized = (/tera:([a-z]+)$/i.exec(args[2]))?.[1] || '';
+			# if (args[0] === 'switch') {
+			# 	if (poke.side.active[slot]) {
+			# 		poke.side.switchOut(poke.side.active[slot], kwArgs);
+			# 	}
+			# 	poke.side.switchIn(poke, kwArgs);
+			# } else if (args[0] === 'replace') {
+			# 	poke.side.replace(poke);
+			# } else {
+			# 	poke.side.dragIn(poke);
+			# }
+			# this.scene.updateWeather();
+			# this.log(args, kwArgs);
+			# break;
+			end_last_turn()
+			var poke: Pokemon = get_switched_pokemon(args[1], args[2])
+			var slot := poke.slot
+			poke.health_parse(args[3])
+			poke.remove_volatile("itemremoved")
+
+			var tera_match := RegEx.create_from_string("tera:([a-z]+)$").search(args[2].to_lower())
+			poke.terastallized = tera_match.get_string(1) if tera_match else ""
+
+			if args[0] == "switch":
+				if poke.side.active[slot] != null:
+					poke.side.switch_out(poke.side.active[slot], kw_args)
+				poke.side.switch_in(poke, kw_args)
+			elif args[0] == "replace":
+				poke.side.replace(poke)
+			else:
+				poke.side.drag_in(poke)
+
+			update_weather()
+			# log(args, kw_args)
 		"faint":
 			pass
 		"swap":
