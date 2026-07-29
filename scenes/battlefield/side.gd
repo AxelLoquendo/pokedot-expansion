@@ -242,16 +242,15 @@ func switch_in(p_pokemon: Pokemon, kw_args: Dictionary, slot: int = p_pokemon.sl
 	p_pokemon.clear_volatile()
 	p_pokemon.last_move = ""
 	battle.last_move = "switch-in"
-	# effect Dex.Effect -> Dictionary
-	var effect: Dictionary = { }
-	# Dex.get_effect(kw_args.get("from", ""))
-	if effect.id in ["batonpass", "zbatonpass", "shedtail"]:
-		p_pokemon.copy_volatile_from(last_pokemon, "shedtail" if effect.id == "shedtail" else "batonpass")
-	elif battle.tier.contains("Relay Race") and effect.id == "":
-		if last_pokemon != null and not last_pokemon.fainted:
-			p_pokemon.copy_volatile_from(last_pokemon, "batonpass")
-
-	battle.anim_summon(p_pokemon, slot)
+	#TODO
+	#var effect = Dex.get_effect(kw_args.get("from", ""))
+	#if effect.id in ["batonpass", "zbatonpass", "shedtail"]:
+		#p_pokemon.copy_volatile_from(last_pokemon, "shedtail" if effect.id == "shedtail" else "batonpass")
+	#elif battle.tier.contains("Relay Race") and effect.id == "":
+		#if last_pokemon != null and not last_pokemon.fainted:
+			#p_pokemon.copy_volatile_from(last_pokemon, "batonpass")
+#
+	#battle.anim_summon(p_pokemon, slot)
 
 
 func drag_in(p_pokemon: Pokemon, slot: int = p_pokemon.slot) -> void:

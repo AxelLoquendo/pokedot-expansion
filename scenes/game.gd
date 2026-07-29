@@ -11,6 +11,12 @@ var packed_team = """Arcanine||Leftovers|Intimidate|Flareblitz,Extremespeed,Wild
 
 func _ready() -> void:
 	battle_scene.connect("battle_finished", _battle_finished)
+	
+	$Overworld.process_mode = Node.PROCESS_MODE_DISABLED
+	battle_scene.start(player_name, packed_team)
+	battle_scene.thread.wait_to_finish()
+	battle_scene.present()
+	battle_scene.pbattlepeer.start()
 	#p_battle = PBattle.new()
 	#battle_scene.add_child(p_battle)
 	# - No de incluye las versiones femeninas

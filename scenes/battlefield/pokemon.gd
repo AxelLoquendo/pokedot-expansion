@@ -59,7 +59,7 @@ var move_track: Array = [] # Array[Array] -> [String, PPState]
 var status_data: Dictionary = { "sleep_turns": 0, "toxic_turns": 0 }
 var times_attacked: int = 0
 
-var sprite: Sprite2D
+var sprite
 
 
 func _init(data: Dictionary, p_side: Side) -> void:
@@ -75,8 +75,7 @@ func _init(data: Dictionary, p_side: Side) -> void:
 	terastallized = data.get("terastallized", "")
 	searchid = data.get("searchid", "")
 
-	var battle: Battle = p_side.battle
-	sprite = battle.add_pokemon_sprite(self)
+	sprite = p_side.battle.add_pokemon_sprite(self)
 
 
 func check_details(details: String = "") -> bool:
@@ -116,8 +115,6 @@ func health_parse(hpstring: String, parsedamage: bool = false, heal: bool = fals
 	var oldmaxhp: float = maxhp
 	var oldwidth: float = hp_width(100)
 	var oldcolor: String = hpcolor
-
-	var battle: Battle = side.battle
 
 	side.battle.parse_health(hpstring, self)
 	if oldmaxhp == 0: # maxhp no se conocía antes de parsear este mensaje
@@ -262,10 +259,13 @@ func clear_movestatuses() -> void:
 
 
 func clear_volatiles() -> void:
-	volatiles = { }
-	clear_turnstatuses()
-	clear_movestatuses()
-	side.battle.clear_effects(self)
+	#TODO
+	#volatiles = { }
+	#clear_turnstatuses()
+	#clear_movestatuses()
+	#side.battle.clear_effects(self)
+	pass
+	
 
 
 func _merge_pp(entry: Array, pp: Variant) -> Variant:
@@ -293,30 +293,32 @@ func _merge_pp(entry: Array, pp: Variant) -> Variant:
 		if pp_used[1] < 0:
 			pp_used[1] = 0
 
-		var move := { "pp": 20, "no_pp_boosts": false }
-		# side.battle.dex.moves.get(entry[0])
-		var maxpp: float = move.pp if (move.pp == 1 or move.no_pp_boosts) else move.pp * 8.0 / 5.0
+		#TODO
+		# var move := side.battle.dex.moves.get(entry[0])
+		# var maxpp: float = move.pp if (move.pp == 1 or move.no_pp_boosts) else move.pp * 8.0 / 5.0
 
-		if side.battle.tier.contains("Champions"):
-			maxpp = 20 if move.pp > 20 else move.pp
-			maxpp = move.pp if (move.pp == 1 or move.no_pp_boosts) else (move.pp / 5.0 + 1) * 4.0
+		# if side.battle.tier.contains("Champions"):
+		# 	maxpp = 20 if move.pp > 20 else move.pp
+		# 	maxpp = move.pp if (move.pp == 1 or move.no_pp_boosts) else (move.pp / 5.0 + 1) * 4.0
 
-		if pp_used[0] > maxpp:
-			pp_used[0] = maxpp
-		if pp_used[0] < pp_used[1]:
-			pp_used[0] = pp_used[1]
-		if pp_used[0] == pp_used[1]:
-			pp_used = pp_used[0]
+		# if pp_used[0] > maxpp:
+		# 	pp_used[0] = maxpp
+		# if pp_used[0] < pp_used[1]:
+		# 	pp_used[0] = pp_used[1]
+		# if pp_used[0] == pp_used[1]:
+		# 	pp_used = pp_used[0]
 
-	return pp_used
+	# return pp_used
+	return 0
 
 
 func remember_move(move_name_in: String, pp: Variant = 1, recursion_source: String = "") -> void:
 	if recursion_source == ident:
 		return
 
+	#TODO
+	# var move_name := side.battle.dex.moves.get(move_name_in).name
 	var move_name := ""
-	# side.battle.dex.moves.get(move_name_in).name
 
 	if move_name.begins_with("*"):
 		return
@@ -340,11 +342,12 @@ func remember_move(move_name_in: String, pp: Variant = 1, recursion_source: Stri
 
 
 func remember_ability(ability_name: String, is_not_base: bool = false) -> void:
-	var ability_final := ""
-	# Dex.abilities.get(ability_name).name
-	ability = ability_final
-	if base_ability == "" and not is_not_base:
-		base_ability = ability_final
+	#TODO
+	pass
+	# var ability_final := Dex.abilities.get(ability_name).name
+	# ability = ability_final
+	# if base_ability == "" and not is_not_base:
+	# 	base_ability = ability_final
 
 
 ## Devuelve un texto legible del boost actual de una estadística,
@@ -420,11 +423,12 @@ func get_boost(boost_stat: String) -> String:
 
 
 func get_weight_kg(server_pokemon = null) -> float:
-	var autotomize_factor := 0.0
-	if volatiles.has("autotomize"):
-		autotomize_factor = volatiles["autotomize"][1] * 100.0
+	#TODO
+	# var autotomize_factor := 0.0
+	# if volatiles.has("autotomize"):
+	# 	autotomize_factor = volatiles["autotomize"][1] * 100.0
 	# return max(get_species(server_pokemon).weightkg - autotomize_factor, 0.1)
-	return max(100 - autotomize_factor, 0.1)
+	return 0.1
 
 
 func get_boost_type(boost_stat: String) -> String:
@@ -447,7 +451,7 @@ func clear_volatile() -> void:
 		else:
 			i += 1
 
-	# last_move = ""
+	last_move = ""
 	status_stage = 0
 	status_data.toxic_turns = 0
 	if side.battle.gen == 5:
@@ -457,7 +461,7 @@ func clear_volatile() -> void:
 func copy_volatile_from(pokemon: Pokemon, copy_source: String) -> void:
 	boosts = pokemon.boosts
 	volatiles = pokemon.volatiles
-	# last_move = pokemon.last_move # creo
+	last_move = pokemon.last_move # creo
 
 	if copy_source == "batonpass":
 		var volatiles_to_remove := [
@@ -484,13 +488,13 @@ func copy_volatile_from(pokemon: Pokemon, copy_source: String) -> void:
 			"typechange",
 			"yawn",
 		]
+		# TODO
 		# for stat_name in Dex.stat_names_except_hp:
-		for stat_name in []:
-			volatiles_to_remove.append("protosynthesis" + stat_name)
-			volatiles_to_remove.append("quarkdrive" + stat_name)
+		# 	volatiles_to_remove.append("protosynthesis" + stat_name)
+		# 	volatiles_to_remove.append("quarkdrive" + stat_name)
 
-		for volatile in volatiles_to_remove:
-			volatiles.erase(volatile)
+		# for volatile in volatiles_to_remove:
+		# 	volatiles.erase(volatile)
 
 	# Shed Tail no necesita manejo especial porque el origen ya tiene
 	# sus volatiles (excepto Substitute) limpiados en switch_out.
@@ -526,8 +530,9 @@ func get_types(server_pokemon = null, preterastallized: bool = false) -> Array:
 	elif modded_type.size() > 0:
 		types = modded_type
 	else:
-		types = []
-		#get_species(server_pokemon).types
+		#TODO
+		# types = get_species(server_pokemon).types
+		pass
 
 	if has_turnstatus("roost") and types.has("Flying"):
 		types = types.filter(func(type_name): return type_name != "Flying")
@@ -583,15 +588,16 @@ func effective_ability(server_pokemon = null) -> String:
 
 	return ""
 	#####
-	var ability_data := { }
+	#TODO
 	# var ability_data := side.battle.dex.abilities.get(ability_name)
 
-	if fainted \
-			or (volatiles.has("transform") and ability_data.flags.get("notransform", false)) \
-			or (not ability_data.flags.get("cantsuppress", false) and (side.battle.ngas_active() or volatiles.has("gastroacid"))):
-		return ""
+	# if fainted \
+	# 		or (volatiles.has("transform") and ability_data.flags.get("notransform", false)) \
+	# 		or (not ability_data.flags.get("cantsuppress", false) and (side.battle.ngas_active() or volatiles.has("gastroacid"))):
+	# 	return ""
 
-	return ability_data.name
+	# return ability_data.name
+	return ""
 
 
 ## Lista de tipos incluyendo el tipo añadido (si existe), como array plano.
